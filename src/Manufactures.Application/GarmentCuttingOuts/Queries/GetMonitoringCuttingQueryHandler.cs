@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using static Infrastructure.External.DanLirisClient.Microservice.MasterResult.CostCalculationGarmentDataProductionReport;
 using static Infrastructure.External.DanLirisClient.Microservice.MasterResult.HOrderDataProductionReport;
 using Manufactures.Domain.GarmentPreparings.Repositories;
+using System.Net.Http;
+using System.Text;
 
 namespace Manufactures.Application.GarmentCuttingOuts.Queries
 {
@@ -82,8 +84,11 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries
 			CostCalculationGarmentDataProductionReport costCalculationGarmentDataProductionReport = new CostCalculationGarmentDataProductionReport();
 
 			var listRO = string.Join(",", ro.Distinct());
-			var costCalculationUri = SalesDataSettings.Endpoint + $"cost-calculation-garments/data/{listRO}";
-			var httpResponse = await _http.GetAsync(costCalculationUri, token);
+			var costCalculationUri = SalesDataSettings.Endpoint + $"cost-calculation-garments/data/";
+
+            var httpContent = new StringContent(JsonConvert.SerializeObject(listRO), Encoding.UTF8, "application/json");
+
+            var httpResponse = await _http.SendAsync(HttpMethod.Get,costCalculationUri, token, httpContent);
 
 			var freeRO = new List<string>();
 
@@ -107,8 +112,13 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries
 					}
 				}
 			}
+            else
+            {
+                var err = await httpResponse.Content.ReadAsStringAsync();
 
-			HOrderDataProductionReport hOrderDataProductionReport = await GetDataHOrder(freeRO, token);
+            }
+
+            HOrderDataProductionReport hOrderDataProductionReport = await GetDataHOrder(freeRO, token);
 
 			Dictionary<string, string> comodities = new Dictionary<string, string>();
 			if (hOrderDataProductionReport.data.Count > 0)
