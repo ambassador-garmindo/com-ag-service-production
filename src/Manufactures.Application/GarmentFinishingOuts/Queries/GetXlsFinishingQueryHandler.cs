@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using static Infrastructure.External.DanLirisClient.Microservice.MasterResult.HOrderDataProductionReport;
 using OfficeOpenXml.Style;
 using Manufactures.Domain.GarmentPreparings.Repositories;
+using System.Net.Http;
+using System.Text;
 
 namespace Manufactures.Application.GarmentFinishingOuts.Queries
 {
@@ -77,8 +79,11 @@ namespace Manufactures.Application.GarmentFinishingOuts.Queries
             CostCalculationGarmentDataProductionReport costCalculationGarmentDataProductionReport = new CostCalculationGarmentDataProductionReport();
 
             var listRO = string.Join(",", ro.Distinct());
-            var costCalculationUri = SalesDataSettings.Endpoint + $"cost-calculation-garments/data/{listRO}";
-            var httpResponse = await _http.GetAsync(costCalculationUri, token);
+            var costCalculationUri = SalesDataSettings.Endpoint + $"cost-calculation-garments/data/";
+
+            var httpContent = new StringContent(JsonConvert.SerializeObject(listRO), Encoding.UTF8, "application/json");
+
+            var httpResponse = await _http.SendAsync(HttpMethod.Get, costCalculationUri, token, httpContent);
 
             var freeRO = new List<string>();
 
