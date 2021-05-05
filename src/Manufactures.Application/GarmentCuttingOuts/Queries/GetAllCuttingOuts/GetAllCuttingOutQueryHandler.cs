@@ -45,7 +45,7 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries.GetAllCuttingOuts
                     || co.UnitCode.Contains(request.keyword)
                     || co.RONo.Contains(request.keyword)
                     || co.Article.Contains(request.keyword)
-                    || _garmentCuttingOutItemRepository.Query.Any(coi => coi.CutOutId == co.Identity && coi.ProductCode.Contains(request.keyword)));
+                    || co.GarmentCuttingOutItem.Any(coi => coi.CutOutId == co.Identity && coi.ProductCode.Contains(request.keyword)));
             }
 
             double totalQty = cuttingOutQuery.Sum(a => a.GarmentCuttingOutItem.Sum(b => b.GarmentCuttingOutDetail.Sum(c => c.CuttingOutQuantity)));

@@ -25,6 +25,7 @@ namespace Manufactures.Domain.GarmentCuttingOuts.Commands
         public List<GarmentCuttingOutItemValueObject> Items { get; set; }
         public double Price { get; set; }
         public double PriceSewing { get; set; }
+        public bool IsUsed { get; set; }
     }
 
     public class PlaceGarmentCuttingOutCommandValidator : AbstractValidator<PlaceGarmentCuttingOutCommand>

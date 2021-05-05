@@ -15,6 +15,8 @@ using static Infrastructure.External.DanLirisClient.Microservice.MasterResult.HO
 using Manufactures.Domain.GarmentExpenditureGoods.Repositories;
 using Manufactures.Domain.GarmentPreparings.Repositories;
 using Manufactures.Domain.GarmentCuttingIns.Repositories;
+using System.Net.Http;
+using System.Text;
 
 namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 {
@@ -48,6 +50,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 			public string buyerArticle { get; internal set; }
 			public string colour { get; internal set; }
 			public string name { get; internal set; }
+            public string unitname { get; internal set; }
 			public double qty { get; internal set; }
 			public string invoice { get; internal set; }
 			public decimal price { get; internal set; }
@@ -58,8 +61,11 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 			CostCalculationGarmentDataProductionReport costCalculationGarmentDataProductionReport = new CostCalculationGarmentDataProductionReport();
 
 			var listRO = string.Join(",", ro.Distinct());
-			var costCalculationUri = SalesDataSettings.Endpoint + $"cost-calculation-garments/data/{listRO}";
-			var httpResponse = await _http.GetAsync(costCalculationUri, token);
+            var stringcontent = new StringContent(JsonConvert.SerializeObject(listRO), Encoding.UTF8, "application/json");
+			var costCalculationUri = SalesDataSettings.Endpoint + $"cost-calculation-garments/data";
+
+            //var httpResponse = await _http.GetAsync(costCalculationUri, token);
+            var httpResponse = await _http.SendAsync(HttpMethod.Get, costCalculationUri, token, stringcontent);
 
 			var freeRO = new List<string>();
 
@@ -166,7 +172,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 
 
 			var QueryRo = (from a in garmentExpenditureGoodRepository.Query
-									where a.UnitId == request.unit && a.ExpenditureDate  >= dateFrom && a.ExpenditureDate <= dateTo
+									where a.UnitId == (request.unit == 0 ? a.UnitId : request.unit) && a.ExpenditureDate  >= dateFrom && a.ExpenditureDate <= dateTo
 									select a.RONo).Distinct();
 		 
 			List<string> _ro = new List<string>();
@@ -180,7 +186,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 			var sumbasicPrice = (from a in garmentPreparingRepository.Query
 								 join b in garmentPreparingItemRepository.Query on a.Identity equals b.GarmentPreparingId
 								 where /*(request.ro == null || (request.ro != null && request.ro != "" && a.RONo == request.ro)) &&*/
-								 a.UnitId == request.unit
+								 a.UnitId == (request.unit == 0 ? a.UnitId : request.unit)
 								 select new { a.RONo, b.BasicPrice })
 						.GroupBy(x => new { x.RONo }, (key, group) => new ViewBasicPrices
 						{
@@ -191,7 +197,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 
 			var sumFCs = (from a in garmentCuttingInRepository.Query
 						  where /*(request.ro == null || (request.ro != null && request.ro != "" && a.RONo == request.ro)) && */ a.CuttingType == "Main Fabric" &&
-						 a.UnitId == request.unit && a.CuttingInDate <= dateTo
+						 a.UnitId == (request.unit == 0 ? a.UnitId : request.unit) && a.CuttingInDate <= dateTo
 						  select new { a.FC, a.RONo })
 						 .GroupBy(x => new { x.RONo }, (key, group) => new ViewFC
 						 {
@@ -200,15 +206,21 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 							 Count = group.Count()
 						 });
 			var Query = from a in (from aa in garmentExpenditureGoodRepository.Query
-								   where aa.UnitId == request.unit && aa.ExpenditureDate >= dateFrom && aa.ExpenditureDate <= dateTo
+								   where aa.UnitId == (request.unit == 0 ? aa.UnitId : request.unit) && aa.ExpenditureDate >= dateFrom && aa.ExpenditureDate <= dateTo
 								   select aa)
 								   join b in garmentExpenditureGoodItemRepository.Query on a.Identity equals b.ExpenditureGoodId
-						where a.UnitId == request.unit && a.ExpenditureDate >= dateFrom && a.ExpenditureDate <= dateTo
-						select new monitoringView { fc = (from aa in sumFCs where aa.RO == a.RONo select aa.FC / aa.Count).FirstOrDefault(), price = Convert.ToDecimal((from aa in sumbasicPrice where aa.RO == a.RONo select aa.BasicPrice / aa.Count).FirstOrDefault()), buyerCode = (from cost in costCalculation.data where cost.ro == a.RONo select cost.buyerCode).FirstOrDefault(), buyerArticle = a.BuyerCode + " " + a.Article, roNo = a.RONo, expenditureDate = a.ExpenditureDate, expenditureGoodNo = a.ExpenditureGoodNo, expenditureGoodType = a.ExpenditureType, invoice = a.Invoice, colour = b.Description, qty = b.Quantity, name = (from cost in costCalculation.data where cost.ro == a.RONo select cost.comodityName).FirstOrDefault() };
+						where a.UnitId == (request.unit == 0 ? a.UnitId : request.unit) && a.ExpenditureDate >= dateFrom && a.ExpenditureDate <= dateTo
+						select new monitoringView { fc = (from aa in sumFCs where aa.RO == a.RONo select aa.FC / aa.Count).FirstOrDefault(),
+                            price = Convert.ToDecimal((from aa in sumbasicPrice where aa.RO == a.RONo select aa.BasicPrice / aa.Count).FirstOrDefault()),
+                            buyerCode = (from cost in costCalculation.data where cost.ro == a.RONo select cost.buyerCode).FirstOrDefault(),
+                            buyerArticle = a.BuyerCode + " " + a.Article, roNo = a.RONo, expenditureDate = a.ExpenditureDate, expenditureGoodNo = a.ExpenditureGoodNo,
+                            expenditureGoodType = a.ExpenditureType, invoice = a.Invoice, colour = b.Description, qty = b.Quantity,
+                            name = (from cost in costCalculation.data where cost.ro == a.RONo select cost.comodityName).FirstOrDefault(),
+                            unitname = a.UnitName};
 
 
 
-			var querySum = Query.ToList().GroupBy(x => new {x.fc,x.buyerCode, x.buyerArticle, x.roNo, x.expenditureDate, x.expenditureGoodNo, x.expenditureGoodType, x.invoice, x.colour, x.name }, (key, group) => new
+			var querySum = Query.ToList().GroupBy(x => new {x.fc,x.buyerCode, x.buyerArticle, x.roNo, x.expenditureDate, x.expenditureGoodNo, x.expenditureGoodType, x.invoice, x.colour, x.name, x.unitname }, (key, group) => new
 			{
 				ros = key.roNo,
 				buyer = key.buyerArticle,
@@ -220,6 +232,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 				price= group.Sum(s=>s.price),
 				buyerC= key.buyerCode,
 				names = key.name,
+                unitname = key.unitname,
 				invoices = key.invoice,
 				fcs = key.fc
 
@@ -236,6 +249,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 					qty = item.qty,
 					colour = item.color,
 					name = item.names,
+                    unitname = item.unitname,
 					invoice = item.invoices,
 					price= Math.Round(Convert.ToDecimal(Convert.ToDouble( Math.Round(item.price,2)) * Math.Round(item.fcs,2)),2),
 					buyerCode=item.buyerC

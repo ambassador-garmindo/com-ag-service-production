@@ -10,5 +10,7 @@ namespace Manufactures.Domain.GarmentFinishingIns.Repositories
     public interface IGarmentFinishingInRepository : IAggregateRepository<GarmentFinishingIn, GarmentFinishingInReadModel>
     {
         IQueryable<GarmentFinishingInReadModel> Read(int page, int size, string order, string keyword, string filter);
+
+        IQueryable<GarmentFinishingInReadModel> ReadComplete(int page, int size, string order, string keyword, string filter);
     }
 }

@@ -44,7 +44,7 @@ namespace Manufactures.Domain.GarmentFinishingOuts.Commands
             RuleFor(r => r.RONo).NotNull();
             RuleFor(r => r.FinishingOutDate).NotNull().GreaterThan(DateTimeOffset.MinValue).WithMessage("Tanggal Finishing Out Tidak Boleh Kosong");
             RuleFor(r => r.FinishingOutDate).NotNull().LessThan(DateTimeOffset.Now).WithMessage("Tanggal Finishing Out Tidak Boleh Lebih dari Hari Ini");
-            RuleFor(r => r.FinishingOutDate).NotNull().GreaterThan(r => r.FinishingInDate.GetValueOrDefault().Date).WithMessage(r => $"Tanggal Finishing Out Tidak Boleh Kurang dari tanggal {r.FinishingInDate.GetValueOrDefault().ToOffset(new TimeSpan(7, 0, 0)).ToString("dd/MM/yyyy", new CultureInfo("id-ID"))}");
+            RuleFor(r => r.FinishingOutDate).NotNull().GreaterThan(r => r.FinishingInDate.GetValueOrDefault().ToOffset(new TimeSpan(-7, 0, 0)).Date).WithMessage(r => $"Tanggal Finishing Out Tidak Boleh Kurang dari tanggal {r.FinishingInDate.GetValueOrDefault().ToOffset(new TimeSpan(7, 0, 0)).ToString("dd/MM/yyyy", new CultureInfo("id-ID"))}");
             RuleFor(r => r.Items).NotEmpty().OverridePropertyName("Item");
             RuleFor(r => r.Items).NotEmpty().WithMessage("Item Tidak Boleh Kosong").OverridePropertyName("ItemsCount");
             RuleFor(r => r.Items.Where(s => s.IsSave == true)).NotEmpty().WithMessage("Item Tidak Boleh Kosong").OverridePropertyName("ItemsCount").When(s => s.Items != null);

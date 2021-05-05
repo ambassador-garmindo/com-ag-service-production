@@ -16,8 +16,9 @@ namespace Manufactures.Data.EntityFrameworkCore.GarmentAvalComponents.Configs
             builder.Property(p => p.DesignColor).HasMaxLength(2000);
             builder.Property(p => p.Color).HasMaxLength(50);
             builder.Property(p => p.SizeName).HasMaxLength(100);
+			builder.Property(p => p.UId).HasMaxLength(255);
 
-            builder.HasOne(w => w.GarmentAvalComponent)
+			builder.HasOne(w => w.GarmentAvalComponent)
                 .WithMany(h => h.Items)
                 .HasForeignKey(f => f.AvalComponentId);
 

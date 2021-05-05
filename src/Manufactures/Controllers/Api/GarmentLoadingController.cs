@@ -145,29 +145,39 @@ namespace Manufactures.Controllers.Api
             var query = _garmentLoadingRepository.Read(page, size, order, keyword, filter);
             var count = query.Count();
 
-            var garmentLoadingDto = _garmentLoadingRepository.Find(query).Select(o => new GarmentLoadingDto(o)).ToArray();
-            var garmentLoadingItemDto = _garmentLoadingItemRepository.Find(_garmentLoadingItemRepository.Query).Select(o => new GarmentLoadingItemDto(o)).ToList();
+            // var garmentLoadingDto = _garmentLoadingRepository.Find(query).Select(o => new GarmentLoadingDto(o)).ToArray();
+            // var garmentLoadingItemDto = _garmentLoadingItemRepository.Find(_garmentLoadingItemRepository.Query).Select(o => new GarmentLoadingItemDto(o)).ToList();
 
-            Parallel.ForEach(garmentLoadingDto, itemDto =>
-            {
-                var garmentLoadingItems = garmentLoadingItemDto.Where(x => x.LoadingId == itemDto.Id).OrderBy(x => x.Id).ToList();
+            // Parallel.ForEach(garmentLoadingDto, itemDto =>
+            // {
+            //     var garmentLoadingItems = garmentLoadingItemDto.Where(x => x.LoadingId == itemDto.Id).OrderBy(x => x.Id).ToList();
 
-                itemDto.Items = garmentLoadingItems;
-            });
+            //     itemDto.Items = garmentLoadingItems;
+            // });
 
-            if (order != "{}")
-            {
-                Dictionary<string, string> OrderDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(order);
-                garmentLoadingDto = QueryHelper<GarmentLoadingDto>.Order(garmentLoadingDto.AsQueryable(), OrderDictionary).ToArray();
-            }
+            // if (order != "{}")
+            // {
+            //     Dictionary<string, string> OrderDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(order);
+            //     garmentLoadingDto = QueryHelper<GarmentLoadingDto>.Order(garmentLoadingDto.AsQueryable(), OrderDictionary).ToArray();
+            // }
 
+            // await Task.Yield();
+            // return Ok(garmentLoadingDto, info: new
+            // {
+            //     page,
+            //     size,
+            //     count
+            // });
+
+            var newQuery = _garmentLoadingRepository.ReadExecute(query);
             await Task.Yield();
-            return Ok(garmentLoadingDto, info: new
+            return Ok(newQuery, info: new
             {
                 page,
                 size,
                 count
             });
+
         }
 
 		[HttpGet("monitoring")]

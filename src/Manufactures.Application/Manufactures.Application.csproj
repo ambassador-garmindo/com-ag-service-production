@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <Folder Include="GarmentScrapClassifications\Queries\" />
+    <Folder Include="GarmentSubcon\GarmentServiceSubconSewings\" />
+    <Folder Include="GarmentSubcon\GarmentServiceSubconSewings\CommandHandlers\" />
   </ItemGroup>
 
 </Project>

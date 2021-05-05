@@ -17,6 +17,7 @@ namespace Manufactures.Application.GarmentAvalComponents.Queries.GetAllGarmentAv
             RONo = garmentAvalComponent.RONo;
             Article = garmentAvalComponent.Article;
             Date = garmentAvalComponent.Date;
+            IsReceived = garmentAvalComponent.IsReceived;
         }
 
         public Guid Id { get; set; }
@@ -28,5 +29,6 @@ namespace Manufactures.Application.GarmentAvalComponents.Queries.GetAllGarmentAv
         public string Article { get; private set; }
         public double Quantities { get; set; }
         public DateTimeOffset Date { get; private set; }
+        public bool IsReceived { get; private set; }
     }
 }

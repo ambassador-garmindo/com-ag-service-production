@@ -67,7 +67,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentExpenditureGoods
 
             GarmentExpenditureGood expenditureGood = new GarmentExpenditureGood(
                 exGoodGuid, "no", "export", new UnitDepartmentId(1), "uCode", "Uname", "roNo", "art", new GarmentComodityId(1),
-                "cCode", "cName", new BuyerId(1), "nam", "bCode", DateTimeOffset.Now, "inv","con",0, null,false);
+                "cCode", "cName", new BuyerId(1), "nam", "bCode", DateTimeOffset.Now, "inv","con",0, null,false,0);
 
             GarmentFinishedGoodStock garmentFinishedGoodStock = new GarmentFinishedGoodStock(finStockGuid,
                  "no", "ro", "article", expenditureGood.UnitId, expenditureGood.UnitCode, expenditureGood.UnitName,

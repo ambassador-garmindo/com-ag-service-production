@@ -39,7 +39,7 @@ namespace Manufactures.Domain.GarmentFinishingIns.Commands
             RuleFor(r => r.RONo).NotNull();
             RuleFor(r => r.FinishingInDate).NotNull().GreaterThan(DateTimeOffset.MinValue).WithMessage("Tanggal FinishingIn Tidak Boleh Kosong");
             RuleFor(r => r.FinishingInDate).NotNull().LessThan(DateTimeOffset.Now).WithMessage("Tanggal FinishingIn Tidak Boleh Lebih dari Hari Ini");
-            RuleFor(r => r.FinishingInDate).NotNull().GreaterThan(r => r.SewingOutDate.GetValueOrDefault().Date).WithMessage(r => $"Tanggal FinishingIn Tidak Boleh Kurang dari tanggal {r.SewingOutDate.GetValueOrDefault().ToOffset(new TimeSpan(7, 0, 0)).ToString("dd/MM/yyyy", new CultureInfo("id-ID"))}");
+            RuleFor(r => r.FinishingInDate).NotNull().GreaterThanOrEqualTo(r => r.SewingOutDate.GetValueOrDefault().Date).WithMessage(r => $"Tanggal FinishingIn Tidak Boleh Kurang dari tanggal {r.SewingOutDate.GetValueOrDefault().ToOffset(new TimeSpan(7, 0, 0)).ToString("dd/MM/yyyy", new CultureInfo("id-ID"))}");
             RuleFor(r => r.Comodity).NotNull();
             RuleFor(r => r.Article).NotNull();
             RuleFor(r => r.Price).GreaterThan(0).WithMessage("Tarif komoditi belum ada");

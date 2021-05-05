@@ -60,7 +60,7 @@ namespace Manufactures.Controllers.Api
                     Products = items.Select(i => i.ProductName).Distinct().ToList(),
                     TotalFinishingInQuantity = Math.Round(items.Sum(i => i.Quantity), 2),
                     TotalRemainingQuantity = Math.Round(items.Sum(i => i.RemainingQuantity), 2),
-                    
+
                 };
             }).ToList();
 
@@ -73,6 +73,31 @@ namespace Manufactures.Controllers.Api
                 totalQty
             });
         }
+
+        //[HttpGet("get-by-ro")]
+        //public async Task<IActionResult> GetByRo(int page = 1, int size = 25, string order = "{}", [Bind(Prefix = "Select[]")] List<string> select = null, string keyword = null, string filter = "{}")
+        //{
+        //    VerifyUser();
+
+        //    var query = _garmentFinishingInRepository.ReadComplete(page, size, order, keyword, filter);
+        //    var count = query.Count();
+
+        //    var garmentFinishingInDto = _garmentFinishingInRepository.Find(query).Select(o => new GarmentFinishingInDto(o)).ToArray();
+
+        //    if (order != "{}")
+        //    {
+        //        Dictionary<string, string> OrderDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(order);
+        //        garmentFinishingInDto = QueryHelper<GarmentFinishingInDto>.Order(garmentFinishingInDto.AsQueryable(), OrderDictionary).ToArray();
+        //    }
+
+        //    await Task.Yield();
+        //    return Ok(garmentFinishingInDto, info: new
+        //    {
+        //        page,
+        //        size,
+        //        count
+        //    });
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
@@ -190,6 +215,20 @@ namespace Manufactures.Controllers.Api
             var order = await Mediator.Send(command);
 
             return Ok();
+        }
+
+        [HttpGet("get-by-ro")]
+        public async Task<IActionResult> GetLoaderByRO(string keyword, string filter = "{}")
+        {
+            var query = _garmentFinishingInRepository.Read(1, int.MaxValue, "{}", "", filter);
+            query = query.Where(o => o.RONo.Contains(keyword));
+
+            var rOs = _garmentFinishingInRepository.Find(query)
+                .Select(o => new { o.RONo, o.Article, o.ComodityCode, o.ComodityId, o.ComodityName }).Distinct().ToList();
+
+            await Task.Yield();
+
+            return Ok(rOs);
         }
     }
 }

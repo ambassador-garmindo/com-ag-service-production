@@ -29,7 +29,8 @@ namespace Manufactures.Domain.GarmentAdjustments.ReadModels
         public string Color { get; internal set; }
         public double BasicPrice { get; internal set; }
         public double Price { get; internal set; }
+		public string UId { get; set; }
 
-        public virtual GarmentAdjustmentReadModel GarmentAdjustment { get; internal set; }
+		public virtual GarmentAdjustmentReadModel GarmentAdjustment { get; internal set; }
     }
 }

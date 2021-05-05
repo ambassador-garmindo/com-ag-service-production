@@ -1,4 +1,5 @@
 ﻿using Manufactures.Domain.GarmentSewingIns;
+using Manufactures.Domain.GarmentSewingIns.ReadModels;
 using Manufactures.Domain.Shared.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,25 @@ namespace Manufactures.Dtos
             BasicPrice = garmentSewingInItem.BasicPrice;
             Price = garmentSewingInItem.Price;
         }
+
+        public GarmentSewingInItemDto(GarmentSewingInItemReadModel garmentSewingInItemReadModel)
+        {
+            Id = garmentSewingInItemReadModel.Identity;
+            SewingInId = garmentSewingInItemReadModel.SewingInId;
+            SewingOutItemId = garmentSewingInItemReadModel.SewingOutItemId;
+            SewingOutDetailId = garmentSewingInItemReadModel.SewingOutDetailId;
+            LoadingItemId = garmentSewingInItemReadModel.LoadingItemId;
+            Product = new Product(garmentSewingInItemReadModel.ProductId, garmentSewingInItemReadModel.ProductCode, garmentSewingInItemReadModel.ProductName);
+            DesignColor = garmentSewingInItemReadModel.DesignColor;
+            Size = new SizeValueObject(garmentSewingInItemReadModel.SizeId, garmentSewingInItemReadModel.SizeName);
+            Quantity = garmentSewingInItemReadModel.Quantity;
+            Uom = new Uom(garmentSewingInItemReadModel.UomId, garmentSewingInItemReadModel.UomUnit);
+            Color = garmentSewingInItemReadModel.Color;
+            RemainingQuantity = garmentSewingInItemReadModel.RemainingQuantity;
+            BasicPrice = garmentSewingInItemReadModel.BasicPrice;
+            Price = garmentSewingInItemReadModel.Price;
+        }
+
 
         public Guid Id { get; set; }
         public Guid SewingInId { get; set; }

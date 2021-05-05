@@ -47,5 +47,66 @@ namespace Manufactures.Data.EntityFrameworkCore.GarmentLoadings.Repositories
         {
             return new GarmentLoading(readModel);
         }
+
+        public IQueryable<object> ReadExecute(IQueryable<GarmentLoadingReadModel> query) {
+            var newQuery = query.Select(x => new {
+                Id = x.Identity,
+                LoadingNo = x.LoadingNo,
+                SewingDOId = x.SewingDOId,
+                SewingDONo = x.SewingDONo,
+                RONo = x.RONo,
+                Article = x.Article,
+                Unit = new {
+                    Id = x.UnitId, 
+                    Code = x.UnitCode, 
+                    Name = x.UnitName
+                },
+                UnitFrom = new {
+                    Id = x.UnitFromId, 
+                    Code = x.UnitFromCode,
+                    Name = x.UnitFromName
+                },
+                Comodity = new {
+                    Id = x.ComodityId, 
+                    Code = x.ComodityCode, 
+                    Name = x.ComodityName
+                },
+                LoadingDate = x.LoadingDate,
+                CreatedBy = x.CreatedBy,
+                CreatedDate = x.CreatedDate,
+                LastModifiedBy = x.ModifiedBy,
+                LastModifiedDate = x.ModifiedDate,
+                Items = x.Items.Select(y => new {
+                    Id = y.Identity,
+                    Product = new {
+                        Id = y.ProductId, 
+                        Code = y.ProductCode, 
+                        Name = y.ProductName
+                    },
+                    DesignColor = y.DesignColor,
+                    Size= new {
+                        Id = y.SizeId, 
+                        Size = y.SizeName
+                    },
+                    Quantity = y.Quantity,
+                    Uom = new {
+                        Id = y.UomId, 
+                        Unit = y.UomUnit
+                    },
+                    Color = y.Color,
+                    RemainingQuantity = y.RemainingQuantity,
+                    BasicPrice = y.BasicPrice,
+                    SewingDOItemId = y.SewingDOItemId,
+                    LoadingId = y.LoadingId,
+                    Price = y.Price,
+                    CreatedBy = y.CreatedBy,
+                    CreatedDate = y.CreatedDate,
+                    LastModifiedBy = y.ModifiedBy,
+                    LastModifiedDate = y.ModifiedDate,
+                })
+            });
+            
+            return newQuery;
+        }
     }
 }

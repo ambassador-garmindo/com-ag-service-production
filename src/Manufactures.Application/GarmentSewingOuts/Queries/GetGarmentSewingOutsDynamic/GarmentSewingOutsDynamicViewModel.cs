@@ -6,12 +6,12 @@ namespace Manufactures.Application.GarmentSewingOuts.Queries.GetGarmentSewingOut
 {
     public class GarmentSewingOutsDynamicViewModel
     {
-        public int count { get; private set; }
+        public int total { get; private set; }
         public List<dynamic> data { get; private set; }
 
-        public GarmentSewingOutsDynamicViewModel(int count, List<dynamic> data)
+        public GarmentSewingOutsDynamicViewModel(int total, List<dynamic> data)
         {
-            this.count = count;
+            this.total = total;
             this.data = data;
         }
     }

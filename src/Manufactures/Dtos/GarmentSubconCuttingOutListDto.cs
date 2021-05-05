@@ -20,7 +20,7 @@ namespace Manufactures.Dtos
             CreatedBy = garmentCuttingOut.AuditTrail.CreatedBy;
             //Unit = new UnitDepartment(garmentCuttingOut.UnitId.Value, garmentCuttingOut.UnitCode, garmentCuttingOut.UnitName);
             //Comodity = new GarmentComodity(garmentCuttingOut.ComodityId.Value, garmentCuttingOut.ComodityCode, garmentCuttingOut.ComodityName);
-
+            IsUsed = garmentCuttingOut.IsUsed;
             Items = new List<GarmentSubconCuttingOutItemDto>();
         }
 
@@ -38,6 +38,8 @@ namespace Manufactures.Dtos
         public double TotalRemainingQuantity { get; set; }
         public double TotalCuttingOutQuantity { get; set; }
         public List<string> Products { get; set; }
+
+        public bool IsUsed { get; set; }
         public List<GarmentSubconCuttingOutItemDto> Items { get; set; }
     }
 }

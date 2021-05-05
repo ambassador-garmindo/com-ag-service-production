@@ -79,9 +79,9 @@ namespace Manufactures.Tests.Queries.GarmentPreparings
 				DetailExpenditureId=1,
 				ROAsal="ROAsal"
 			};
-			_mockhttpService.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<string>()))
-				.ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"data\": "+ JsonConvert.SerializeObject(expenditureROViewModel) + "}") });
-			serviceProviderMock.Setup(x => x.GetService(typeof(IHttpClientService))).Returns(_mockhttpService.Object);
+			//_mockhttpService.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<string>()))
+			//	.ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"data\": "+ JsonConvert.SerializeObject(expenditureROViewModel) + "}") });
+			//serviceProviderMock.Setup(x => x.GetService(typeof(IHttpClientService))).Returns(_mockhttpService.Object);
 			
 		}
 

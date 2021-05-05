@@ -57,7 +57,8 @@ namespace Manufactures.Application.GarmentSubconCuttingOuts.CommandHandlers
                 request.Comodity.Name,
                 request.EPOId,
                 request.EPOItemId,
-                request.POSerialNumber
+                request.POSerialNumber,
+                request.IsUsed
             );
 
             Dictionary<Guid, double> cuttingInDetailToBeUpdated = new Dictionary<Guid, double>();

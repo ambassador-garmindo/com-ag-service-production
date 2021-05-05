@@ -37,4 +37,5 @@ namespace Manufactures.Domain.GarmentPreparings.Commands
             RuleForEach(r => r.Items).SetValidator(new GarmentPreparingItemValueObjectValidator());
         }
     }
+
 }

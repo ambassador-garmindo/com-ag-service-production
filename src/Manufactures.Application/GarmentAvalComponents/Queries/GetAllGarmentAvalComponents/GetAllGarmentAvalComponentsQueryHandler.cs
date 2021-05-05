@@ -29,7 +29,7 @@ namespace Manufactures.Application.GarmentAvalComponents.Queries.GetAllGarmentAv
         {
             var Query = _garmentAvalComponentRepository.ReadList(request.order, request.keyword, request.filter);
 
-            int count = Query.Count();
+            int total = Query.Count();
             Query = Query.Skip((request.page - 1) * request.size).Take(request.size);
 
             List<GarmentAvalComponentDto> garmentAvalComponentDtos = _garmentAvalComponentRepository.Find(Query)
@@ -51,7 +51,7 @@ namespace Manufactures.Application.GarmentAvalComponents.Queries.GetAllGarmentAv
             await Task.Yield();
             return new GarmentAvalComponentsListViewModel
             {
-                count = count,
+                total = total,
                 GarmentAvalComponents = garmentAvalComponentDtos
             };
         }

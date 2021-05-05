@@ -169,31 +169,33 @@ namespace Manufactures.Controllers.Api
             var query = _garmentCuttingInRepository.Read(page, size, order, keyword, filter);
             var count = query.Count();
 
-            var garmentCuttingInDto = _garmentCuttingInRepository.Find(query).Select(o => new GarmentCuttingInDto(o)).ToArray();
-            var garmentCuttingInItemDto = _garmentCuttingInItemRepository.Find(_garmentCuttingInItemRepository.Query).Select(o => new GarmentCuttingInItemDto(o)).ToList();
-            var garmentCuttingInDetailDto = _garmentCuttingInDetailRepository.Find(_garmentCuttingInDetailRepository.Query).Select(o => new GarmentCuttingInDetailDto(o)).ToList();
+            var newQuery = _garmentCuttingInRepository.ReadExecute(query);
 
-            Parallel.ForEach(garmentCuttingInDto, itemDto =>
-            {
-                var garmentCuttingInItems = garmentCuttingInItemDto.Where(x => x.CutInId == itemDto.Id).OrderBy(x => x.Id).ToList();
+            // var garmentCuttingInDto = _garmentCuttingInRepository.Find(query).Select(o => new GarmentCuttingInDto(o)).ToArray();
+            // var garmentCuttingInItemDto = _garmentCuttingInItemRepository.Find(_garmentCuttingInItemRepository.Query).Select(o => new GarmentCuttingInItemDto(o)).ToList();
+            // var garmentCuttingInDetailDto = _garmentCuttingInDetailRepository.Find(_garmentCuttingInDetailRepository.Query).Select(o => new GarmentCuttingInDetailDto(o)).ToList();
 
-                itemDto.Items = garmentCuttingInItems;
+            // Parallel.ForEach(garmentCuttingInDto, itemDto =>
+            // {
+            //     var garmentCuttingInItems = garmentCuttingInItemDto.Where(x => x.CutInId == itemDto.Id).OrderBy(x => x.Id).ToList();
 
-                Parallel.ForEach(itemDto.Items, detailDto =>
-                {
-                    var garmentCuttingInDetails = garmentCuttingInDetailDto.Where(x => x.CutInItemId == detailDto.Id).OrderBy(x => x.Id).ToList();
-                    detailDto.Details = garmentCuttingInDetails;
-                });
-            });
+            //     itemDto.Items = garmentCuttingInItems;
 
-            if (order != "{}")
-            {
-                Dictionary<string, string> OrderDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(order);
-                garmentCuttingInDto = QueryHelper<GarmentCuttingInDto>.Order(garmentCuttingInDto.AsQueryable(), OrderDictionary).ToArray();
-            }
+            //     Parallel.ForEach(itemDto.Items, detailDto =>
+            //     {
+            //         var garmentCuttingInDetails = garmentCuttingInDetailDto.Where(x => x.CutInItemId == detailDto.Id).OrderBy(x => x.Id).ToList();
+            //         detailDto.Details = garmentCuttingInDetails;
+            //     });
+            // });
+
+            // if (order != "{}")
+            // {
+            //     Dictionary<string, string> OrderDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(order);
+            //     garmentCuttingInDto = QueryHelper<GarmentCuttingInDto>.Order(garmentCuttingInDto.AsQueryable(), OrderDictionary).ToArray();
+            // }
 
             await Task.Yield();
-            return Ok(garmentCuttingInDto, info: new
+            return Ok(newQuery, info: new
             {
                 page,
                 size,

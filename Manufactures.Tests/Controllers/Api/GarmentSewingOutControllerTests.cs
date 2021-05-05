@@ -373,6 +373,37 @@ namespace Manufactures.Tests.Controllers.Api
             GetStatusCode(result).Should().Equals((int)HttpStatusCode.OK);
         }
 
+        [Fact]
+        public async Task GetRoByQuery_Return_Success()
+        {
+            var unitUnderTest = CreateGarmentSewingOutController();
+            Guid id = Guid.NewGuid();
+
+            _mockGarmentSewingOutRepository
+              .Setup(s => s.ReadComplete(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+              .Returns(new List<GarmentSewingOutReadModel>().AsQueryable());
+
+
+            _mockGarmentSewingOutRepository
+                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentSewingOutReadModel>>()))
+                .Returns(new List<GarmentSewingOut>()
+                {
+                    new GarmentSewingOut(id, null,new BuyerId(1),null,null,new UnitDepartmentId(1),null,null,"Finishing",DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null,new GarmentComodityId(1),null,null,true)
+                });
+
+            // Act
+            var orderData = new
+            {
+                article = "desc"
+            };
+
+            string order = JsonConvert.SerializeObject(orderData);
+            var result = await unitUnderTest.GetByRo(1, 25, order, new List<string>(), "", "{}");
+
+            // Assert
+            GetStatusCode(result).Should().Equals((int)HttpStatusCode.OK);
+        }
+
 
         [Fact]
 		public async Task GetXLSBehavior()

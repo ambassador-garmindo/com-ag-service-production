@@ -24,8 +24,8 @@ namespace Manufactures.Domain.GarmentAdjustments.ReadModels
         public string UnitName { get; internal set; }
         public DateTimeOffset AdjustmentDate { get; internal set; }
         public string AdjustmentDesc { get; internal set; }
-
-        public virtual List<GarmentAdjustmentItemReadModel> Items { get; internal set; }
+		public string UId { get; set; }
+		public virtual List<GarmentAdjustmentItemReadModel> Items { get; internal set; }
 
     }
 }

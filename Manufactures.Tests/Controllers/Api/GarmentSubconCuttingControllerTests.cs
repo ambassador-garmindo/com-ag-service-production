@@ -48,7 +48,10 @@ namespace Manufactures.Tests.Controllers.Api
 
             _MockMediator
                 .Setup(s => s.Send(It.IsAny<GetAllGarmentSubconCuttingsQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GetGarmentSubconCuttingListViewModel());
+                .ReturnsAsync(new GetGarmentSubconCuttingListViewModel
+                {
+                    data = new List<GarmentSubconCuttingDto>()
+                });
 
             // Act
             var result = await unitUnderTest.Get();

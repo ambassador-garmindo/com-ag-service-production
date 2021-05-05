@@ -62,7 +62,8 @@ namespace Manufactures.Application.GarmentExpenditureGoods.CommandHandlers
                 request.ContractNo,
                 request.Carton,
                 request.Description,
-                request.IsReceived
+                request.IsReceived,
+                request.PackingListId
             );
 
             Dictionary<string, double> finStockToBeUpdated = new Dictionary<string, double>();

@@ -22,7 +22,8 @@ namespace Manufactures.Domain.GarmentExpenditureGoodReturns.ReadModels
         public string Description { get; internal set; }
         public double BasicPrice { get; internal set; }
         public double Price { get; internal set; }
-        public virtual GarmentExpenditureGoodReturnReadModel GarmentExpenditureGoodReturn { get; internal set; }
+		public string UId { get; set; }
+		public virtual GarmentExpenditureGoodReturnReadModel GarmentExpenditureGoodReturn { get; internal set; }
 
     }
 }

@@ -22,4 +22,7 @@
     <ProjectReference Include="..\src\Manufactures\Manufactures.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CommandHandlers\GarmentSubcon\GarmentServiceSubconSewings\" />
+  </ItemGroup>
 </Project>
