@@ -13,6 +13,7 @@ namespace Manufactures.Domain.GarmentPreparings
     public class GarmentPreparingItem : AggregateRoot<GarmentPreparingItem, GarmentPreparingItemReadModel>
     {
         public int UENItemId { get; private set; }
+        public string CustomsCategory { get; private set; }
         public ProductId ProductId { get; private set; }
         public string ProductCode { get; private set; }
         public string ProductName { get; private set; }
@@ -26,12 +27,13 @@ namespace Manufactures.Domain.GarmentPreparings
         public Guid GarmentPreparingId { get; private set; }
         public string ROSource { get; private set; }
 		public string UId { get; private set; }
-		public GarmentPreparingItem(Guid identity, int uenItemId, ProductId productId, string productCode, string productName, string designColor, double quantity, UomId uomId, string uomUnit, string fabricType, double remainingQuantity, double basicPrice, Guid garmentPreparingId, string roSource) : base(identity)
+		public GarmentPreparingItem(Guid identity, int uenItemId, ProductId productId, string productCode, string productName, string designColor, double quantity, UomId uomId, string uomUnit, string fabricType, double remainingQuantity, double basicPrice, Guid garmentPreparingId, string roSource, string customsCategory) : base(identity)
         {
             this.MarkTransient();
 
             Identity = identity;
             UENItemId = uenItemId;
+            CustomsCategory = customsCategory;
             ProductId = productId;
             ProductCode = productCode;
             ProductName = productName;
@@ -48,6 +50,7 @@ namespace Manufactures.Domain.GarmentPreparings
             ReadModel = new GarmentPreparingItemReadModel(Identity)
             {
                 UENItemId = UENItemId,
+                CustomsCategory = CustomsCategory,
                 ProductId = ProductId.Value,
                 ProductCode = ProductCode,
                 ProductName = ProductName,
@@ -67,6 +70,7 @@ namespace Manufactures.Domain.GarmentPreparings
         public GarmentPreparingItem(GarmentPreparingItemReadModel readModel) : base(readModel)
         {
             UENItemId = ReadModel.UENItemId;
+            CustomsCategory = ReadModel.CustomsCategory;
             ProductId = new ProductId(ReadModel.ProductId);
             ProductCode = ReadModel.ProductCode;
             ProductName = ReadModel.ProductName;
@@ -193,6 +197,15 @@ namespace Manufactures.Domain.GarmentPreparings
             {
                 RemainingQuantity = newRemainingQuantity;
                 ReadModel.RemainingQuantity = newRemainingQuantity;
+            }
+        }
+
+        public void setCustomsCategory(string newCustomsCategory)
+        {
+            if(newCustomsCategory != CustomsCategory)
+            {
+                CustomsCategory = newCustomsCategory;
+                ReadModel.CustomsCategory = newCustomsCategory;
             }
         }
 

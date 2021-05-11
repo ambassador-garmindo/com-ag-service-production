@@ -95,7 +95,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null)
+                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
                 });
 
             _mockGarmentPreparingItemRepository
@@ -145,7 +145,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null)
+                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
                 });
 
             _mockGarmentPreparingItemRepository
@@ -189,7 +189,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null)
+                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
                 });
 
             _mockGarmentPreparingItemRepository
@@ -239,7 +239,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null)
+                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
                 });
 
             _mockGarmentPreparingItemRepository
@@ -273,7 +273,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentPreparingItemReadModel, bool>>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(Guid.NewGuid(), 0, new ProductId(1), null, null, null, 0, new UomId(1), null, null, 0, 0, Guid.NewGuid(),null)
+                    new GarmentPreparingItem(Guid.NewGuid(), 0, new ProductId(1), null, null, null, 0, new UomId(1), null, null, 0, 0, Guid.NewGuid(),null,"")
                 });
 
             // Act

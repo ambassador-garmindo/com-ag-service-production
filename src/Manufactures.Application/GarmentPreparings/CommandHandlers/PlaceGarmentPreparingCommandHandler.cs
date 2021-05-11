@@ -41,7 +41,7 @@ namespace Manufactures.Application.GarmentPreparings.CommandHandlers
             //{
                 var garmentPreparing = new GarmentPreparing(Guid.NewGuid(), request.UENId, request.UENNo, new UnitDepartmentId(request.Unit.Id), request.Unit.Code, request.Unit.Name, request.ProcessDate, request.RONo,
                         request.Article, request.IsCuttingIn,new Domain.Shared.ValueObjects.BuyerId( request.Buyer.Id), request.Buyer.Code, request.Buyer.Name);
-                request.Items.Select(x => new GarmentPreparingItem(Guid.NewGuid(), x.UENItemId, new ProductId(x.Product.Id), x.Product.Code, x.Product.Name, x.DesignColor, x.Quantity, new UomId(x.Uom.Id), x.Uom.Unit, x.FabricType, x.RemainingQuantity, x.BasicPrice, garmentPreparing.Identity,x.ROSource)).ToList()
+                request.Items.Select(x => new GarmentPreparingItem(Guid.NewGuid(), x.UENItemId, new ProductId(x.Product.Id), x.Product.Code, x.Product.Name, x.DesignColor, x.Quantity, new UomId(x.Uom.Id), x.Uom.Unit, x.FabricType, x.RemainingQuantity, x.BasicPrice, garmentPreparing.Identity,x.ROSource,x.CustomsCategory)).ToList()
                     .ForEach(async x => await _garmentPreparingItemRepository.Update(x));
             //}
 

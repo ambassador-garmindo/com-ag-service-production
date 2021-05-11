@@ -53,6 +53,7 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries
 
 
 		}
+
 		async Task<HOrderDataProductionReport> GetDataHOrder(List<string> ro, string token)
 		{
 			HOrderDataProductionReport hOrderDataProductionReport = new HOrderDataProductionReport();
