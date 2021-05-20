@@ -37,7 +37,7 @@ namespace Manufactures.Application.GarmentSubconCuttings.Queries.GetAllGarmentSu
             Dictionary<string, string> OrderDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(request.order);
             Query = OrderDictionary.Count == 0 ? Query.OrderByDescending(o => o.ModifiedDate) : QueryHelper<GarmentSubconCuttingReadModel>.Order(Query, OrderDictionary);
 
-            int count = Query.Count();
+            int total = Query.Count();
             Query = Query.Skip((request.page - 1) * request.size).Take(request.size);
 
             List<GarmentSubconCuttingDto> garmentSubconCuttingDtos = _garmentSubconCuttingRepository.Find(Query)
@@ -49,7 +49,7 @@ namespace Manufactures.Application.GarmentSubconCuttings.Queries.GetAllGarmentSu
             return new GetGarmentSubconCuttingListViewModel
             {
                 data = garmentSubconCuttingDtos,
-                count = count
+                total = total
             };
         }
     }

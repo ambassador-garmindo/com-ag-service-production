@@ -35,7 +35,8 @@ namespace Manufactures.Domain.GarmentFinishedGoodStocks.ReadModels
         public string UomUnit { get; internal set; }
         public double BasicPrice { get; internal set; }
         public double Price { get; internal set; }
+		public string UId { get; set; }
 
 
-    }
+	}
 }

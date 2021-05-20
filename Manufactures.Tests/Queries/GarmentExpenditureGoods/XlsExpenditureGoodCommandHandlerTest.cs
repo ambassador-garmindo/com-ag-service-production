@@ -98,7 +98,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodReadModel>
 				{
-					new GarmentExpenditureGood(guidExpenditureGood,"","",new UnitDepartmentId(1),"","","ro","",new GarmentComodityId(1),"","",new BuyerId(1),"","",DateTimeOffset.Now,"","",10,"",true).GetReadModel()
+					new GarmentExpenditureGood(guidExpenditureGood,"","",new UnitDepartmentId(1),"","","ro","",new GarmentComodityId(1),"","",new BuyerId(1),"","",DateTimeOffset.Now,"","",10,"",true,1).GetReadModel()
 				}.AsQueryable());
 
 			var guidGarmentPreparing = Guid.NewGuid();
@@ -114,7 +114,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentPreparingItemReadModel>
 				{
-					new GarmentPreparingItem(guidGarmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,null).GetReadModel()
+					new GarmentPreparingItem(guidGarmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,null,"").GetReadModel()
 				}.AsQueryable());
 
 			var guidGarmentCuttingIn = Guid.NewGuid();
@@ -155,7 +155,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodReadModel>
 				{
-					new GarmentExpenditureGood(guidExpenditureGood,"","",new UnitDepartmentId(1),"","","ro","",new GarmentComodityId(1),"","",new BuyerId(1),"","",DateTimeOffset.Now,"","",10,"",true).GetReadModel()
+					new GarmentExpenditureGood(guidExpenditureGood,"","",new UnitDepartmentId(1),"","","ro","",new GarmentComodityId(1),"","",new BuyerId(1),"","",DateTimeOffset.Now,"","",10,"",true,1).GetReadModel()
 				}.AsQueryable());
 
 			var guidGarmentPreparing = Guid.NewGuid();
@@ -171,7 +171,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentPreparingItemReadModel>
 				{
-					new GarmentPreparingItem(guidGarmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,"ro").GetReadModel()
+					new GarmentPreparingItem(guidGarmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,"ro","IMPORT FASILITAS").GetReadModel()
 				}.AsQueryable());
 
 			var guidGarmentCuttingIn = Guid.NewGuid();

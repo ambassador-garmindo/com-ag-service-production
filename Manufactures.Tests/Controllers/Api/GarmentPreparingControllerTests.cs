@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Manufactures.Application.GarmentAvalComponents.Queries.GetAllGarmentAvalComponents;
 using Manufactures.Application.GarmentPreparings.Queries.GetMonitoringPrepare;
+using Manufactures.Application.GarmentPreparings.Queries.GetWIP;
 using Manufactures.Controllers.Api;
 using Manufactures.Domain.GarmentAvalProducts.Repositories;
 using Manufactures.Domain.GarmentCuttingIns;
@@ -94,7 +95,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null)
+                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
                 });
 
             _mockGarmentPreparingItemRepository
@@ -144,7 +145,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null)
+                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
                 });
 
             _mockGarmentPreparingItemRepository
@@ -188,7 +189,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null)
+                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
                 });
 
             _mockGarmentPreparingItemRepository
@@ -238,7 +239,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null)
+                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
                 });
 
             _mockGarmentPreparingItemRepository
@@ -272,7 +273,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentPreparingItemReadModel, bool>>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(Guid.NewGuid(), 0, new ProductId(1), null, null, null, 0, new UomId(1), null, null, 0, 0, Guid.NewGuid(),null)
+                    new GarmentPreparingItem(Guid.NewGuid(), 0, new ProductId(1), null, null, null, 0, new UomId(1), null, null, 0, 0, Guid.NewGuid(),null,"")
                 });
 
             // Act
@@ -525,6 +526,56 @@ namespace Manufactures.Tests.Controllers.Api
 
             // Assert
             Assert.Equal((int)HttpStatusCode.BadRequest, GetStatusCode(result1));
+        }
+
+        [Fact]
+        public async Task GetMonitoringWIPBehavior()
+        {
+            var unitUnderTest = CreateGarmentPreparingController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetWIPQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GarmentWIPListViewModel());
+
+            // Act
+            var result = await unitUnderTest.GetWIP(DateTime.Now, 1, 25, "{}");
+
+            // Assert
+            GetStatusCode(result).Should().Equals((int)HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task GetXLSWIPBehavior()
+        {
+            var unitUnderTest = CreateGarmentPreparingController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsWIPQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new MemoryStream());
+
+            // Act
+
+            var result = await unitUnderTest.GetXlsWIP(DateTime.Now, 1, 25, "{}");
+
+            // Assert
+            Assert.Equal("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.GetType().GetProperty("ContentType").GetValue(result, null));
+        }
+
+        [Fact]
+        public async Task GetXLSWIPReturn_InternalServerError()
+        {
+            var unitUnderTest = CreateGarmentPreparingController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsWIPQuery>(), It.IsAny<CancellationToken>()))
+                .Throws(new Exception());
+
+            // Act
+
+            var result = await unitUnderTest.GetXlsWIP(DateTime.Now, 1, 25, "{}");
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.InternalServerError, GetStatusCode(result));
         }
     }
 }

@@ -44,6 +44,7 @@ namespace Manufactures.Domain.GarmentCuttingOuts
                 ProductName = ProductName,
                 DesignColor = DesignColor,
                 TotalCuttingOut = TotalCuttingOut,
+                GarmentCuttingOutDetail = new List<GarmentCuttingOutDetailReadModel>()
             };
 
             ReadModel.AddDomainEvent(new OnGarmentCuttingOutPlaced(Identity));

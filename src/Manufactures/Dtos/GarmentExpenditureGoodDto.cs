@@ -24,6 +24,7 @@ namespace Manufactures.Dtos
             Carton = garmentExpenditureGood.Carton;
             Description = garmentExpenditureGood.Description;
             IsReceived = garmentExpenditureGood.IsReceived;
+            PackingListId = garmentExpenditureGood.PackingListId;
             Items = new List<GarmentExpenditureGoodItemDto>();
         }
         public Guid Id { get; internal set; }
@@ -36,6 +37,7 @@ namespace Manufactures.Dtos
         public Buyer Buyer { get; internal set; }
         public DateTimeOffset ExpenditureDate { get; internal set; }
         public string Invoice { get; internal set; }
+        public int PackingListId { get; internal set; }
         public string ContractNo { get; internal set; }
         public double Carton { get; internal set; }
         public string Description { get; internal set; }

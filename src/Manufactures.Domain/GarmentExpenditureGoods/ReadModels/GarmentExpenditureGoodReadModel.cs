@@ -26,11 +26,13 @@ namespace Manufactures.Domain.GarmentExpenditureGoods.ReadModels
         public string BuyerName { get; internal set; }
         public DateTimeOffset ExpenditureDate { get; internal set; }
         public string Invoice { get; internal set; }
+        public int PackingListId { get; internal set; }
         public string ContractNo { get; internal set; }
         public double Carton { get; internal set; }
         public string Description { get; internal set; }
         public bool IsReceived { get; internal set; }
-        public virtual List<GarmentExpenditureGoodItemReadModel> Items { get; internal set; }
+		public string UId { get; set; }
+		public virtual List<GarmentExpenditureGoodItemReadModel> Items { get; internal set; }
 
 
     }

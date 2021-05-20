@@ -83,7 +83,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentPreparings
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentPreparingItemReadModel, bool>>>()))
                 .Returns(new List<GarmentPreparingItem>()
                 {
-                    new GarmentPreparingItem(Guid.Empty, 0, new ProductId(1), null, null, null, 0, new UomId(1), null, null, 0, 0, Guid.Empty,null)
+                    new GarmentPreparingItem(Guid.Empty, 0, new ProductId(1), null, null, null, 0, new UomId(1), null, null, 0, 0, Guid.Empty,null,"")
                 });
 
             _mockPreparingRepository

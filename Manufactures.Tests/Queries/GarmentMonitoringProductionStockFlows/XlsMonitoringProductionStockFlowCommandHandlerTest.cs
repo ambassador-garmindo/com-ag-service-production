@@ -263,7 +263,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentCuttingOutReadModel>
 				{
-					 new GarmentCuttingOut(guidCuttingOut, "", "SEWING",new UnitDepartmentId(1),"","",DateTime.Now.AddDays(-1),"ro","article",new UnitDepartmentId(1),"","",new GarmentComodityId(1),"cm","cmo").GetReadModel()
+					 new GarmentCuttingOut(guidCuttingOut, "", "SEWING",new UnitDepartmentId(1),"","",DateTime.Now.AddDays(-1),"ro","article",new UnitDepartmentId(1),"","",new GarmentComodityId(1),"cm","cmo",false).GetReadModel()
 				}.AsQueryable());
 
 
@@ -424,7 +424,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAvalComponentReadModel>
 				{
-					new GarmentAvalComponent(guidAval,"",new UnitDepartmentId(1),"","","","ro","article",new GarmentComodityId(1),"","",DateTimeOffset.Now).GetReadModel()
+					new GarmentAvalComponent(guidAval,"",new UnitDepartmentId(1),"","","","ro","article",new GarmentComodityId(1),"","",DateTimeOffset.Now, false).GetReadModel()
 				}.AsQueryable());
 			_mockGarmentExpenditureGoodItemRepository
 				.Setup(s => s.Query)
@@ -437,7 +437,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodReadModel>
 				{
-					new GarmentExpenditureGood(guidExpenditure,"np","SAMPLE",new UnitDepartmentId(1),"","","ro","article",new GarmentComodityId(1),"","",new BuyerId(1),"","",DateTimeOffset.Now,"","",9,"",true).GetReadModel()
+					new GarmentExpenditureGood(guidExpenditure,"np","SAMPLE",new UnitDepartmentId(1),"","","ro","article",new GarmentComodityId(1),"","",new BuyerId(1),"","",DateTimeOffset.Now,"","",9,"",true,1).GetReadModel()
 				}.AsQueryable());
 			_mockGarmentExpenditureGoodReturnItemRepository
 				.Setup(s => s.Query)
@@ -472,7 +472,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentPreparingItemReadModel>
 				{
-					new GarmentPreparingItem(guidGarmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,null).GetReadModel()
+					new GarmentPreparingItem(guidGarmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,null,"").GetReadModel()
 				}.AsQueryable());
 
 
@@ -546,7 +546,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentCuttingOutReadModel>
 				{
-					 new GarmentCuttingOut(guidCuttingOut, "", "SEWING",new UnitDepartmentId(1),"","",DateTime.Now.AddDays(-1),"ro","article",new UnitDepartmentId(1),"","",new GarmentComodityId(1),"cm","cmo").GetReadModel()
+					 new GarmentCuttingOut(guidCuttingOut, "", "SEWING",new UnitDepartmentId(1),"","",DateTime.Now.AddDays(-1),"ro","article",new UnitDepartmentId(1),"","",new GarmentComodityId(1),"cm","cmo",false).GetReadModel()
 				}.AsQueryable());
 
 
@@ -707,7 +707,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAvalComponentReadModel>
 				{
-					new GarmentAvalComponent(guidAval,"",new UnitDepartmentId(1),"","","","ro","article",new GarmentComodityId(1),"","",DateTimeOffset.Now).GetReadModel()
+					new GarmentAvalComponent(guidAval,"",new UnitDepartmentId(1),"","","","ro","article",new GarmentComodityId(1),"","",DateTimeOffset.Now, false).GetReadModel()
 				}.AsQueryable());
 			_mockGarmentExpenditureGoodItemRepository
 				.Setup(s => s.Query)
@@ -720,7 +720,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodReadModel>
 				{
-					new GarmentExpenditureGood(guidExpenditure,"np","SAMPLE",new UnitDepartmentId(1),"","","ro","article",new GarmentComodityId(1),"","",new BuyerId(1),"","",DateTimeOffset.Now,"","",9,"",true).GetReadModel()
+					new GarmentExpenditureGood(guidExpenditure,"np","SAMPLE",new UnitDepartmentId(1),"","","ro","article",new GarmentComodityId(1),"","",new BuyerId(1),"","",DateTimeOffset.Now,"","",9,"",true,1).GetReadModel()
 				}.AsQueryable());
 			_mockGarmentExpenditureGoodReturnItemRepository
 				.Setup(s => s.Query)
@@ -761,7 +761,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentPreparingItemReadModel>
 				{
-					new GarmentPreparingItem(guidGarmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,null).GetReadModel()
+					new GarmentPreparingItem(guidGarmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,null,"").GetReadModel()
 				}.AsQueryable());
 
 			// Act

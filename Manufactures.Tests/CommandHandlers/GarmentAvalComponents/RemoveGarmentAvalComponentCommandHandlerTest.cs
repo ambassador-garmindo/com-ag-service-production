@@ -67,7 +67,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAvalComponents
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentAvalComponentReadModel>()
                 {
-                    new GarmentAvalComponent(avalComponentGuid, "AvalComponentNo", new UnitDepartmentId(1), "UnitCode", "UnitName", "CUTTING", "RONo", "Article", new GarmentComodityId(1), "ComodityCode", "ComodityName", DateTimeOffset.Now).GetReadModel()
+                    new GarmentAvalComponent(avalComponentGuid, "AvalComponentNo", new UnitDepartmentId(1), "UnitCode", "UnitName", "CUTTING", "RONo", "Article", new GarmentComodityId(1), "ComodityCode", "ComodityName", DateTimeOffset.Now, false).GetReadModel()
                 }.AsQueryable());
 
             _mockGarmentAvalComponentItemRepository
@@ -122,7 +122,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAvalComponents
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentAvalComponentReadModel>()
                 {
-                    new GarmentAvalComponent(avalComponentGuid, "AvalComponentNo", new UnitDepartmentId(1), "UnitCode", "UnitName", "CUTTING", "RONo", "Article", new GarmentComodityId(1), "ComodityCode", "ComodityName", DateTimeOffset.Now).GetReadModel()
+                    new GarmentAvalComponent(avalComponentGuid, "AvalComponentNo", new UnitDepartmentId(1), "UnitCode", "UnitName", "CUTTING", "RONo", "Article", new GarmentComodityId(1), "ComodityCode", "ComodityName", DateTimeOffset.Now, false).GetReadModel()
                 }.AsQueryable());
 
             _mockGarmentAvalComponentItemRepository
@@ -170,7 +170,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAvalComponents
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentAvalComponentReadModel>()
                 {
-                    new GarmentAvalComponent(avalComponentGuid, "AvalComponentNo", new UnitDepartmentId(1), "UnitCode", "UnitName", "SEWING", "RONo", "Article", new GarmentComodityId(1), "ComodityCode", "ComodityName", DateTimeOffset.Now).GetReadModel()
+                    new GarmentAvalComponent(avalComponentGuid, "AvalComponentNo", new UnitDepartmentId(1), "UnitCode", "UnitName", "SEWING", "RONo", "Article", new GarmentComodityId(1), "ComodityCode", "ComodityName", DateTimeOffset.Now, false).GetReadModel()
                 }.AsQueryable());
 
             _mockGarmentAvalComponentItemRepository
@@ -225,7 +225,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAvalComponents
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentAvalComponentReadModel>()
                 {
-                    new GarmentAvalComponent(avalComponentGuid, "AvalComponentNo", new UnitDepartmentId(1), "UnitCode", "UnitName", "SEWING", "RONo", "Article", new GarmentComodityId(1), "ComodityCode", "ComodityName", DateTimeOffset.Now).GetReadModel()
+                    new GarmentAvalComponent(avalComponentGuid, "AvalComponentNo", new UnitDepartmentId(1), "UnitCode", "UnitName", "SEWING", "RONo", "Article", new GarmentComodityId(1), "ComodityCode", "ComodityName", DateTimeOffset.Now, false).GetReadModel()
                 }.AsQueryable());
 
             _mockGarmentAvalComponentItemRepository

@@ -56,7 +56,7 @@ namespace Manufactures.Tests.Queries.GarmentAvalComponents
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentAvalComponentReadModel>>()))
                 .Returns(new List<GarmentAvalComponent>()
                 {
-                    new GarmentAvalComponent(Guid.Empty, null, new UnitDepartmentId(1), null, null, null, null, null, new GarmentComodityId(1), null, null, DateTimeOffset.Now)
+                    new GarmentAvalComponent(Guid.Empty, null, new UnitDepartmentId(1), null, null, null, null, null, new GarmentComodityId(1), null, null, DateTimeOffset.Now, false)
                 });
 
             _mockGarmentAvalComponentItemRepository

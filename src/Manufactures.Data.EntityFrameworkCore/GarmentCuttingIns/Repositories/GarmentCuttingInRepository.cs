@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Text;
 
 namespace Manufactures.Data.EntityFrameworkCore.GarmentCuttingIns.Repositories
@@ -45,5 +46,74 @@ namespace Manufactures.Data.EntityFrameworkCore.GarmentCuttingIns.Repositories
         {
             return new GarmentCuttingIn(readModel);
         }
+
+        public IQueryable<object> ReadExecute(IQueryable<GarmentCuttingInReadModel> query) {
+            var newQuery = query.Select(x => new {
+                Id = x.Identity,
+                CutInNo = x.CutInNo,
+                CuttingType = x.CuttingType,
+                RONo = x.RONo,
+                Article = x.Article,
+                Unit = new {
+                    Id = x.UnitId,
+                    Name = x.UnitName,
+                    Code = x.UnitCode
+                },
+                CuttingInDate = x.CuttingInDate,
+                FC = x.FC,
+                CuttingFrom = x.CuttingFrom,
+                CreatedBy = x.CreatedBy,
+                CreatedDate = x.CreatedDate,
+                LastModifiedBy = x.ModifiedBy,
+                LastModifiedDate = x.ModifiedDate,
+                Items = x.Items.Select(garmentCuttingInItem => new {
+                    Id = garmentCuttingInItem.Identity,
+                    CutInId = garmentCuttingInItem.CutInId,
+                    PreparingId = garmentCuttingInItem.PreparingId,
+                    UENId = garmentCuttingInItem.UENId,
+                    UENNo = garmentCuttingInItem.UENNo,
+                    SewingOutId = garmentCuttingInItem.SewingOutId,
+                    SewingOutNo = garmentCuttingInItem.SewingOutNo,
+                    CreatedBy = garmentCuttingInItem.CreatedBy,
+                    CreatedDate = garmentCuttingInItem.CreatedDate,
+                    LastModifiedBy = garmentCuttingInItem.ModifiedBy,
+                    LastModifiedDate = garmentCuttingInItem.ModifiedDate,
+                    Details = garmentCuttingInItem.Details.Select(garmentCuttingInDetail => new {
+                        Id = garmentCuttingInDetail.Identity,
+                        CutInItemId = garmentCuttingInDetail.CutInItemId,
+                        PreparingItemId = garmentCuttingInDetail.PreparingItemId,
+                        Product = new {
+                            Id = garmentCuttingInDetail.ProductId, 
+                            Code = garmentCuttingInDetail.ProductCode, 
+                            Name =garmentCuttingInDetail.ProductName 
+                        },
+                        DesignColor = garmentCuttingInDetail.DesignColor,
+                        FabricType = garmentCuttingInDetail.FabricType,
+                        PreparingQuantity = garmentCuttingInDetail.PreparingQuantity,
+                        PreparingUom = new { 
+                            Id = garmentCuttingInDetail.PreparingUomId,
+                            Unit = garmentCuttingInDetail.PreparingUomUnit 
+                        },
+                        CuttingInQuantity = garmentCuttingInDetail.CuttingInQuantity,
+                        CuttingInUom = new { 
+                            Id = garmentCuttingInDetail.CuttingInUomId, 
+                            Unit = garmentCuttingInDetail.CuttingInUomUnit 
+                        },
+                        RemainingQuantity = garmentCuttingInDetail.RemainingQuantity,
+                        BasicPrice = garmentCuttingInDetail.BasicPrice,
+                        Price = garmentCuttingInDetail.Price,
+                        FC = garmentCuttingInDetail.FC,
+                        Color = garmentCuttingInDetail.Color,
+                        CreatedBy = garmentCuttingInDetail.CreatedBy,
+                        CreatedDate = garmentCuttingInDetail.CreatedDate,
+                        LastModifiedBy = garmentCuttingInDetail.ModifiedBy,
+                        LastModifiedDate = garmentCuttingInDetail.ModifiedDate,
+                        PreparingRemainingQuantity = garmentCuttingInDetail.RemainingQuantity,
+                    })
+                }),
+            });
+            return newQuery;
+        }
+
     }
 }

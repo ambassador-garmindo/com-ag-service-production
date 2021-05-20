@@ -144,7 +144,7 @@ namespace Manufactures.Tests.Queries.GarmentCuttingOuts
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAvalComponentReadModel>
 				{
-					new GarmentAvalComponent(guidAvalComponent,"avalComponentNo",new UnitDepartmentId(1),"unitCode","unitName","avalComponentType","ro1","article",new GarmentComodityId(1),"comodityCode","comodityName",DateTimeOffset.Now).GetReadModel()
+					new GarmentAvalComponent(guidAvalComponent,"avalComponentNo",new UnitDepartmentId(1),"unitCode","unitName","avalComponentType","ro1","article",new GarmentComodityId(1),"comodityCode","comodityName",DateTimeOffset.Now, false).GetReadModel()
 				}.AsQueryable());
 			
 			_mockGarmentCuttingOutItemRepository
@@ -157,7 +157,7 @@ namespace Manufactures.Tests.Queries.GarmentCuttingOuts
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentCuttingOutReadModel>
 				{
-					 new GarmentCuttingOut(guidCuttingOut,"cutOutNo", "cuttingOutType",new UnitDepartmentId(1),"unitFromCode","unitFromName",DateTime.Now,"ro","article",new UnitDepartmentId(1),"","",new GarmentComodityId(1),"","").GetReadModel()
+					 new GarmentCuttingOut(guidCuttingOut,"cutOutNo", "cuttingOutType",new UnitDepartmentId(1),"unitFromCode","unitFromName",DateTime.Now,"ro","article",new UnitDepartmentId(1),"","",new GarmentComodityId(1),"","",false).GetReadModel()
 				}.AsQueryable());
 
 			var guidGarmentPreparing = Guid.NewGuid();
@@ -173,7 +173,7 @@ namespace Manufactures.Tests.Queries.GarmentCuttingOuts
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentPreparingItemReadModel>
 				{
-					 new GarmentPreparingItem(garmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,null).GetReadModel()
+					 new GarmentPreparingItem(garmentPreparingItem,1,new Domain.GarmentPreparings.ValueObjects.ProductId(1),"productCode","productName","designColor",1,new Domain.GarmentPreparings.ValueObjects.UomId(1),"uomUnit","fabricType",1,1,guidGarmentPreparing,null,"").GetReadModel()
 				}.AsQueryable());
 
 			// Act

@@ -29,6 +29,7 @@ namespace Manufactures.Domain.GarmentSubconCuttingOuts.Commands
         public double PlanPORemainingQuantity { get; set; }
         public double TotalQty { get; set; }
         public double Price { get; set; }
+        public bool IsUsed { get; set; }
         public List<GarmentSubconCuttingOutItemValueObject> Items { get; set; }
     }
 

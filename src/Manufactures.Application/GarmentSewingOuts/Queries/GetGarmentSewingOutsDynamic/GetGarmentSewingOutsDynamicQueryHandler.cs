@@ -21,12 +21,12 @@ namespace Manufactures.Application.GarmentSewingOuts.Queries.GetGarmentSewingOut
         {
             var query = _garmentSewingOutRepository.ReadDynamic(request.order, request.search, request.select, request.keyword, request.filter);
 
-            var count = query.Count();
+            var total = query.Count();
             var data = query.Skip((request.page - 1) * request.size).Take(request.size).ToDynamicList();
 
             await Task.Yield();
 
-            return new GarmentSewingOutsDynamicViewModel(count, data);
+            return new GarmentSewingOutsDynamicViewModel(total, data);
         }
     }
 }

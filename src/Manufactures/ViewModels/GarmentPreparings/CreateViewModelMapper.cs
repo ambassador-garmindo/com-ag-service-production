@@ -15,7 +15,7 @@ namespace Manufactures.ViewModels.GarmentPreparings
 
         public GarmentPreparingItem MapItem(GarmentPreparingItemDto viewModel, Guid headerId)
         {
-            return new GarmentPreparingItem(Guid.NewGuid(), viewModel.UENItemId, new ProductId(viewModel.Product.Id), viewModel.Product.Code, viewModel.Product.Name, viewModel.DesignColor, (double)viewModel.Quantity, new UomId(viewModel.Uom.Id), viewModel.Uom.Unit, viewModel.FabricType, (double)viewModel.RemainingQuantity, (double)viewModel.BasicPrice, headerId,viewModel.ROSource);
+            return new GarmentPreparingItem(Guid.NewGuid(), viewModel.UENItemId, new ProductId(viewModel.Product.Id), viewModel.Product.Code, viewModel.Product.Name, viewModel.DesignColor, (double)viewModel.Quantity, new UomId(viewModel.Uom.Id), viewModel.Uom.Unit, viewModel.FabricType, (double)viewModel.RemainingQuantity, (double)viewModel.BasicPrice, headerId,viewModel.ROSource, viewModel.CustomsCategory);
         }
     }
 }

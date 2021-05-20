@@ -39,5 +39,10 @@ namespace Barebone.Tests
         {
             return Task.Run(() => new HttpResponseMessage() { Content = new StringContent("{ 'data' : 'Bearer Test' }") });
         }
-    }
+
+		public Task<HttpResponseMessage> SendAsync(HttpMethod method, string url, string token, HttpContent content)
+		{
+			return Task.Run(() => new HttpResponseMessage() { Content = new StringContent("{ 'data' : 'Bearer Test' }") });
+		}
+	}
 }
