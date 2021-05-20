@@ -71,8 +71,6 @@ namespace Manufactures.Application.GarmentPreparings.Queries.GetWIP
             var garmentProductionUri = MasterDataSettings.Endpoint + $"master/garmentProducts/byCode";
             var httpResponse = await _http.SendAsync(HttpMethod.Get, garmentProductionUri, token, httpContent);
 
-
-
             if (httpResponse.IsSuccessStatusCode)
             {
                 var contentString = await httpResponse.Content.ReadAsStringAsync();
@@ -86,15 +84,9 @@ namespace Manufactures.Application.GarmentPreparings.Queries.GetWIP
                         garmentProduct.data.Add(i);
                     }
                     //garmentProduct.data = listdata;
-                
-                
-
             }
 
             return garmentProduct;
-
-
-
         }
 
         class monitoringViewTemp

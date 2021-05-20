@@ -172,8 +172,6 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
                     new GarmentFinishingOut(guidFinishingOut,"",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","","GUDANG JADI",DateTimeOffset.Now,"ro","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","",false).GetReadModel()
                 }.AsQueryable());
 
-
-
             var result = await unitUnderTest.Handle(getMutation, cancellationToken);
 
             // Assert

@@ -26,6 +26,7 @@ using Infrastructure.External.DanLirisClient.Microservice;
 using Infrastructure.External.DanLirisClient.Microservice.MasterResult;
 using Newtonsoft.Json;
 using Manufactures.Domain.GarmentFinishedGoodStocks.Repositories;
+using System.Net.Http;
 
 namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationExpenditureGoods
 {
@@ -91,6 +92,32 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
             public double QtyExpend { get; internal set; }
             public string ComodityCode { get; internal set; }
             public string ComodityName { get; internal set; }
+        }
+
+        public async Task<GarmentProductResult> GetProducts(string codes, string token)
+        {
+            GarmentProductResult garmentProduct = new GarmentProductResult();
+
+            var httpContent = new StringContent(JsonConvert.SerializeObject(codes), Encoding.UTF8, "application/json");
+
+            var garmentProductionUri = MasterDataSettings.Endpoint + $"master/garmentProducts/byCode";
+            var httpResponse = await _http.SendAsync(HttpMethod.Get, garmentProductionUri, token, httpContent);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                var contentString = await httpResponse.Content.ReadAsStringAsync();
+                Dictionary<string, object> content = JsonConvert.DeserializeObject<Dictionary<string, object>>(contentString);
+                var dataString = content.GetValueOrDefault("data").ToString();
+
+                var listdata = JsonConvert.DeserializeObject<List<GarmentProductViewModel>>(dataString);
+
+                foreach (var i in listdata)
+                {
+                    garmentProduct.data.Add(i);
+                }
+            }
+
+            return garmentProduct;
         }
 
         //async Task<CustomsCategory> GetCustomsCategory(List<int> UENItemId, string token)
@@ -168,16 +195,6 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                          join i in garmentPreparingRepository.Query on h.GarmentPreparingId equals i.Identity
                                          where a.RONo == d.RONo && a.RONo == g.RONo && a.RONo == i.RONo
                                          select b.Identity).Distinct().ToList();
-                                         //select new mutationView
-                                         //{
-                                         //   SaldoQtyFin = a.FinishingOutDate.Date < dateFrom.Date ? b.Quantity : 0,
-                                         //   AdjFin = 0,
-                                         //   ComodityCode = b.ProductCode,
-                                         //   ComodityName = b.ProductName,
-                                         //   QtyExpend = 0,
-                                         //   QtyFin = a.FinishingOutDate >= dateFrom ? b.Quantity : 0,
-                                         //   Retur = 0,
-                                         //}).AsEnumerable();
 
             var finishingbarangjadi = from a in (from aa in garmentFinishingOutRepository.Query
                                                  where aa.FinishingOutDate <= dateTo
@@ -204,51 +221,51 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                          Retur = 0,
                                       };
 
-            var adjustinid = (from a in (from aa in garmentAdjustmentRepository.Query
-                                       where aa.AdjustmentDate <= dateTo
-                                       && aa.AdjustmentType == "FINISHING"
-                                       select aa)
-                              join b in garmentAdjustmentItemRepository.Query on a.Identity equals b.AdjustmentId
-                              join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
-                              join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
-                              join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
-                              from f in (from ff in garmentFinishingOutRepository.Query
-                                         where ff.FinishingOutDate <= dateTo
-                                         && ff.FinishingTo == "GUDANG JADI"
-                                         select new
-                                         {
-                                             ff.RONo,
-                                             ff.Identity,
-                                             ff.FinishingOutDate,
-                                             ff.FinishingOutNo
-                                         })
-                              join g in garmentCuttingOutItemRepository.Query on b.ProductCode equals g.ProductCode
-                              join h in (from hh in garmentCuttingOutRepository.Query
-                                         where hh.CuttingOutType == "SEWING"
-                                         select new
-                                         {
-                                             hh.RONo,
-                                             hh.Identity,
-                                             hh.UnitCode,
-                                             hh.CutOutNo
-                                         }) on g.CutOutId equals h.Identity
-                              join i in garmentCuttingInDetailRepository.Query on b.ProductCode equals i.ProductCode
-                              join j in garmentCuttingInItemRepository.Query on i.CutInItemId equals j.Identity
-                              join k in (from kk in garmentCuttingInRepository.Query
-                                         where kk.CuttingFrom == "PREPARING"
-                                         select new
-                                         {
-                                             kk.RONo,
-                                             kk.Identity,
-                                             kk.UnitCode,
-                                             kk.CutInNo
-                                         }) on j.CutInId equals k.Identity
-                              join l in (from ll in garmentPreparingItemRepository.Query
-                                         where ll.CustomsCategory == "LOKAL FASILITAS" || ll.CustomsCategory == "IMPORT FASILITAS"
-                                         select ll) on i.PreparingItemId equals l.Identity
-                              join m in garmentPreparingRepository.Query on l.GarmentPreparingId equals m.Identity
-                              where a.RONo == c.RONo && a.RONo == h.RONo && a.RONo == k.RONo && a.RONo == m.RONo
-                              select b.Identity).Distinct().ToList();
+            //var adjustinid = (from a in (from aa in garmentAdjustmentRepository.Query
+            //                           where aa.AdjustmentDate <= dateTo
+            //                           && aa.AdjustmentType == "FINISHING"
+            //                           select aa)
+            //                  join b in garmentAdjustmentItemRepository.Query on a.Identity equals b.AdjustmentId
+            //                  join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
+            //                  join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
+            //                  join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
+            //                  from f in (from ff in garmentFinishingOutRepository.Query
+            //                             where ff.FinishingOutDate <= dateTo
+            //                             && ff.FinishingTo == "GUDANG JADI"
+            //                             select new
+            //                             {
+            //                                 ff.RONo,
+            //                                 ff.Identity,
+            //                                 ff.FinishingOutDate,
+            //                                 ff.FinishingOutNo
+            //                             })
+            //                  join g in garmentCuttingOutItemRepository.Query on b.ProductCode equals g.ProductCode
+            //                  join h in (from hh in garmentCuttingOutRepository.Query
+            //                             where hh.CuttingOutType == "SEWING"
+            //                             select new
+            //                             {
+            //                                 hh.RONo,
+            //                                 hh.Identity,
+            //                                 hh.UnitCode,
+            //                                 hh.CutOutNo
+            //                             }) on g.CutOutId equals h.Identity
+            //                  join i in garmentCuttingInDetailRepository.Query on b.ProductCode equals i.ProductCode
+            //                  join j in garmentCuttingInItemRepository.Query on i.CutInItemId equals j.Identity
+            //                  join k in (from kk in garmentCuttingInRepository.Query
+            //                             where kk.CuttingFrom == "PREPARING"
+            //                             select new
+            //                             {
+            //                                 kk.RONo,
+            //                                 kk.Identity,
+            //                                 kk.UnitCode,
+            //                                 kk.CutInNo
+            //                             }) on j.CutInId equals k.Identity
+            //                  join l in (from ll in garmentPreparingItemRepository.Query
+            //                             where ll.CustomsCategory == "LOKAL FASILITAS" || ll.CustomsCategory == "IMPORT FASILITAS"
+            //                             select ll) on i.PreparingItemId equals l.Identity
+            //                  join m in garmentPreparingRepository.Query on l.GarmentPreparingId equals m.Identity
+            //                  where a.RONo == c.RONo && a.RONo == h.RONo && a.RONo == k.RONo && a.RONo == m.RONo
+            //                  select b.Identity).Distinct().ToList();
 
             //var adjustoutid = (from a in (from aa in garmentAdjustmentRepository.Query
             //                              where aa.AdjustmentDate <= dateTo
@@ -296,22 +313,22 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
             //                   where a.RONo == c.RONo && a.RONo == h.RONo && a.RONo == k.RONo && a.RONo == m.RONo
             //                   select b.Identity).Distinct().ToList();
 
-            var adjustin = from a in (from aa in garmentAdjustmentRepository.Query
-                                      where aa.AdjustmentDate <= dateTo
-                                      && aa.AdjustmentType == "FINISHING"
-                                      select aa)
-                           join b in garmentAdjustmentItemRepository.Query on a.Identity equals b.AdjustmentId
-                           where adjustinid.Contains(b.Identity)
-                           select new mutationView
-                           {
-                               SaldoQtyFin = a.AdjustmentDate < dateFrom ? b.Quantity : 0,
-                               AdjFin = a.AdjustmentDate >= dateFrom ? b.Quantity : 0,
-                               ComodityCode = b.ProductCode,
-                               ComodityName = b.ProductName,
-                               QtyExpend = 0,
-                               QtyFin = a.AdjustmentDate >= dateFrom ? b.Quantity : 0,
-                               Retur = 0,
-                           };
+            //var adjustin = from a in (from aa in garmentAdjustmentRepository.Query
+            //                          where aa.AdjustmentDate <= dateTo
+            //                          && aa.AdjustmentType == "FINISHING"
+            //                          select aa)
+            //               join b in garmentAdjustmentItemRepository.Query on a.Identity equals b.AdjustmentId
+            //               where adjustinid.Contains(b.Identity)
+            //               select new mutationView
+            //               {
+            //                   SaldoQtyFin = a.AdjustmentDate < dateFrom ? b.Quantity : 0,
+            //                   AdjFin = a.AdjustmentDate >= dateFrom ? b.Quantity : 0,
+            //                   ComodityCode = b.ProductCode,
+            //                   ComodityName = b.ProductName,
+            //                   QtyExpend = 0,
+            //                   QtyFin = a.AdjustmentDate >= dateFrom ? b.Quantity : 0,
+            //                   Retur = 0,
+            //               };
 
             //var adjustout = from a in (from aa in garmentAdjustmentRepository.Query
             //                           where aa.AdjustmentDate <= dateTo
@@ -458,15 +475,11 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                  Retur = 0,
                              };
 
-
-            //var queryNow = adjust.Union(querybalance).Union(returexpend).Union(finishingbarangjadi).Union(factexpend).AsEnumerable();
-            //var queryNow = adjustin.Union(adjustout).Union(returexpend).Union(finishingbarangjadi).Union(factexpend).AsEnumerable();
-            var queryNow = adjustin.Union(returexpend).Union(finishingbarangjadi).Union(factexpend).AsEnumerable();
+            var queryNow = returexpend.Union(finishingbarangjadi).Union(factexpend).AsEnumerable();
 
             var mutationTemp = queryNow.GroupBy(x => new { x.ComodityCode, x.ComodityName }, (key, group) => new
             {
                 kodeBarang = key.ComodityCode,
-                //namaBarang = group.FirstOrDefault().Comodity,
                 namaBarang = key.ComodityName,
                 pemasukan = group.Sum(x => x.Retur + x.QtyFin),
                 pengeluaran = group.Sum(x => x.QtyExpend),
@@ -475,8 +488,13 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                 saldoBuku = group.Sum(x => x.SaldoQtyFin) + group.Sum(x => x.Retur + x.QtyFin) - group.Sum(x => x.QtyExpend),
                 selisih = 0,
                 stockOpname = 0,
-                unitQtyName = "PCS"
+                unitQtyName = "PCS",
+                gudang = "-"
             });
+
+            var productCodeList = string.Join(",", mutationTemp.Select(x => x.kodeBarang).ToList());
+
+            GarmentProductResult productList = await GetProducts(productCodeList, request.token);
 
             foreach (var i in mutationTemp.Where(x => x.saldoAwal != 0 || x.pemasukan != 0 || x.pengeluaran != 0 || x.penyesuaian != 0 || x.stockOpname != 0 || x.saldoBuku != 0))
             {
@@ -484,10 +502,14 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                 //                where a.ComodityCode == i.kodeBarang
                 //                select a.ComodityName).FirstOrDefault();
 
+                var productName = (from a in productList.data
+                                   where a.Code == i.kodeBarang
+                                   select a.Name).FirstOrDefault();
+
                 GarmentMutationExpenditureGoodDto dto = new GarmentMutationExpenditureGoodDto
                 {
                     KodeBarang = i.kodeBarang,
-                    NamaBarang = i.namaBarang,
+                    NamaBarang = productName,
                     Pemasukan = i.pemasukan,
                     Pengeluaran = i.pengeluaran,
                     Penyesuaian = i.penyesuaian,
@@ -495,7 +517,8 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                     SaldoBuku = i.saldoBuku,
                     Selisih = i.selisih,
                     StockOpname = i.stockOpname,
-                    UnitQtyName = i.unitQtyName
+                    UnitQtyName = i.unitQtyName,
+                    Gudang = i.gudang,
                 };
 
                 mutationExpenditureGoodDto.Add(dto);
