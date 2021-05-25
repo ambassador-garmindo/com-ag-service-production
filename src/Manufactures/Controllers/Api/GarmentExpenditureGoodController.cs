@@ -2,6 +2,7 @@
 using Infrastructure.Data.EntityFrameworkCore.Utilities;
 using Manufactures.Application.GarmentExpenditureGoods.Queries;
 using Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationExpenditureGoods;
+using Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFinishedGoods;
 using Manufactures.Application.GarmentExpenditureGoods.Queries.GetReportExpenditureGoods;
 using Manufactures.Domain.GarmentDeliveryReturns.ValueObjects;
 using Manufactures.Domain.GarmentExpenditureGoods;
@@ -329,6 +330,21 @@ namespace Manufactures.Controllers.Api
             var order = await Mediator.Send(command);
 
             return Ok();
+        }
+
+        [HttpGet("in")]
+        public async Task<IActionResult> GetReceiptFinishedGood(DateTime dateFrom, DateTime dateTo, int page = 1, int size = 25, string Order = "{}")
+        {
+            VerifyUser();
+            GetReceiptFinishedGoodsQuery query = new GetReceiptFinishedGoodsQuery(page, size, Order, dateFrom, dateTo, WorkContext.Token);
+            var viewModel = await Mediator.Send(query);
+
+            return Ok(viewModel.garmentGoodsReceipt, info: new
+            {
+                page,
+                size,
+                viewModel.count
+            });
         }
 
         [HttpGet("mutation")]

@@ -354,7 +354,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                  join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
                                  join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
                                  join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
-                                 from f in (from ff in garmentFinishingOutRepository.Query
+                                 join f in (from ff in garmentFinishingOutRepository.Query
                                             where ff.FinishingOutDate <= dateTo
                                             && ff.FinishingTo == "GUDANG JADI"
                                             select new
@@ -363,7 +363,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                                 ff.Identity,
                                                 ff.FinishingOutDate,
                                                 ff.FinishingOutNo
-                                            })
+                                            }) on e.FinishingOutId equals f.Identity
                                  join g in garmentCuttingOutItemRepository.Query on e.ProductCode equals g.ProductCode
                                  join h in (from hh in garmentCuttingOutRepository.Query
                                             where hh.CuttingOutType == "SEWING"

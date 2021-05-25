@@ -1,6 +1,7 @@
 ﻿using Barebone.Tests;
 using Manufactures.Application.GarmentExpenditureGoods.Queries;
 using Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationExpenditureGoods;
+using Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFinishedGoods;
 using Manufactures.Application.GarmentExpenditureGoods.Queries.GetReportExpenditureGoods;
 using Manufactures.Controllers.Api;
 using Manufactures.Domain.GarmentExpenditureGoods;
@@ -156,8 +157,6 @@ namespace Manufactures.Tests.Controllers.Api
             // Assert
             Assert.NotNull(result.GetType().GetProperty("FileStream"));
         }
-
-
 
         [Fact]
         public async Task Post_StateUnderTest_ExpectedBehavior()
@@ -383,6 +382,22 @@ namespace Manufactures.Tests.Controllers.Api
             Assert.Equal((int)HttpStatusCode.InternalServerError, GetStatusCode(result));
         }
 
+        [Fact]
+        public async Task GetReceiptGoods_Return_Success()
+        {
+            // Arrange
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+            Guid ExpenditureGoodGuid = Guid.NewGuid();
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetReceiptFinishedGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GarmentReceiptFinishedGoodListViewModel());
+
+            // Act
+            var result = await unitUnderTest.GetReceiptFinishedGood(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), 1, 25, "{}");
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        }
 
         [Fact]
         public async Task GetMutation_Return_Success()

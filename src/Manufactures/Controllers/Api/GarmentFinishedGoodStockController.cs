@@ -22,8 +22,8 @@ namespace Manufactures.Controllers.Api
 		public GarmentFinishedGoodStockController(IServiceProvider serviceProvider) : base(serviceProvider)
 		{
 			_garmentFinishedGoodStockRepository = Storage.GetRepository<IGarmentFinishedGoodStockRepository>();
-		 
 		}
+
 		[HttpGet]
 		public async Task<IActionResult> Get(int page = 1, int size = 25, string order = "{}", [Bind(Prefix = "Select[]")]List<string> select = null, string keyword = null, string filter = "{}")
 		{
