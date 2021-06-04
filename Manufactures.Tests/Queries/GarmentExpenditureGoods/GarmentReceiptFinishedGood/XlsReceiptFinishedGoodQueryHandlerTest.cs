@@ -36,9 +36,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpenditureGood
+namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentReceiptFinishedGood
 {
-    public class MutationExpenditureGoodQueryHandlerTest : BaseCommandUnitTest
+    public class XlsReceiptFinishedGoodQueryHandlerTest : BaseCommandUnitTest
     {
         private readonly Mock<IGarmentBalanceMonitoringProductionStockFlowRepository> _mockgarmentBalanceMonitoringProductionStockFlowRepository;
         private readonly Mock<IGarmentAdjustmentRepository> _mockgarmentAdjustmentRepository;
@@ -61,7 +61,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
         private readonly Mock<IGarmentPreparingItemRepository> _mockgarmentPreparingItemRepository;
         private Mock<IServiceProvider> serviceProviderMock;
 
-        public MutationExpenditureGoodQueryHandlerTest()
+        public XlsReceiptFinishedGoodQueryHandlerTest()
         {
             _mockgarmentBalanceMonitoringProductionStockFlowRepository = CreateMock<IGarmentBalanceMonitoringProductionStockFlowRepository>();
             _MockStorage.SetupStorage(_mockgarmentBalanceMonitoringProductionStockFlowRepository);
@@ -113,15 +113,15 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
             serviceProviderMock = new Mock<IServiceProvider>();
         }
 
-        private GarmentMutationExpenditureGoodQueryHandler CreateGetMutationQueryHandler()
+        private GetXlsReceiptFinishedGoodsQueryHandler CreateGetXlsReceiptQueryHandler()
         {
-            return new GarmentMutationExpenditureGoodQueryHandler(_MockStorage.Object, serviceProviderMock.Object);
+            return new GetXlsReceiptFinishedGoodsQueryHandler(_MockStorage.Object, serviceProviderMock.Object);
         }
 
         [Fact]
         public async Task Handle_StateUnderTest_ExpectedBehavior()
         {
-            GarmentMutationExpenditureGoodQueryHandler unitUnderTest = CreateGetMutationQueryHandler();
+            GetXlsReceiptFinishedGoodsQueryHandler unitUnderTest = CreateGetXlsReceiptQueryHandler();
             CancellationToken cancellationToken = CancellationToken.None;
 
             Guid guidAdjustment = Guid.NewGuid();
@@ -147,10 +147,10 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
             Guid guidPreparingItem = Guid.NewGuid();
             Guid guidbalance = Guid.NewGuid();
 
-            GetMutationExpenditureGoodsQuery getMutation = new GetMutationExpenditureGoodsQuery(1, 25, "{}", DateTime.Now, DateTime.Now.AddDays(5), "token");
+            GetXlsReceiptFinishedGoodsQuery getXlsReceipt = new GetXlsReceiptFinishedGoodsQuery(1, 25, "{}", DateTime.Now, DateTime.Now.AddDays(5), "token");
 
             _mockgarmentBalanceMonitoringProductionStockFlowRepository
-                .Setup(s=>s.Query)
+                .Setup(s => s.Query)
                 .Returns(new List<GarmentBalanceMonitoringProductionStockReadModel> {
                     new GarmentBalanceMonitoringProductionStocFlow(new GarmentBalanceMonitoringProductionStockReadModel(Guid.NewGuid())).GetReadModel()
                 }.AsQueryable());
@@ -281,11 +281,10 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
                     new GarmentPreparing(guidPreparing,0,"",new Domain.GarmentPreparings.ValueObjects.UnitDepartmentId(1),"","",DateTimeOffset.Now,"ro","article",true,new Domain.Shared.ValueObjects.BuyerId(1),"","").GetReadModel()
                 }.AsQueryable());
 
-            var result = await unitUnderTest.Handle(getMutation, cancellationToken);
+            var result = await unitUnderTest.Handle(getXlsReceipt, cancellationToken);
 
             // Assert
             result.Should().NotBeNull();
-
         }
     }
 }

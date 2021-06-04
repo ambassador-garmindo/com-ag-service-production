@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Infrastructure.External.DanLirisClient.Microservice.HttpClientService;
 using Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationExpenditureGoods;
+using Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFinishedGoods;
 using Manufactures.Domain.GarmentAdjustments.ReadModels;
 using Manufactures.Domain.GarmentAdjustments.Repositories;
 using Manufactures.Domain.GarmentCuttingIns;
@@ -36,9 +37,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpenditureGood
+namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentReceiptFinishedGood
 {
-    public class MutationExpenditureGoodQueryHandlerTest : BaseCommandUnitTest
+    public class ReceiptFinishedGoodQueryHandlerTest : BaseCommandUnitTest
     {
         private readonly Mock<IGarmentBalanceMonitoringProductionStockFlowRepository> _mockgarmentBalanceMonitoringProductionStockFlowRepository;
         private readonly Mock<IGarmentAdjustmentRepository> _mockgarmentAdjustmentRepository;
@@ -61,7 +62,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
         private readonly Mock<IGarmentPreparingItemRepository> _mockgarmentPreparingItemRepository;
         private Mock<IServiceProvider> serviceProviderMock;
 
-        public MutationExpenditureGoodQueryHandlerTest()
+        public ReceiptFinishedGoodQueryHandlerTest()
         {
             _mockgarmentBalanceMonitoringProductionStockFlowRepository = CreateMock<IGarmentBalanceMonitoringProductionStockFlowRepository>();
             _MockStorage.SetupStorage(_mockgarmentBalanceMonitoringProductionStockFlowRepository);
@@ -113,15 +114,15 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
             serviceProviderMock = new Mock<IServiceProvider>();
         }
 
-        private GarmentMutationExpenditureGoodQueryHandler CreateGetMutationQueryHandler()
+        private GarmentReceiptFinishedGoodQueryHandler CreateGetReceiptQueryHandler()
         {
-            return new GarmentMutationExpenditureGoodQueryHandler(_MockStorage.Object, serviceProviderMock.Object);
+            return new GarmentReceiptFinishedGoodQueryHandler(_MockStorage.Object, serviceProviderMock.Object);
         }
 
         [Fact]
         public async Task Handle_StateUnderTest_ExpectedBehavior()
         {
-            GarmentMutationExpenditureGoodQueryHandler unitUnderTest = CreateGetMutationQueryHandler();
+            GarmentReceiptFinishedGoodQueryHandler unitUnderTest = CreateGetReceiptQueryHandler();
             CancellationToken cancellationToken = CancellationToken.None;
 
             Guid guidAdjustment = Guid.NewGuid();
@@ -147,13 +148,13 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
             Guid guidPreparingItem = Guid.NewGuid();
             Guid guidbalance = Guid.NewGuid();
 
-            GetMutationExpenditureGoodsQuery getMutation = new GetMutationExpenditureGoodsQuery(1, 25, "{}", DateTime.Now, DateTime.Now.AddDays(5), "token");
+            GetReceiptFinishedGoodsQuery getReceipt = new GetReceiptFinishedGoodsQuery(1, 25, "{}", DateTime.Now, DateTime.Now.AddDays(5), "token");
 
             _mockgarmentBalanceMonitoringProductionStockFlowRepository
-                .Setup(s=>s.Query)
-                .Returns(new List<GarmentBalanceMonitoringProductionStockReadModel> {
+                            .Setup(s => s.Query)
+                            .Returns(new List<GarmentBalanceMonitoringProductionStockReadModel> {
                     new GarmentBalanceMonitoringProductionStocFlow(new GarmentBalanceMonitoringProductionStockReadModel(Guid.NewGuid())).GetReadModel()
-                }.AsQueryable());
+                            }.AsQueryable());
 
             _mockgarmentAdjustmentItemRepository
                 .Setup(s => s.Query)
@@ -281,7 +282,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
                     new GarmentPreparing(guidPreparing,0,"",new Domain.GarmentPreparings.ValueObjects.UnitDepartmentId(1),"","",DateTimeOffset.Now,"ro","article",true,new Domain.Shared.ValueObjects.BuyerId(1),"","").GetReadModel()
                 }.AsQueryable());
 
-            var result = await unitUnderTest.Handle(getMutation, cancellationToken);
+            var result = await unitUnderTest.Handle(getReceipt, cancellationToken);
 
             // Assert
             result.Should().NotBeNull();

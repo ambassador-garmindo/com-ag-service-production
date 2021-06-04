@@ -400,6 +400,33 @@ namespace Manufactures.Tests.Controllers.Api
         }
 
         [Fact]
+        public async Task GetXLSReceiptGoodsBehavior()
+        {
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsReceiptFinishedGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new MemoryStream());
+
+            var result = await unitUnderTest.GetXlsReceiptFinishedGood(DateTime.Now, DateTime.Now, 1, 25, "{}");
+            Assert.Equal("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.GetType().GetProperty("ContentType").GetValue(result, null));
+        }
+
+        [Fact]
+        public async Task GetReceiptGoodsXLS_Throws_InternalServerError()
+        {
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsReceiptFinishedGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .Throws(new Exception());
+
+            var result = await unitUnderTest.GetXlsReceiptFinishedGood(DateTime.Now, DateTime.Now, 1, 25, "{}");
+            Assert.Equal((int)HttpStatusCode.InternalServerError, GetStatusCode(result));
+        }
+
+
+        [Fact]
         public async Task GetMutation_Return_Success()
         {
             // Arrange
