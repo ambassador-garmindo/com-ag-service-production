@@ -67,6 +67,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFin
 
         class receiptView
         {
+            public string Identity { get; internal set; }
             public string BonNo { get; internal set; }
             public DateTimeOffset BonDate { get; internal set; }
             public string ComodityCode { get; internal set; }
@@ -110,8 +111,8 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFin
             DateTimeOffset dateTo = new DateTimeOffset(request.dateTo, new TimeSpan(7, 0, 0));
 
             var finishingbarangjadiid = (from a in (from aa in garmentFinishingOutRepository.Query
-                                                    where aa.FinishingOutDate <= dateTo
-                                                    && aa.FinishingOutDate >= dateFrom
+                                                    where aa.FinishingOutDate.AddHours(7).Date <= dateTo.Date
+                                                    && aa.FinishingOutDate.AddHours(7).Date >= dateFrom.Date
                                                     && aa.FinishingTo == "GUDANG JADI"
                                                     && aa.Deleted == false
                                                     select new
@@ -151,9 +152,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFin
                                          select b.Identity).Distinct().ToList();
 
             var finishingbarangjadi = from a in (from aa in garmentFinishingOutRepository.Query
-                                                 where aa.FinishingOutDate <= dateTo
-                                                 && aa.FinishingOutDate >= dateFrom
-                                                 && aa.FinishingTo == "GUDANG JADI"
+                                                 where aa.FinishingTo == "GUDANG JADI"
                                                  && aa.Deleted == false
                                                  select new
                                                  {
@@ -183,16 +182,15 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFin
                                       };
 
             var returexpendid = (from a in (from aa in garmentExpenditureGoodReturnRepository.Query
-                                            where aa.ReturDate <= dateTo
-                                            && aa.ReturDate >= dateFrom
+                                            where aa.ReturDate.AddHours(7).Date <= dateTo.Date
+                                            && aa.ReturDate.AddHours(7).Date >= dateFrom.Date
                                             select aa)
                                  join b in garmentExpenditureGoodReturnItemRepository.Query on a.Identity equals b.ReturId
                                  join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
                                  join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
                                  join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
                                  join f in (from ff in garmentFinishingOutRepository.Query
-                                            where ff.FinishingOutDate <= dateTo
-                                            && ff.FinishingTo == "GUDANG JADI"
+                                            where ff.FinishingTo == "GUDANG JADI"
                                             select new
                                             {
                                                 ff.RONo,
@@ -228,30 +226,56 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFin
                                  where a.RONo == c.RONo && a.RONo == h.RONo && a.RONo == k.RONo && a.RONo == m.RONo
                                  select b.Identity).Distinct().ToList();
 
-            var returexpend = from a in (from aa in garmentExpenditureGoodReturnRepository.Query
-                                         where aa.ReturDate <= dateTo
-                                         select aa)
-                              join b in garmentExpenditureGoodReturnItemRepository.Query on a.Identity equals b.ReturId
-                              join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
-                              join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
-                              join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
-                              join f in garmentFinishingInItemRepository.Query on e.FinishingInItemId equals f.Identity
-                              join g in garmentFinishingInRepository.Query on f.FinishingInId equals g.Identity
-                              where returexpendid.Contains(b.Identity)
-                              && a.Deleted == false
-                              && b.Deleted == false
-                              && (g.FinishingInType == "SEWING" || g.FinishingInType == "PEMBELIAN")
-                              select new receiptView
-                              {
-                                  BonNo = a.ReturNo,
-                                  BonDate = a.ReturDate,
-                                  ComodityCode = a.ComodityCode,
-                                  //ComodityName = a.ComodityName,
-                                  QtyProcess = g.FinishingInType == "SEWING" ? b.Quantity : 0,
-                                  QtySubcon = g.FinishingInType == "PEMBELIAN" ? b.Quantity : 0
-                              };
+            //var finishedgoodstock = (from a in garmentFinishedGoodStockRepository.Query
+            //                         join b in garmentFinishedGoodStockHistoryRepository.Query on a.Identity equals b.FinishedGoodStockId
+            //                         where b.StockType == "IN"
+            //                         select new {
+            //                             FinishedGoodStockId = a.Identity,
+            //                             FinishingOutItemId = b.FinishingOutItemId
+            //                         });
+
+            //finishedgoodstock.GroupBy(x => new { x.FinishedGoodStockId, x.FinishingOutItemId }, (key, group) => new
+            //{
+            //    FinishedGoodStockId = key.FinishedGoodStockId,
+            //    FinishedOutItemId = key.FinishingOutItemId
+            //});
+
+            var returexpend = (from a in garmentExpenditureGoodReturnRepository.Query
+                               join b in garmentExpenditureGoodReturnItemRepository.Query on a.Identity equals b.ReturId
+                               where returexpendid.Contains(b.Identity)
+                               && a.Deleted == false
+                               && b.Deleted == false
+                               select new receiptView
+                               {
+                                   BonNo = a.ReturNo,
+                                   BonDate = a.ReturDate,
+                                   ComodityCode = a.ComodityCode,
+                                   //ComodityName = a.ComodityName,
+                                   QtyProcess = b.Quantity,
+                                   QtySubcon = 0
+                               });
+            //var returexpend = (from a in garmentExpenditureGoodReturnRepository.Query
+            //                   join b in garmentExpenditureGoodReturnItemRepository.Query on a.Identity equals b.ReturId
+            //                   join c in finishedgoodstock on b.FinishedGoodStockId equals c.FinishedGoodStockId
+            //                   join e in garmentFinishingOutItemRepository.Query on c.FinishingOutItemId equals e.Identity
+            //                   join f in garmentFinishingInItemRepository.Query on e.FinishingInItemId equals f.Identity
+            //                   join g in garmentFinishingInRepository.Query on f.FinishingInId equals g.Identity
+            //                   where returexpendid.Contains(b.Identity)
+            //                   && a.Deleted == false
+            //                   && b.Deleted == false
+            //                   && (g.FinishingInType == "SEWING" || g.FinishingInType == "PEMBELIAN")
+            //                   select new receiptView
+            //                   {
+            //                      BonNo = a.ReturNo,
+            //                      BonDate = a.ReturDate,
+            //                      ComodityCode = a.ComodityCode,
+            //                      //ComodityName = a.ComodityName,
+            //                      QtyProcess = g.FinishingInType == "SEWING" ? b.Quantity : 0,
+            //                      QtySubcon = g.FinishingInType == "PEMBELIAN" ? b.Quantity : 0
+            //                   });
 
             var queryNow = returexpend.Union(finishingbarangjadi).AsEnumerable();
+            //var queryNow = finishingbarangjadi.AsEnumerable();
 
             var queryTemp = queryNow.GroupBy(x => new { x.BonNo, x.BonDate, x.ComodityCode }, (key, group) => new
             {
@@ -265,7 +289,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFin
                 //gudang = "-"
             });
 
-            foreach (var i in queryTemp.Where(x => x.qtyProcess != 0 || x.qtySubcon != 0))
+            foreach (var i in queryTemp/*.Where(x => x.qtyProcess != 0 || x.qtySubcon != 0)*/)
             {
                 var comodity = (from a in garmentCuttingOutRepository.Query
                                 where a.ComodityCode == i.kodeBarang

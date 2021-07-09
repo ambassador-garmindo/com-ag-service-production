@@ -116,8 +116,8 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
             DateTimeOffset dateTo = new DateTimeOffset(request.dateTo, new TimeSpan(7, 0, 0));
 
             var finishingbarangjadiid = (from a in (from aa in garmentFinishingOutRepository.Query
-                                                    where aa.FinishingOutDate <= dateTo
-                                                    && aa.FinishingOutDate >= dateFrom
+                                                    where aa.FinishingOutDate.AddHours(7).Date <= dateTo.Date
+                                                    && aa.FinishingOutDate.AddHours(7).Date >= dateFrom.Date
                                                     && aa.FinishingTo == "GUDANG JADI"
                                                     && aa.Deleted == false
                                                     select new
@@ -157,9 +157,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                          select b.Identity).Distinct().ToList();
 
             var finishingbarangjadi = from a in (from aa in garmentFinishingOutRepository.Query
-                                                 where aa.FinishingOutDate <= dateTo
-                                                 && aa.FinishingOutDate >= dateFrom
-                                                 && aa.FinishingTo == "GUDANG JADI"
+                                                 where aa.FinishingTo == "GUDANG JADI"
                                                  && aa.Deleted == false
                                                  select new
                                                  {
@@ -189,8 +187,8 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                       };
 
             var returexpendid = (from a in (from aa in garmentExpenditureGoodReturnRepository.Query
-                                            where aa.ReturDate <= dateTo
-                                            && aa.ReturDate >= dateFrom
+                                            where aa.ReturDate.AddHours(7).Date <= dateTo.Date
+                                            && aa.ReturDate.AddHours(7).Date >= dateFrom.Date
                                             select aa)
                                  join b in garmentExpenditureGoodReturnItemRepository.Query on a.Identity equals b.ReturId
                                  join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
@@ -234,27 +232,25 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                  where a.RONo == c.RONo && a.RONo == h.RONo && a.RONo == k.RONo && a.RONo == m.RONo
                                  select b.Identity).Distinct().ToList();
 
-            var returexpend = from a in (from aa in garmentExpenditureGoodReturnRepository.Query
-                                         where aa.ReturDate <= dateTo
-                                         select aa)
+            var returexpend = from a in garmentExpenditureGoodReturnRepository.Query
                               join b in garmentExpenditureGoodReturnItemRepository.Query on a.Identity equals b.ReturId
-                              join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
-                              join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
-                              join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
-                              join f in garmentFinishingInItemRepository.Query on e.FinishingInItemId equals f.Identity
-                              join g in garmentFinishingInRepository.Query on f.FinishingInId equals g.Identity
+                              //join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
+                              //join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
+                              //join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
+                              //join f in garmentFinishingInItemRepository.Query on e.FinishingInItemId equals f.Identity
+                              //join g in garmentFinishingInRepository.Query on f.FinishingInId equals g.Identity
                               where returexpendid.Contains(b.Identity)
                               && a.Deleted == false
                               && b.Deleted == false
-                              && (g.FinishingInType == "SEWING" || g.FinishingInType == "PEMBELIAN")
+                              //&& (g.FinishingInType == "SEWING" || g.FinishingInType == "PEMBELIAN")
                               select new receiptView
                               {
                                   BonNo = a.ReturNo,
                                   BonDate = a.ReturDate,
                                   ComodityCode = a.ComodityCode,
                                   //ComodityName = a.ComodityName,
-                                  QtyProcess = g.FinishingInType == "SEWING" ? b.Quantity : 0,
-                                  QtySubcon = g.FinishingInType == "PEMBELIAN" ? b.Quantity : 0
+                                  QtyProcess = b.Quantity,
+                                  QtySubcon = 0
                               };
 
             var queryNow = returexpend.Union(finishingbarangjadi).AsEnumerable();

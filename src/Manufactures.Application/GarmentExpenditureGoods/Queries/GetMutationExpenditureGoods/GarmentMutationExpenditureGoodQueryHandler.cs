@@ -197,8 +197,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                          select b.Identity).Distinct().ToList();
 
             var finishingbarangjadi = from a in (from aa in garmentFinishingOutRepository.Query
-                                                 where aa.FinishingOutDate.AddHours(7).Date <= dateTo.Date
-                                                 && aa.FinishingTo == "GUDANG JADI"
+                                                 where aa.FinishingTo == "GUDANG JADI"
                                                  && aa.Deleted == false
                                                  select new
                                                  {
@@ -221,7 +220,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                          ComodityCode = a.ComodityCode,
                                          ComodityName = a.ComodityName,
                                          QtyExpend = 0,
-                                         QtyFin = a.FinishingOutDate.AddHours(7).Date >= dateFrom.Date ? b.Quantity : 0,
+                                         QtyFin = a.FinishingOutDate.AddHours(7).Date >= dateFrom.Date && a.FinishingOutDate.AddHours(7).Date <= dateTo.Date ? b.Quantity : 0,
                                          Retur = 0,
                                       };
 
@@ -359,9 +358,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                  join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
                                  join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
                                  join f in (from ff in garmentFinishingOutRepository.Query
-                                            where 
-                                            //ff.FinishingOutDate.AddHours(7).Date <= dateTo.Date
-                                            ff.FinishingTo == "GUDANG JADI"
+                                            where ff.FinishingTo == "GUDANG JADI"
                                             select new
                                             {
                                                 ff.RONo,
@@ -397,9 +394,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                  where a.RONo == c.RONo && a.RONo == h.RONo && a.RONo == k.RONo && a.RONo == m.RONo
                                  select b.Identity).Distinct().ToList();
 
-            var returexpend = from a in (from aa in garmentExpenditureGoodReturnRepository.Query
-                                         where aa.ReturDate.AddHours(7).Date <= dateTo
-                                         select aa)
+            var returexpend = from a in garmentExpenditureGoodReturnRepository.Query
                               join b in garmentExpenditureGoodReturnItemRepository.Query on a.Identity equals b.ReturId
                               //join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
                               //join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
@@ -409,26 +404,22 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                               {
                                   SaldoQtyFin = a.ReturDate.AddHours(7).Date < dateFrom.Date ? b.Quantity : 0,
                                   AdjFin = 0,
-                                  //ComodityCode = e.ProductCode,
-                                  //ComodityName = e.ProductName,
                                   ComodityCode = a.ComodityCode,
                                   ComodityName = a.ComodityName,
                                   QtyExpend = 0,
                                   QtyFin = 0,
-                                  Retur = a.ReturDate.AddHours(7).Date >= dateFrom.Date ? b.Quantity : 0
+                                  Retur = a.ReturDate.AddHours(7).Date >= dateFrom.Date && a.ReturDate.AddHours(7).Date <= dateTo.Date ? b.Quantity : 0
                               };
 
             var factexpendid = (from a in (from aa in garmentExpenditureGoodRepository.Query
-                                           where aa.ExpenditureDate <= dateTo
+                                           where aa.ExpenditureDate.AddHours(7).Date <= dateTo.Date
                                            select aa)
                                 join b in garmentExpenditureGoodItemRepository.Query on a.Identity equals b.ExpenditureGoodId
                                 join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
                                 join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
                                 join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
                                 from f in (from ff in garmentFinishingOutRepository.Query
-                                           where 
-                                           //ff.FinishingOutDate.AddHours(7).Date <= dateTo.Date
-                                           ff.FinishingTo == "GUDANG JADI"
+                                           where ff.FinishingTo == "GUDANG JADI"
                                            select new
                                            {
                                               ff.RONo,
@@ -464,24 +455,19 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                 where a.RONo == c.RONo && a.RONo == h.RONo && a.RONo == k.RONo && a.RONo == m.RONo
                                 select b.Identity).Distinct().ToList();
 
-            var factexpend = from a in (from aa in garmentExpenditureGoodRepository.Query
-                                        where aa.ExpenditureDate.AddHours(7).Date <= dateTo.Date
-                                        select aa)
+            var factexpend = from a in garmentExpenditureGoodRepository.Query
                              join b in garmentExpenditureGoodItemRepository.Query on a.Identity equals b.ExpenditureGoodId
                              //join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
                              //join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
                              //join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
                              where factexpendid.Contains(b.Identity)
-                             //&& d.StockType == "OUT"
                              select new mutationView
                              {
                                  SaldoQtyFin = a.ExpenditureDate.AddHours(7).Date < dateFrom.Date ? -b.Quantity : 0,
                                  AdjFin = 0,
-                                 //ComodityCode = e.ProductCode,
-                                 //ComodityName = e.ProductName,
                                  ComodityCode = a.ComodityCode,
                                  ComodityName = a.ComodityName,
-                                 QtyExpend = a.ExpenditureDate.AddHours(7).Date >= dateFrom.Date ? b.Quantity : 0,
+                                 QtyExpend = a.ExpenditureDate.AddHours(7).Date >= dateFrom.Date && a.ExpenditureDate.AddHours(7).Date <= dateTo.Date ? b.Quantity : 0,
                                  QtyFin = 0,
                                  Retur = 0,
                              };
@@ -507,7 +493,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
 
             //GarmentProductResult productList = await GetProducts(productCodeList, request.token);
 
-            foreach (var i in mutationTemp.Where(x => x.saldoAwal != 0 || x.pemasukan != 0 || x.pengeluaran != 0 || x.penyesuaian != 0 || x.stockOpname != 0 || x.saldoBuku != 0))
+            foreach (var i in mutationTemp/*.Where(x => x.saldoAwal != 0 || x.pemasukan != 0 || x.pengeluaran != 0 || x.penyesuaian != 0 || x.stockOpname != 0 || x.saldoBuku != 0)*/)
             {
                 var comodity = (from a in garmentCuttingOutRepository.Query
                                 where a.ComodityCode == i.kodeBarang
