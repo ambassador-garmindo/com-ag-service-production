@@ -237,6 +237,130 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                           Retur = 0,
                                       };
 
+            var adjustinid = (from a in (from aa in garmentAdjustmentRepository.Query
+                                         where aa.AdjustmentDate.AddHours(7).Date <= dateTo.Date
+                                         && aa.AdjustmentType == "FINISHING"
+                                         select aa)
+                              join b in garmentAdjustmentItemRepository.Query on a.Identity equals b.AdjustmentId
+                              join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
+                              join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
+                              join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
+                              from f in (from ff in garmentFinishingOutRepository.Query
+                                         where ff.FinishingTo == "GUDANG JADI"
+                                         select new
+                                         {
+                                             ff.RONo,
+                                             ff.Identity,
+                                             ff.FinishingOutDate,
+                                             ff.FinishingOutNo
+                                         })
+                              join g in garmentCuttingOutItemRepository.Query on b.ProductCode equals g.ProductCode
+                              join h in (from hh in garmentCuttingOutRepository.Query
+                                         where hh.CuttingOutType == "SEWING"
+                                         select new
+                                         {
+                                             hh.RONo,
+                                             hh.Identity,
+                                             hh.UnitCode,
+                                             hh.CutOutNo
+                                         }) on g.CutOutId equals h.Identity
+                              join i in garmentCuttingInDetailRepository.Query on b.ProductCode equals i.ProductCode
+                              join j in garmentCuttingInItemRepository.Query on i.CutInItemId equals j.Identity
+                              join k in (from kk in garmentCuttingInRepository.Query
+                                         where kk.CuttingFrom == "PREPARING"
+                                         select new
+                                         {
+                                             kk.RONo,
+                                             kk.Identity,
+                                             kk.UnitCode,
+                                             kk.CutInNo
+                                         }) on j.CutInId equals k.Identity
+                              join l in (from ll in garmentPreparingItemRepository.Query
+                                         where ll.CustomsCategory == "LOKAL FASILITAS" || ll.CustomsCategory == "IMPORT FASILITAS"
+                                         select ll) on i.PreparingItemId equals l.Identity
+                              join m in garmentPreparingRepository.Query on l.GarmentPreparingId equals m.Identity
+                              where a.RONo == c.RONo && a.RONo == h.RONo && a.RONo == k.RONo && a.RONo == m.RONo
+                              select b.Identity).Distinct().ToList();
+
+            var adjustoutid = (from a in (from aa in garmentAdjustmentRepository.Query
+                                          where aa.AdjustmentDate.AddHours(7).Date <= dateTo.Date
+                                          && aa.AdjustmentType == "BARANG JADI"
+                                          select aa)
+                               join b in garmentAdjustmentItemRepository.Query on a.Identity equals b.AdjustmentId
+                               join c in garmentFinishedGoodStockRepository.Query on b.FinishedGoodStockId equals c.Identity
+                               join d in garmentFinishedGoodStockHistoryRepository.Query on c.Identity equals d.FinishedGoodStockId
+                               join e in garmentFinishingOutItemRepository.Query on d.FinishingOutItemId equals e.Identity
+                               from f in (from ff in garmentFinishingOutRepository.Query
+                                          where ff.FinishingTo == "GUDANG JADI"
+                                          select new
+                                          {
+                                              ff.RONo,
+                                              ff.Identity,
+                                              ff.FinishingOutDate,
+                                              ff.FinishingOutNo
+                                          })
+                               join g in garmentCuttingOutItemRepository.Query on b.ProductCode equals g.ProductCode
+                               join h in (from hh in garmentCuttingOutRepository.Query
+                                          where hh.CuttingOutType == "SEWING"
+                                          select new
+                                          {
+                                              hh.RONo,
+                                              hh.Identity,
+                                              hh.UnitCode,
+                                              hh.CutOutNo
+                                          }) on g.CutOutId equals h.Identity
+                               join i in garmentCuttingInDetailRepository.Query on b.ProductCode equals i.ProductCode
+                               join j in garmentCuttingInItemRepository.Query on i.CutInItemId equals j.Identity
+                               join k in (from kk in garmentCuttingInRepository.Query
+                                          where kk.CuttingFrom == "PREPARING"
+                                          select new
+                                          {
+                                              kk.RONo,
+                                              kk.Identity,
+                                              kk.UnitCode,
+                                              kk.CutInNo
+                                          }) on j.CutInId equals k.Identity
+                               join l in (from ll in garmentPreparingItemRepository.Query
+                                          where ll.CustomsCategory == "LOKAL FASILITAS" || ll.CustomsCategory == "IMPORT FASILITAS"
+                                          select ll) on i.PreparingItemId equals l.Identity
+                               join m in garmentPreparingRepository.Query on l.GarmentPreparingId equals m.Identity
+                               where a.RONo == c.RONo && a.RONo == h.RONo && a.RONo == k.RONo && a.RONo == m.RONo
+                               select b.Identity).Distinct().ToList();
+
+            var adjustin = from a in (from aa in garmentAdjustmentRepository.Query
+                                      where aa.AdjustmentDate.AddHours(7).Date <= dateTo.Date
+                                      && aa.AdjustmentType == "FINISHING"
+                                      select aa)
+                           join b in garmentAdjustmentItemRepository.Query on a.Identity equals b.AdjustmentId
+                           where adjustinid.Contains(b.Identity)
+                           select new mutationView
+                           {
+                               SaldoQtyFin = a.AdjustmentDate.AddHours(7).Date < dateFrom.Date ? b.Quantity : 0,
+                               AdjFin = a.AdjustmentDate.AddHours(7).Date >= dateFrom.Date && a.AdjustmentDate.AddHours(7).Date <= dateTo.Date ? b.Quantity : 0,
+                               ComodityCode = b.ProductCode,
+                               ComodityName = b.ProductName,
+                               QtyExpend = 0,
+                               QtyFin = a.AdjustmentDate.AddHours(7).Date >= dateFrom.Date && a.AdjustmentDate.AddHours(7).Date <= dateTo.Date ? b.Quantity : 0,
+                               Retur = 0,
+                           };
+
+            var adjustout = from a in (from aa in garmentAdjustmentRepository.Query
+                                       where aa.AdjustmentDate.AddHours(7).Date <= dateTo.Date
+                                       && aa.AdjustmentType == "BARANG JADI"
+                                       select aa)
+                            join b in garmentAdjustmentItemRepository.Query on a.Identity equals b.AdjustmentId
+                            where adjustoutid.Contains(b.Identity)
+                            select new mutationView
+                            {
+                                SaldoQtyFin = a.AdjustmentDate.AddHours(7).Date < dateFrom.Date ? b.Quantity : 0,
+                                AdjFin = a.AdjustmentDate.AddHours(7).Date >= dateFrom.Date && a.AdjustmentDate.AddHours(7).Date <= dateTo.Date ? b.Quantity : 0,
+                                ComodityCode = b.ProductCode,
+                                ComodityName = b.ProductName,
+                                QtyExpend = a.AdjustmentDate.AddHours(7).Date >= dateFrom.Date && a.AdjustmentDate.AddHours(7).Date <= dateTo.Date ? b.Quantity : 0,
+                                QtyFin = 0,
+                                Retur = 0,
+                            };
+
             var returexpendid = (from a in (from aa in garmentExpenditureGoodReturnRepository.Query
                                             where aa.ReturDate.AddHours(7).Date <= dateTo.Date
                                             select aa)
@@ -361,7 +485,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationEx
                                  Retur = 0,
                              };
 
-            var queryNow = returexpend.Union(finishingbarangjadi).Union(factexpend).AsEnumerable();
+            var queryNow = returexpend.Union(finishingbarangjadi).Union(factexpend).Union(adjustin).Union(adjustout).AsEnumerable();
 
             var mutationTemp = queryNow.GroupBy(x => new { x.ComodityCode, x.ComodityName }, (key, group) => new
             {
