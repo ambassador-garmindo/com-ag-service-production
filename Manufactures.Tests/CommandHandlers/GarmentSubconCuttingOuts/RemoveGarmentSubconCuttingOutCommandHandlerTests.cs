@@ -74,7 +74,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentSubconCuttingOuts
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentCuttingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentSubconCuttingOutItem>()
                 {
-                    new GarmentSubconCuttingOutItem(Guid.Empty, cuttingInGuid, cuttingInDetailGuid, cuttingOutGuid,new ProductId(1), null, null, null, 0)
+                    new GarmentSubconCuttingOutItem(Guid.Empty, cuttingInGuid, cuttingInDetailGuid, cuttingOutGuid,new ProductId(1), null, null, null, null, 0)
                 });
 
             _mockSubconCuttingOutDetailRepository

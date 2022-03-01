@@ -103,7 +103,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentFinishingOuts
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentFinishingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentFinishingOutItem>()
                 {
-                    new GarmentFinishingOutItem(Guid.Empty, finishingOutGuid, Guid.Empty,finishingInItemGuid,new ProductId(1),null,null,null,new SizeId(1), null, 1, new UomId(1), null,null, 1,1,1)
+                    new GarmentFinishingOutItem(Guid.Empty, finishingOutGuid, Guid.Empty,finishingInItemGuid,new ProductId(1),null,null,null,null,new SizeId(1), null, 1, new UomId(1), null,null, 1,1,1)
                 });
             _mockFinishingOutDetailRepository
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentFinishingOutDetailReadModel, bool>>>()))

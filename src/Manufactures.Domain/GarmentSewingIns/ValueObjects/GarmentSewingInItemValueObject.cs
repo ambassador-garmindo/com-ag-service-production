@@ -16,6 +16,7 @@ namespace Manufactures.Domain.GarmentSewingIns.ValueObjects
         public Guid FinishingOutItemId { get; set; }
         public Guid FinishingOutDetailId { get; set; }
         public Product Product { get; set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get; set; }
         public SizeValueObject Size { get; set; }
         public double Quantity { get; set; }

@@ -18,6 +18,7 @@ namespace Manufactures.Domain.GarmentCuttingOuts.ReadModels
         public int ProductId { get; internal set; }
         public string ProductCode { get; internal set; }
         public string ProductName { get; internal set; }
+        public string CustomsCategory { get; internal set; }
         public string DesignColor { get; internal set; }
         public double TotalCuttingOut { get; internal set; }
 		public string UId { get; private set; }

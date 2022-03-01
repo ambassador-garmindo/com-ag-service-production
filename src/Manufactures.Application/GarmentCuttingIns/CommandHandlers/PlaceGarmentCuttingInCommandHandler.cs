@@ -84,6 +84,7 @@ namespace Manufactures.Application.GarmentCuttingIns.CommandHandlers
                             detail.Product.Name,
                             detail.DesignColor,
                             detail.FabricType,
+                            detail.CustomsCategory,
                             detail.PreparingQuantity,
                             new UomId(detail.PreparingUom.Id),
                             detail.PreparingUom.Unit,

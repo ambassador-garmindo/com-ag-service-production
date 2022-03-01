@@ -185,6 +185,7 @@ namespace Manufactures.Controllers.Api
             return Ok(order.Identity);
 
         }
+
 		[HttpGet("monitoring")]
 		public async Task<IActionResult> GetMonitoring(int unit, DateTime dateFrom, DateTime dateTo, int page = 1, int size = 25, string Order = "{}")
 		{
@@ -199,6 +200,7 @@ namespace Manufactures.Controllers.Api
 				viewModel.count
 			});
 		}
+
 		[HttpGet("complete")]
         public async Task<IActionResult> GetComplete(int page = 1, int size = 25, string order = "{}", [Bind(Prefix = "Select[]")]List<string> select = null, string keyword = null, string filter = "{}")
         {
@@ -461,6 +463,16 @@ namespace Manufactures.Controllers.Api
 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
+        }
+
+        [HttpGet("basic-price")]
+        public async Task<IActionResult> GetBasicPriceByRONo(string keyword = null, string filter = "{}")
+        {
+            VerifyUser();
+
+            var query = _garmentExpenditureGoodRepository.BasicPriceByRO(keyword, filter);
+
+            return Ok(query);
         }
     }
 }

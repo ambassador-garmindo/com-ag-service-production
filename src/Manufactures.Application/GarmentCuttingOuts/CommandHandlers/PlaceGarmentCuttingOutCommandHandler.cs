@@ -95,6 +95,7 @@ namespace Manufactures.Application.GarmentCuttingOuts.CommandHandlers
                     new ProductId(item.Product.Id),
                     item.Product.Code,
                     item.Product.Name,
+                    item.CustomsCategory,
                     item.DesignColor,
                     item.TotalCuttingOutQuantity
                 );
@@ -136,6 +137,7 @@ namespace Manufactures.Application.GarmentCuttingOuts.CommandHandlers
                         new ProductId(item.Product.Id),
                         item.Product.Code,
                         item.Product.Name,
+                        garmentCuttingOutItem.CustomsCategory,
                         item.DesignColor,
                         new SizeId(detail.Size.Id),
                         detail.Size.Size,

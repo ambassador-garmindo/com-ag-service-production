@@ -37,6 +37,8 @@ namespace DanLiris.Admin.Web.Migrations
 
                     b.Property<DateTimeOffset>("CreatedDate");
 
+                    b.Property<string>("CustomsCategory");
+
                     b.Property<bool?>("Deleted");
 
                     b.Property<string>("DeletedBy")
@@ -320,6 +322,8 @@ namespace DanLiris.Admin.Web.Migrations
                         .HasMaxLength(32);
 
                     b.Property<DateTimeOffset>("CreatedDate");
+
+                    b.Property<string>("CustomsCategory");
 
                     b.Property<bool?>("Deleted");
 
@@ -663,6 +667,8 @@ namespace DanLiris.Admin.Web.Migrations
 
                     b.Property<DateTimeOffset>("CreatedDate");
 
+                    b.Property<string>("CustomsCategory");
+
                     b.Property<Guid>("CutInItemId");
 
                     b.Property<int>("CuttingInQuantity");
@@ -990,6 +996,8 @@ namespace DanLiris.Admin.Web.Migrations
 
                     b.Property<DateTimeOffset>("CreatedDate");
 
+                    b.Property<string>("CustomsCategory");
+
                     b.Property<Guid>("CutOutId");
 
                     b.Property<Guid>("CuttingInDetailId");
@@ -1276,6 +1284,8 @@ namespace DanLiris.Admin.Web.Migrations
 
                     b.Property<DateTimeOffset>("CreatedDate");
 
+                    b.Property<string>("CustomsCategory");
+
                     b.Property<bool?>("Deleted");
 
                     b.Property<string>("DeletedBy")
@@ -1422,6 +1432,8 @@ namespace DanLiris.Admin.Web.Migrations
                         .HasMaxLength(32);
 
                     b.Property<DateTimeOffset>("CreatedDate");
+
+                    b.Property<string>("CustomsCategory");
 
                     b.Property<bool?>("Deleted");
 
@@ -1587,6 +1599,8 @@ namespace DanLiris.Admin.Web.Migrations
 
                     b.Property<DateTimeOffset>("CreatedDate");
 
+                    b.Property<string>("CustomsCategory");
+
                     b.Property<bool?>("Deleted");
 
                     b.Property<string>("DeletedBy")
@@ -1676,6 +1690,8 @@ namespace DanLiris.Admin.Web.Migrations
 
                     b.Property<DateTimeOffset>("CreatedDate");
 
+                    b.Property<string>("CustomsCategory");
+
                     b.Property<bool?>("Deleted");
 
                     b.Property<string>("DeletedBy")
@@ -1746,6 +1762,8 @@ namespace DanLiris.Admin.Web.Migrations
                         .HasMaxLength(32);
 
                     b.Property<DateTimeOffset>("CreatedDate");
+
+                    b.Property<string>("CustomsCategory");
 
                     b.Property<long>("DODetailId");
 
@@ -2021,6 +2039,8 @@ namespace DanLiris.Admin.Web.Migrations
 
                     b.Property<DateTimeOffset>("CreatedDate");
 
+                    b.Property<string>("CustomsCategory");
+
                     b.Property<bool?>("Deleted");
 
                     b.Property<string>("DeletedBy")
@@ -2241,6 +2261,8 @@ namespace DanLiris.Admin.Web.Migrations
                         .HasMaxLength(32);
 
                     b.Property<DateTimeOffset>("CreatedDate");
+
+                    b.Property<string>("CustomsCategory");
 
                     b.Property<bool?>("Deleted");
 
@@ -2811,6 +2833,8 @@ namespace DanLiris.Admin.Web.Migrations
 
                     b.Property<DateTimeOffset>("CreatedDate");
 
+                    b.Property<string>("CustomsCategory");
+
                     b.Property<Guid>("CuttingOutDetailId");
 
                     b.Property<Guid>("CuttingOutItemId");
@@ -2959,6 +2983,8 @@ namespace DanLiris.Admin.Web.Migrations
                         .HasMaxLength(32);
 
                     b.Property<DateTimeOffset>("CreatedDate");
+
+                    b.Property<string>("CustomsCategory");
 
                     b.Property<bool?>("Deleted");
 
@@ -3235,6 +3261,8 @@ namespace DanLiris.Admin.Web.Migrations
                         .HasMaxLength(32);
 
                     b.Property<DateTimeOffset>("CreatedDate");
+
+                    b.Property<string>("CustomsCategory");
 
                     b.Property<bool?>("Deleted");
 

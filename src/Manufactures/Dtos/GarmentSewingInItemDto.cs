@@ -17,6 +17,7 @@ namespace Manufactures.Dtos
             SewingOutDetailId = garmentSewingInItem.SewingOutDetailId;
             LoadingItemId = garmentSewingInItem.LoadingItemId;
             Product = new Product(garmentSewingInItem.ProductId.Value, garmentSewingInItem.ProductCode, garmentSewingInItem.ProductName);
+            CustomsCategory = garmentSewingInItem.CustomsCategory;
             DesignColor = garmentSewingInItem.DesignColor;
             Size = new SizeValueObject(garmentSewingInItem.SizeId.Value, garmentSewingInItem.SizeName);
             Quantity = garmentSewingInItem.Quantity;
@@ -35,6 +36,7 @@ namespace Manufactures.Dtos
             SewingOutDetailId = garmentSewingInItemReadModel.SewingOutDetailId;
             LoadingItemId = garmentSewingInItemReadModel.LoadingItemId;
             Product = new Product(garmentSewingInItemReadModel.ProductId, garmentSewingInItemReadModel.ProductCode, garmentSewingInItemReadModel.ProductName);
+            CustomsCategory = garmentSewingInItemReadModel.CustomsCategory;
             DesignColor = garmentSewingInItemReadModel.DesignColor;
             Size = new SizeValueObject(garmentSewingInItemReadModel.SizeId, garmentSewingInItemReadModel.SizeName);
             Quantity = garmentSewingInItemReadModel.Quantity;
@@ -52,6 +54,7 @@ namespace Manufactures.Dtos
         public Guid SewingOutDetailId { get; set; }
         public Guid LoadingItemId { get; set; }
         public Product Product { get; set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get; set; }
         public SizeValueObject Size { get; set; }
         public double Quantity { get; set; }

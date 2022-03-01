@@ -80,6 +80,7 @@ namespace Manufactures.Data.EntityFrameworkCore.GarmentSewingDOs.Repositories
                         Code = y.ProductCode, 
                         Name = y.ProductName
                     },
+                    CustomsCategory = y.CustomsCategory,
                     DesignColor = y.DesignColor,
                     Size = new { 
                         Id = y.SizeId, 

@@ -115,7 +115,7 @@ namespace Manufactures.Tests.Controllers.Api
               .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingDOItemReadModel,bool>>>()))
               .Returns(new List<GarmentSewingDOItem>()
               {
-                    new GarmentSewingDOItem(id,id,id,id,new ProductId(1),"productCode","productName","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
+                    new GarmentSewingDOItem(id,id,id,id,new ProductId(1),"productCode","productName","customsCategory","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
               });
 
             var result = await unitUnderTest.Get(id.ToString());
@@ -142,7 +142,7 @@ namespace Manufactures.Tests.Controllers.Api
               .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingDOItemReadModel, bool>>>()))
               .Returns(new List<GarmentSewingDOItem>()
               {
-                    new GarmentSewingDOItem(id,id,id,id,new ProductId(1),"productCode","productName","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
+                    new GarmentSewingDOItem(id,id,id,id,new ProductId(1),"productCode","productName","customsCategory","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
               });
 
 
@@ -183,7 +183,7 @@ namespace Manufactures.Tests.Controllers.Api
              .Setup(s => s.Find(It.IsAny<IQueryable<GarmentSewingDOItemReadModel>>()))
              .Returns(new List<GarmentSewingDOItem>()
              {
-                    new GarmentSewingDOItem(id,id,id,id,new ProductId(1),"productCode","productName","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
+                    new GarmentSewingDOItem(id,id,id,id,new ProductId(1),"productCode","productName","customsCategory","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
              });
 
 

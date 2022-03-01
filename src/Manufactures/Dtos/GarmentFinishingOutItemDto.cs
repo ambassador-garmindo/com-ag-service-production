@@ -15,6 +15,7 @@ namespace Manufactures.Dtos
             FinishingInId = garmentFinishingOutItem.FinishingInId;
             FinishingInItemId = garmentFinishingOutItem.FinishingInItemId;
             Product = new Product(garmentFinishingOutItem.ProductId.Value, garmentFinishingOutItem.ProductCode, garmentFinishingOutItem.ProductName);
+            CustomsCategory = garmentFinishingOutItem.CustomsCategory;
             Size = new SizeValueObject(garmentFinishingOutItem.SizeId.Value, garmentFinishingOutItem.SizeName);
             DesignColor = garmentFinishingOutItem.DesignColor;
             Quantity = garmentFinishingOutItem.Quantity;
@@ -32,6 +33,7 @@ namespace Manufactures.Dtos
         public Guid FinishingInId { get; set; }
         public Guid FinishingInItemId { get; set; }
         public Product Product { get; set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get; set; }
         public SizeValueObject Size { get; set; }
         public double Quantity { get; set; }

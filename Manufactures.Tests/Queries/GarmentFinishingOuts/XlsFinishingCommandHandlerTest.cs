@@ -95,7 +95,7 @@ namespace Manufactures.Tests.Queries.GarmentFinishingOuts
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentFinishingOutItemReadModel>
 				{
-					new GarmentFinishingOutItem(guidFinishingOutItem,guidFinishingOut,new Guid(),new Guid(),new ProductId(1),"","","",new SizeId(1),"",10, new UomId(1),"","",10,10,10).GetReadModel()
+					new GarmentFinishingOutItem(guidFinishingOutItem,guidFinishingOut,new Guid(),new Guid(),new ProductId(1),"","","","",new SizeId(1),"",10, new UomId(1),"","",10,10,10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentFinishingOutRepository
@@ -109,7 +109,7 @@ namespace Manufactures.Tests.Queries.GarmentFinishingOuts
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentSewingOutItemReadModel>
 				{
-					new GarmentSewingOutItem(guidSewingOutItem,guidSewingOut,new Guid(),new Guid(), new ProductId(1),"","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
+					new GarmentSewingOutItem(guidSewingOutItem,guidSewingOut,new Guid(),new Guid(), new ProductId(1),"","","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentSewingOutRepository
@@ -160,7 +160,7 @@ namespace Manufactures.Tests.Queries.GarmentFinishingOuts
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentFinishingOutItemReadModel>
 				{
-					new GarmentFinishingOutItem(guidFinishingOutItem,guidFinishingOut,new Guid(),new Guid(),new ProductId(1),"","","",new SizeId(1),"",10, new UomId(1),"","",10,10,10).GetReadModel()
+					new GarmentFinishingOutItem(guidFinishingOutItem,guidFinishingOut,new Guid(),new Guid(),new ProductId(1),"","","","",new SizeId(1),"",10, new UomId(1),"","",10,10,10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentFinishingOutRepository
@@ -174,7 +174,7 @@ namespace Manufactures.Tests.Queries.GarmentFinishingOuts
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentSewingOutItemReadModel>
 				{
-					new GarmentSewingOutItem(guidSewingOutItem,guidSewingOut,new Guid(),new Guid(), new ProductId(1),"","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
+					new GarmentSewingOutItem(guidSewingOutItem,guidSewingOut,new Guid(),new Guid(), new ProductId(1),"","","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentSewingOutRepository

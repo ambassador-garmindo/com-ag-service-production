@@ -79,7 +79,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentExpenditureNotes
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentExpenditureGoodItemReadModel, bool>>>()))
                 .Returns(new List<GarmentExpenditureGoodItem>()
                 {
-                    new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid, ExpenditureGoodGuid, Guid.Empty,new SizeId(1), null, 1,0, new UomId(1), null,null, 1,1)
+                    new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid, ExpenditureGoodGuid, Guid.Empty, "customsCategory",new SizeId(1), null, 1,0, new UomId(1), null,null, 1,1)
                 });
             
             _mockExpenditureGoodRepository

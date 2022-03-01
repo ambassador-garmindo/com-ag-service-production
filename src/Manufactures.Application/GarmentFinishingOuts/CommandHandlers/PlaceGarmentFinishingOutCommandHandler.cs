@@ -91,6 +91,7 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                         new ProductId(item.Product.Id),
                         item.Product.Code,
                         item.Product.Name,
+                        item.CustomsCategory,
                         item.DesignColor,
                         new SizeId(item.Size.Id),
                         item.Size.Size,
@@ -131,7 +132,7 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
 
                             if (request.FinishingTo == "GUDANG JADI")
                             {
-                                string finStock = detail.Size.Id + "~" + detail.Size.Size + "~" + detail.Uom.Id + "~" + detail.Uom.Unit + "~" + item.BasicPrice;
+                                string finStock = detail.Size.Id + "~" + detail.Size.Size + "~" + detail.Uom.Id + "~" + detail.Uom.Unit + "~" + item.BasicPrice + "~" + item.CustomsCategory;
 
                                 if (finGood.ContainsKey(finStock))
                                 {
@@ -158,7 +159,7 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
 
                         if (request.FinishingTo == "GUDANG JADI")
                         {
-                            string finStock = item.Size.Id + "~" + item.Size.Size + "~" + item.Uom.Id + "~" + item.Uom.Unit + "~" + item.BasicPrice;
+                            string finStock = item.Size.Id + "~" + item.Size.Size + "~" + item.Uom.Id + "~" + item.Uom.Unit + "~" + item.BasicPrice + "~" + item.CustomsCategory;
 
                             if (finGood.ContainsKey(finStock))
                             {
@@ -184,9 +185,14 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                 await _garmentFinishingInItemRepository.Update(garmentFinishingInItem);
             }
 
-            if(request.FinishingTo=="GUDANG JADI")
+            #region Create FinishedGoodStock
+            if (request.FinishingTo=="GUDANG JADI")
             {
-                int count = 1;
+                int countIF = 1;
+                int countIN = 1;
+                int countLF = 1;
+                int countLN = 1;
+
                 List<GarmentFinishedGoodStock> finGoodStocks = new List<GarmentFinishedGoodStock>();
                 foreach (var finGoodStock in finGood)
                 {
@@ -195,6 +201,8 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                     UomId uomId = new UomId(Convert.ToInt32(finGoodStock.Key.Split("~")[2]));
                     string uomUnit = finGoodStock.Key.Split("~")[3];
                     double basicPrice = Convert.ToDouble(finGoodStock.Key.Split("~")[4]);
+                    string customsCategory = finGoodStock.Key.Split("~")[5];
+
                     var garmentFinishedGoodExist = _garmentFinishedGoodStockRepository.Query.Where(
                         a => a.RONo == request.RONo &&
                             a.Article == request.Article &&
@@ -202,7 +210,8 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                             a.UnitId == request.UnitTo.Id &&
                             new SizeId(a.SizeId) == sizeId &&
                             a.ComodityId == request.Comodity.Id &&
-                            new UomId(a.UomId) == uomId
+                            new UomId(a.UomId) == uomId &&
+                            a.CustomsCategory == customsCategory
                         ).Select(s => new GarmentFinishedGoodStock(s)).SingleOrDefault();
 
                     double qty = garmentFinishedGoodExist == null ? finGoodStock.Value : (finGoodStock.Value + garmentFinishedGoodExist.Quantity);
@@ -214,13 +223,16 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                         var now = DateTime.Now;
                         var year = now.ToString("yy");
                         var month = now.ToString("MM");
-                        var prefix = $"ST{request.UnitTo.Code.Trim()}{year}{month}";
+                        var customs = customsCategory == "IMPORT FASILITAS" ? "IF" : (customsCategory == "IMPORT NONFASILITAS" ? "IN" : (customsCategory == "LOKAL FASILITAS" ? "LF" : "LN"));
+                        var prefix = $"ST{request.UnitTo.Code.Trim()}{year}{month}{customs}";
 
                         var lastFnGoodNo = _garmentFinishedGoodStockRepository.Query.Where(w => w.FinishedGoodStockNo.StartsWith(prefix))
                         .OrderByDescending(o => o.FinishedGoodStockNo)
                         .Select(s => int.Parse(s.FinishedGoodStockNo.Replace(prefix, "")))
                         .FirstOrDefault();
-                        var FinGoodNo = $"{prefix}{(lastFnGoodNo + count).ToString("D4")}";
+
+                        var FinGoodNo = $"{prefix}{(lastFnGoodNo + (customs == "IF" ? countIF : (customs == "IN" ? countIN : (customs == "LF" ? countLF : countLN)))).ToString("D4")}";
+                        //var FinGoodNo = $"{prefix}{(lastFnGoodNo + count).ToString("D4")}";
                         GarmentFinishedGoodStock finishedGood = new GarmentFinishedGoodStock(
                                         Guid.NewGuid(),
                                         FinGoodNo,
@@ -232,6 +244,7 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                                         new GarmentComodityId(request.Comodity.Id),
                                         request.Comodity.Code,
                                         request.Comodity.Name,
+                                        customsCategory,
                                         sizeId,
                                         sizeName,
                                         uomId,
@@ -240,7 +253,23 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                                         basicPrice,
                                         price
                                         );
-                        count++;
+                        
+                        if(customs == "IF")
+                        {
+                            countIF++;
+                        }
+                        else if(customs == "IN")
+                        {
+                            countIN++;
+                        }
+                        else if(customs == "LF")
+                        {
+                            countLF++;
+                        }
+                        else
+                        {
+                            countLN++;
+                        }
                         await _garmentFinishedGoodStockRepository.Update(finishedGood);
                         finGoodStocks.Add(finishedGood);
                     }
@@ -257,7 +286,8 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                                  a.UnitId == new UnitDepartmentId(request.UnitTo.Id) &&
                                  a.SizeId == garmentFinishedGoodExist.SizeId &&
                                  a.ComodityId == new GarmentComodityId(request.Comodity.Id) &&
-                                 a.UomId == garmentFinishedGoodExist.UomId).SingleOrDefault();
+                                 a.UomId == garmentFinishedGoodExist.UomId &&
+                                 a.CustomsCategory == customsCategory).SingleOrDefault();
                         finGoodStocks.Add(garmentFinishedGoodExist);
                     }
 
@@ -277,7 +307,8 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                                  a.UnitId == new UnitDepartmentId(request.UnitTo.Id) &&
                                  a.SizeId == new SizeId(detail.Size.Id) &&
                                  a.ComodityId == new GarmentComodityId(request.Comodity.Id) &&
-                                 a.UomId == new UomId(detail.Uom.Id)).Single();
+                                 a.UomId == new UomId(detail.Uom.Id) &&
+                                 a.CustomsCategory == item.CustomsCategory).Single();
 
                                 double price = (stock.BasicPrice + (double)garmentComodityPrice.Price) * detail.Quantity;
 
@@ -301,6 +332,7 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                                         stock.ComodityId,
                                         stock.ComodityCode,
                                         stock.ComodityName,
+                                        stock.CustomsCategory,
                                         stock.SizeId,
                                         stock.SizeName,
                                         stock.UomId,
@@ -320,7 +352,8 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                              a.UnitId == new UnitDepartmentId(request.UnitTo.Id) &&
                              a.SizeId == new SizeId(item.Size.Id) &&
                              a.ComodityId == new GarmentComodityId(request.Comodity.Id) &&
-                             a.UomId == new UomId(item.Uom.Id)).Single();
+                             a.UomId == new UomId(item.Uom.Id) &&
+                             a.CustomsCategory == item.CustomsCategory).Single();
 
                             double price = (stock.BasicPrice + (double)garmentComodityPrice.Price) * item.Quantity;
 
@@ -344,6 +377,7 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                                     stock.ComodityId,
                                     stock.ComodityCode,
                                     stock.ComodityName,
+                                    stock.CustomsCategory,
                                     stock.SizeId,
                                     stock.SizeName,
                                     stock.UomId,
@@ -358,6 +392,8 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
 
                 }
             }
+            #endregion
+
             #region Create SewingIn
             if (request.FinishingTo == "SEWING")
             {
@@ -401,6 +437,7 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                                     new ProductId(item.Product.Id),
                                     item.Product.Code,
                                     item.Product.Name,
+                                    item.CustomsCategory,
                                     item.DesignColor,
                                     new SizeId(detail.Size.Id),
                                     detail.Size.Size,
@@ -428,6 +465,7 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                                     new ProductId(item.Product.Id),
                                     item.Product.Code,
                                     item.Product.Name,
+                                    item.CustomsCategory,
                                     item.DesignColor,
                                     new SizeId(item.Size.Id),
                                     item.Size.Size,
@@ -475,8 +513,9 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
             var now = DateTime.Now;
             var year = now.ToString("yy");
             var month = now.ToString("MM");
+            var customs = request.CustomsCategory == "IMPORT FASILITAS" ? "IF" : (request.CustomsCategory == "IMPORT NONFASILITAS" ? "IN" : (request.CustomsCategory == "LOKAL FASILITAS" ? "LF" : "LN"));
 
-            var prefix = $"ST{request.UnitCode.Trim()}{year}{month}";
+            var prefix = $"ST{request.UnitCode.Trim()}{year}{month}{customs}";
 
             var lastFnGoodNo = _garmentFinishedGoodStockRepository.Query.Where(w => w.FinishedGoodStockNo.StartsWith(prefix))
                 .OrderByDescending(o => o.FinishedGoodStockNo)

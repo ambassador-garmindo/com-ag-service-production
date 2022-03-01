@@ -196,7 +196,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentCuttingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentCuttingOutItem>()
                 {
-                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, 1)
+                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, null, 1)
                 });
 
             _mockGarmentCuttingOutDetailRepository
@@ -232,7 +232,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentCuttingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentCuttingOutItem>()
                 {
-                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"productCode", "productName", "design", 1)
+                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"productCode", "productName","customsCategory", "design", 1)
                 });
 
             _mockGarmentCuttingOutDetailRepository
@@ -320,7 +320,7 @@ namespace Manufactures.Tests.Controllers.Api
                .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingDOItemReadModel, bool>>>()))
                .Returns(new List<GarmentSewingDOItem>()
                {
-                    new GarmentSewingDOItem(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"producCode","productName","designColor",new SizeId(1),"sizeName",5,new UomId(1),"uomUnit","color",1,1,1)
+                    new GarmentSewingDOItem(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"producCode","productName","customCategory","designColor",new SizeId(1),"sizeName",5,new UomId(1),"uomUnit","color",1,1,1)
                });
 
            
@@ -350,7 +350,7 @@ namespace Manufactures.Tests.Controllers.Api
                .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingDOItemReadModel, bool>>>()))
                .Returns(new List<GarmentSewingDOItem>()
                {
-                    new GarmentSewingDOItem(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"producCode","productName","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
+                    new GarmentSewingDOItem(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"producCode","productName","customCategory","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
                });
 
             _MockMediator
@@ -439,7 +439,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutItemReadModel>>()))
                 .Returns(new List<GarmentCuttingOutItem>()
                 {
-                    new GarmentCuttingOutItem(id,id,id,id,new ProductId(1),"productCode","productName","designColor",1)
+                    new GarmentCuttingOutItem(id,id,id,id,new ProductId(1),"productCode","productName","customsCategory","designColor",1)
                 });
 
             _mockGarmentCuttingOutDetailRepository

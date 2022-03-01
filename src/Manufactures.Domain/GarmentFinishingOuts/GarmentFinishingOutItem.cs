@@ -16,6 +16,7 @@ namespace Manufactures.Domain.GarmentFinishingOuts
         public ProductId ProductId { get; private set; }
         public string ProductCode { get; private set; }
         public string ProductName { get; private set; }
+        public string CustomsCategory { get; private set; }
         public string DesignColor { get; private set; }
         public SizeId SizeId { get; private set; }
         public string SizeName { get; private set; }
@@ -27,7 +28,7 @@ namespace Manufactures.Domain.GarmentFinishingOuts
         public double BasicPrice { get; private set; }
         public double Price { get; private set; }
 
-        public GarmentFinishingOutItem(Guid identity, Guid finishingOutId, Guid finishingInId, Guid finishingInItemId, ProductId productId, string productCode, string productName, string designColor, SizeId sizeId, string sizeName, double quantity, UomId uomId, string uomUnit, string color, double remainingQuantity, double basicPrice, double price) : base(identity)
+        public GarmentFinishingOutItem(Guid identity, Guid finishingOutId, Guid finishingInId, Guid finishingInItemId, ProductId productId, string productCode, string productName, string customsCategory, string designColor, SizeId sizeId, string sizeName, double quantity, UomId uomId, string uomUnit, string color, double remainingQuantity, double basicPrice, double price) : base(identity)
         {
             //MarkTransient();
 
@@ -38,6 +39,7 @@ namespace Manufactures.Domain.GarmentFinishingOuts
             ProductId = productId;
             ProductCode = productCode;
             ProductName = productName;
+            CustomsCategory = customsCategory;
             DesignColor = designColor;
             SizeId = sizeId;
             SizeName = sizeName;
@@ -57,6 +59,7 @@ namespace Manufactures.Domain.GarmentFinishingOuts
                 ProductId = ProductId.Value,
                 ProductCode = ProductCode,
                 ProductName = ProductName,
+                CustomsCategory = CustomsCategory,
                 DesignColor = DesignColor,
                 SizeId = SizeId.Value,
                 SizeName = SizeName,
@@ -80,6 +83,7 @@ namespace Manufactures.Domain.GarmentFinishingOuts
             ProductId = new ProductId(readModel.ProductId);
             ProductCode = readModel.ProductCode;
             ProductName = readModel.ProductName;
+            CustomsCategory = readModel.CustomsCategory;
             DesignColor = readModel.DesignColor;
             SizeId = new SizeId(readModel.SizeId);
             SizeName = readModel.SizeName;

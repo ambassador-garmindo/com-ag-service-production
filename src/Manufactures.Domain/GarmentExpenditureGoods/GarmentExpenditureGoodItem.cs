@@ -12,6 +12,7 @@ namespace Manufactures.Domain.GarmentExpenditureGoods
     {
         public Guid ExpenditureGoodId { get; private set; }
         public Guid FinishedGoodStockId { get; private set; }
+        public string CustomsCategory { get; private set; }
         public SizeId SizeId { get; private set; }
         public string SizeName { get; private set; }
         public double Quantity { get; private set; }
@@ -22,10 +23,11 @@ namespace Manufactures.Domain.GarmentExpenditureGoods
         public double BasicPrice { get; private set; }
         public double Price { get; private set; }
 
-        public GarmentExpenditureGoodItem(Guid identity, Guid expenditureGoodId, Guid finishedGoodStockId, SizeId sizeId, string sizeName, double quantity, double returQuantity, UomId uomId, string uomUnit, string description, double basicPrice, double price) : base(identity)
+        public GarmentExpenditureGoodItem(Guid identity, Guid expenditureGoodId, Guid finishedGoodStockId, string customsCategory, SizeId sizeId, string sizeName, double quantity, double returQuantity, UomId uomId, string uomUnit, string description, double basicPrice, double price) : base(identity)
         {
             ExpenditureGoodId = expenditureGoodId;
             FinishedGoodStockId = finishedGoodStockId;
+            CustomsCategory = customsCategory;
             SizeId = sizeId;
             SizeName = sizeName;
             Quantity = quantity;
@@ -39,7 +41,8 @@ namespace Manufactures.Domain.GarmentExpenditureGoods
             ReadModel = new GarmentExpenditureGoodItemReadModel(Identity)
             {
                 ExpenditureGoodId = ExpenditureGoodId,
-                FinishedGoodStockId= FinishedGoodStockId,
+                FinishedGoodStockId = FinishedGoodStockId,
+                CustomsCategory = CustomsCategory,
                 SizeId = SizeId.Value,
                 SizeName = SizeName,
                 Quantity = Quantity,
@@ -58,6 +61,7 @@ namespace Manufactures.Domain.GarmentExpenditureGoods
         {
             ExpenditureGoodId = readModel.ExpenditureGoodId;
             FinishedGoodStockId = readModel.FinishedGoodStockId;
+            CustomsCategory = readModel.CustomsCategory;
             SizeId = new SizeId(readModel.SizeId);
             SizeName = readModel.SizeName;
             Quantity = readModel.Quantity;

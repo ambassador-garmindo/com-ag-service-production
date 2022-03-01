@@ -67,7 +67,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAvalProducts.CommandHandlers
             .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentAvalProductItemReadModel, bool>>>()))
             .Returns(new List<GarmentAvalProductItem>()
             {
-                  new GarmentAvalProductItem(id,id,new GarmentPreparingId("value"),new GarmentPreparingItemId("value"),new ProductId(1),"productCode","productName","designColor",1,new UomId(1),"uomUnit",1,false)
+                  new GarmentAvalProductItem(id,id,new GarmentPreparingId("value"),new GarmentPreparingItemId("value"),"customs",new ProductId(1),"productCode","productName","designColor",1,new UomId(1),"uomUnit",1,false)
             });
 
             _mockGarmentAvalProductItemRepository

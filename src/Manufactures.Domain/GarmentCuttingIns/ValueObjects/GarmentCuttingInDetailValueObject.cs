@@ -14,6 +14,7 @@ namespace Manufactures.Domain.GarmentCuttingIns.ValueObjects
 
         public string DesignColor { get; set; }
         public string FabricType { get; set; }
+        public string CustomsCategory { get; set; }
 
         public double PreparingRemainingQuantity { get; set; }
         public double PreparingQuantity { get; set; }

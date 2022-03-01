@@ -11,7 +11,7 @@ namespace Manufactures.Domain.GarmentAvalProducts.ValueObjects
 
         }
 
-        public GarmentAvalProductItemValueObject(Guid id, Guid apId, GarmentPreparingId preparingId, GarmentPreparingItemId preparingItemId, Product product, string designColor, double quantity, Uom uom)
+        public GarmentAvalProductItemValueObject(Guid id, Guid apId, GarmentPreparingId preparingId, GarmentPreparingItemId preparingItemId, string customsCategory, Product product, string designColor, double quantity, Uom uom)
         {
 
         }
@@ -20,6 +20,7 @@ namespace Manufactures.Domain.GarmentAvalProducts.ValueObjects
         public Guid APId { get; set; }
         public GarmentPreparingId PreparingId { get; set; }
         public GarmentPreparingItemId PreparingItemId { get; set; }
+        public string CustomsCategory { get; set; }
         public Product Product { get; set; }
         public string DesignColor { get; set; }
         public double Quantity { get; set; }

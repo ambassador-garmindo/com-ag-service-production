@@ -104,12 +104,13 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                         {
                             var garmentFinishedGoodExist = _garmentFinishedGoodStockRepository.Query.Where(
                             a => a.RONo == finishOut.RONo &&
-                                a.Article == finishOut.Article &&
-                                a.BasicPrice == finishOutItem.BasicPrice &&
-                                new UnitDepartmentId(a.UnitId) == finishOut.UnitToId &&
-                                new SizeId(a.SizeId) == finishOutDetail.SizeId &&
-                                new GarmentComodityId(a.ComodityId) == finishOut.ComodityId &&
-                                new UomId(a.UomId) == finishOutDetail.UomId
+                                 a.Article == finishOut.Article &&
+                                 a.BasicPrice == finishOutItem.BasicPrice &&
+                                 new UnitDepartmentId(a.UnitId) == finishOut.UnitToId &&
+                                 new SizeId(a.SizeId) == finishOutDetail.SizeId &&
+                                 new GarmentComodityId(a.ComodityId) == finishOut.ComodityId &&
+                                 new UomId(a.UomId) == finishOutDetail.UomId &&
+                                 a.CustomsCategory == finishOutItem.CustomsCategory
                             ).Select(s => new GarmentFinishedGoodStock(s)).Single();
 
                             if (finGood.ContainsKey(garmentFinishedGoodExist))
@@ -146,12 +147,13 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                     {
                         var garmentFinishedGoodExist = _garmentFinishedGoodStockRepository.Query.Where(
                             a => a.RONo == finishOut.RONo &&
-                                a.Article == finishOut.Article &&
-                                a.BasicPrice == finishOutItem.BasicPrice &&
-                                new UnitDepartmentId(a.UnitId) == finishOut.UnitToId &&
-                                new SizeId(a.SizeId) == finishOutItem.SizeId &&
-                                new GarmentComodityId(a.ComodityId) == finishOut.ComodityId &&
-                                new UomId(a.UomId) == finishOutItem.UomId
+                                 a.Article == finishOut.Article &&
+                                 a.BasicPrice == finishOutItem.BasicPrice &&
+                                 new UnitDepartmentId(a.UnitId) == finishOut.UnitToId &&
+                                 new SizeId(a.SizeId) == finishOutItem.SizeId &&
+                                 new GarmentComodityId(a.ComodityId) == finishOut.ComodityId &&
+                                 new UomId(a.UomId) == finishOutItem.UomId &&
+                                 a.CustomsCategory == finishOutItem.CustomsCategory
                             ).Select(s => new GarmentFinishedGoodStock(s)).Single();
 
                         if (finGood.ContainsKey(garmentFinishedGoodExist))

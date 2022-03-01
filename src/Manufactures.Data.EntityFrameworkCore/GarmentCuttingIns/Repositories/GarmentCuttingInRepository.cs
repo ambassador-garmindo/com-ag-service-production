@@ -89,6 +89,7 @@ namespace Manufactures.Data.EntityFrameworkCore.GarmentCuttingIns.Repositories
                         },
                         DesignColor = garmentCuttingInDetail.DesignColor,
                         FabricType = garmentCuttingInDetail.FabricType,
+                        CustomsCategory = garmentCuttingInDetail.CustomsCategory,
                         PreparingQuantity = garmentCuttingInDetail.PreparingQuantity,
                         PreparingUom = new { 
                             Id = garmentCuttingInDetail.PreparingUomId,

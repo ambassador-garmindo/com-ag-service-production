@@ -91,7 +91,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentSubcon.GarmentServiceSubconS
             GarmentSewingIn garmentSewingIn = new GarmentSewingIn(
                 SewingInGuid, null, "SEWING", Guid.Empty, null, new UnitDepartmentId(1), null, null,
                 new UnitDepartmentId(1), null, null, "RONo", null, new GarmentComodityId(1), null, null, DateTimeOffset.Now);
-            GarmentSewingInItem garmentSewingInItem = new GarmentSewingInItem(sewingInItemGuid, SewingInGuid, sewingOutItemGuid, Guid.Empty, Guid.Empty, Guid.Empty, Guid.Empty, new ProductId(1), null, null, "ColorD", new SizeId(1), null, 10, new UomId(1), null, null, 0, 1, 1);
+            GarmentSewingInItem garmentSewingInItem = new GarmentSewingInItem(sewingInItemGuid, SewingInGuid, sewingOutItemGuid, Guid.Empty, Guid.Empty, Guid.Empty, Guid.Empty, new ProductId(1), null, null, "customsCategory", "ColorD", new SizeId(1), null, 10, new UomId(1), null, null, 0, 1, 1);
             GarmentServiceSubconSewingDetail garmentServiceSubconSewingDetail = new GarmentServiceSubconSewingDetail(new Guid(), new Guid(), SewingInGuid, sewingInItemGuid, new ProductId(1), null, null, "ColorD", 1, new UomId(1), null, new UnitDepartmentId(1), null, null);
             _mockSewingInRepository
                 .Setup(s => s.Query)

@@ -19,6 +19,7 @@ namespace Manufactures.Domain.GarmentFinishedGoodStocks.ReadModels
         public int ComodityId { get; internal set; }
         public string ComodityCode { get; internal set; }
         public string ComodityName { get; internal set; }
+        public string CustomsCategory { get; internal set; }
         public int SizeId { get; internal set; }
         public string SizeName { get; internal set; }
         public double Quantity { get; internal set; }

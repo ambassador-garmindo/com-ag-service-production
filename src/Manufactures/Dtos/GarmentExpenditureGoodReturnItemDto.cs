@@ -15,6 +15,7 @@ namespace Manufactures.Dtos
             ExpenditureGoodId = garmentExpenditureGoodReturnItem.ExpenditureGoodId;
             ExpenditureGoodItemId = garmentExpenditureGoodReturnItem.ExpenditureGoodItemId;
             FinishedGoodStockId = garmentExpenditureGoodReturnItem.FinishedGoodStockId;
+            CustomsCategory = garmentExpenditureGoodReturnItem.CustomsCategory;
             Size = new SizeValueObject(garmentExpenditureGoodReturnItem.SizeId.Value, garmentExpenditureGoodReturnItem.SizeName);
             Quantity = garmentExpenditureGoodReturnItem.Quantity;
             Uom = new Uom(garmentExpenditureGoodReturnItem.UomId.Value, garmentExpenditureGoodReturnItem.UomUnit);
@@ -28,6 +29,7 @@ namespace Manufactures.Dtos
         public Guid ExpenditureGoodId { get; set; }
         public Guid ExpenditureGoodItemId { get; set; }
         public Guid FinishedGoodStockId { get; set; }
+        public string CustomsCategory { get; set; }
         public SizeValueObject Size { get; set; }
         public double Quantity { get; set; }
         public Uom Uom { get; set; }

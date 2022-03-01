@@ -236,7 +236,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentLoadingItemReadModel>
 				{
-					new GarmentLoadingItem(guidLoadingItem,guidLoading,new Guid(),new SizeId(1),"",new ProductId(1),"","","",0,0,0, new UomId(1),"","",10).GetReadModel()
+					new GarmentLoadingItem(guidLoadingItem,guidLoading,new Guid(),new SizeId(1),"",new ProductId(1),"","","","",0,0,0, new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentLoadingRepository
@@ -257,7 +257,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentCuttingOutItemReadModel>
 				{
-					new GarmentCuttingOutItem(guidCuttingOutItem,new Guid() ,new Guid(),guidCuttingOut,new ProductId(1),"","","",100).GetReadModel()
+					new GarmentCuttingOutItem(guidCuttingOutItem,new Guid() ,new Guid(),guidCuttingOut,new ProductId(1),"","","","",100).GetReadModel()
 				}.AsQueryable());
 			_mockGarmentCuttingOutRepository
 				.Setup(s => s.Query)
@@ -272,7 +272,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentFinishingOutItemReadModel>
 				{
-					new GarmentFinishingOutItem(guidFinishingOutItem,guidFinishingOut,new Guid(),new Guid(),new ProductId(1),"","","",new SizeId(1),"",10, new UomId(1),"","",10,10,10).GetReadModel()
+					new GarmentFinishingOutItem(guidFinishingOutItem,guidFinishingOut,new Guid(),new Guid(),new ProductId(1),"","","","",new SizeId(1),"",10, new UomId(1),"","",10,10,10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentFinishingOutRepository
@@ -287,7 +287,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentSewingOutItemReadModel>
 				{
-					new GarmentSewingOutItem(guidSewingOutItem,guidSewingOut,new Guid(),new Guid(), new ProductId(1),"","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
+					new GarmentSewingOutItem(guidSewingOutItem,guidSewingOut,new Guid(),new Guid(), new ProductId(1),"","","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentSewingOutRepository
@@ -301,7 +301,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentSewingDOItemReadModel>
 				{
-					new GarmentSewingDOItem(guidSewingDOItem,guidSewingDO,guidCuttingOutDetail,guidCuttingOutItem, new ProductId(1),"","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
+					new GarmentSewingDOItem(guidSewingDOItem,guidSewingDO,guidCuttingOutDetail,guidCuttingOutItem, new ProductId(1),"","","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentSewingDORepository
@@ -315,7 +315,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentCuttingInDetailReadModel>
 				{
-					new GarmentCuttingInDetail(new Guid(),guidCuttingInItem,new Guid(),new Guid(),new Guid(),new ProductId(1),"","","","Main Fabric",10,new UomId(1),"",10,new UomId(1),"",10,100,100,1,"").GetReadModel()
+					new GarmentCuttingInDetail(new Guid(),guidCuttingInItem,new Guid(),new Guid(),new Guid(),new ProductId(1),"","","","Main Fabric","IMPORT FASILITAS",10,new UomId(1),"",10,new UomId(1),"",10,100,100,1,"").GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentCuttingInItemRepository
@@ -336,7 +336,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentFinishingInItemReadModel>
 				{
-					new GarmentFinishingInItem(guidFinishingInItem,guidFinishingIn,guidSewingOutItem,new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10,10).GetReadModel()
+					new GarmentFinishingInItem(guidFinishingInItem,guidFinishingIn,guidSewingOutItem,new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","","",8,19,new UomId(1),"","",10,10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentFinishingInRepository
@@ -350,7 +350,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAdjustmentItemReadModel>
 				{
-					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10).GetReadModel()
+					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","","",8,19,new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentAdjustmentRepository
@@ -363,7 +363,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAdjustmentItemReadModel>
 				{
-					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10).GetReadModel()
+					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","","",8,19,new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentAdjustmentRepository
@@ -376,7 +376,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAdjustmentItemReadModel>
 				{
-					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10).GetReadModel()
+					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","","",8,19,new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentAdjustmentRepository
@@ -389,7 +389,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAdjustmentItemReadModel>
 				{
-					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10).GetReadModel()
+					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","","",8,19,new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentAdjustmentRepository
@@ -403,7 +403,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentSewingInItemReadModel>
 				{
-					new GarmentSewingInItem(guidSewingInItem,guidSewingIn,guidSewingOutItem,new Guid(),guidLoadingItem,guidFinishingOutItem,new Guid(), new ProductId(1),"","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
+					new GarmentSewingInItem(guidSewingInItem,guidSewingIn,guidSewingOutItem,new Guid(),guidLoadingItem,guidFinishingOutItem,new Guid(), new ProductId(1),"","","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentSewingInRepository
@@ -430,7 +430,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodItemReadModel>
 				{
-					new GarmentExpenditureGoodItem(new Guid(),guidExpenditure,new Guid(), new SizeId(1),"",100,100,new UomId(1),"","",100,100).GetReadModel()
+					new GarmentExpenditureGoodItem(new Guid(),guidExpenditure,new Guid(),"customsCategory", new SizeId(1),"",100,100,new UomId(1),"","",100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentExpenditureGoodRepository
@@ -443,7 +443,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodReturnItemReadModel>
 				{
-					new GarmentExpenditureGoodReturnItem(new Guid(),guidExpenditureReturn,guidExpenditure,new Guid(),new Guid(), new SizeId(1),"",100,new UomId(1),"","",100,100).GetReadModel()
+					new GarmentExpenditureGoodReturnItem(new Guid(),guidExpenditureReturn,guidExpenditure,new Guid(),new Guid(),"customsCategory", new SizeId(1),"",100,new UomId(1),"","",100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentExpenditureGoodReturnRepository
@@ -519,7 +519,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentLoadingItemReadModel>
 				{
-					new GarmentLoadingItem(guidLoadingItem,guidLoading,new Guid(),new SizeId(1),"",new ProductId(1),"","","",0,0,0, new UomId(1),"","",10).GetReadModel()
+					new GarmentLoadingItem(guidLoadingItem,guidLoading,new Guid(),new SizeId(1),"",new ProductId(1),"","","customsCategory","",0,0,0, new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentLoadingRepository
@@ -540,7 +540,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentCuttingOutItemReadModel>
 				{
-					new GarmentCuttingOutItem(guidCuttingOutItem,new Guid() ,new Guid(),guidCuttingOut,new ProductId(1),"","","",100).GetReadModel()
+					new GarmentCuttingOutItem(guidCuttingOutItem,new Guid() ,new Guid(),guidCuttingOut,new ProductId(1),"","","","",100).GetReadModel()
 				}.AsQueryable());
 			_mockGarmentCuttingOutRepository
 				.Setup(s => s.Query)
@@ -555,7 +555,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentFinishingOutItemReadModel>
 				{
-					new GarmentFinishingOutItem(guidFinishingOutItem,guidFinishingOut,new Guid(),new Guid(),new ProductId(1),"","","",new SizeId(1),"",10, new UomId(1),"","",10,10,10).GetReadModel()
+					new GarmentFinishingOutItem(guidFinishingOutItem,guidFinishingOut,new Guid(),new Guid(),new ProductId(1),"","","customsCategory","",new SizeId(1),"",10, new UomId(1),"","",10,10,10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentFinishingOutRepository
@@ -570,7 +570,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentSewingOutItemReadModel>
 				{
-					new GarmentSewingOutItem(guidSewingOutItem,guidSewingOut,new Guid(),new Guid(), new ProductId(1),"","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
+					new GarmentSewingOutItem(guidSewingOutItem,guidSewingOut,new Guid(),new Guid(), new ProductId(1),"","","customsCategory","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentSewingOutRepository
@@ -584,7 +584,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentSewingDOItemReadModel>
 				{
-					new GarmentSewingDOItem(guidSewingDOItem,guidSewingDO,guidCuttingOutDetail,guidCuttingOutItem, new ProductId(1),"","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
+					new GarmentSewingDOItem(guidSewingDOItem,guidSewingDO,guidCuttingOutDetail,guidCuttingOutItem, new ProductId(1),"","","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentSewingDORepository
@@ -598,7 +598,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentCuttingInDetailReadModel>
 				{
-					new GarmentCuttingInDetail(new Guid(),guidCuttingInItem,new Guid(),new Guid(),new Guid(),new ProductId(1),"","","","Main Fabric",10,new UomId(1),"",10,new UomId(1),"",10,100,100,1,"").GetReadModel()
+					new GarmentCuttingInDetail(new Guid(),guidCuttingInItem,new Guid(),new Guid(),new Guid(),new ProductId(1),"","","","Main Fabric","IMPORT FASILITAS",10,new UomId(1),"",10,new UomId(1),"",10,100,100,1,"").GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentCuttingInItemRepository
@@ -619,7 +619,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentFinishingInItemReadModel>
 				{
-					new GarmentFinishingInItem(guidFinishingInItem,guidFinishingIn,guidSewingOutItem,new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10,10).GetReadModel()
+					new GarmentFinishingInItem(guidFinishingInItem,guidFinishingIn,guidSewingOutItem,new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","customsCategory","",8,19,new UomId(1),"","",10,10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentFinishingInRepository
@@ -633,7 +633,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAdjustmentItemReadModel>
 				{
-					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10).GetReadModel()
+					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","customsCategory","",8,19,new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentAdjustmentRepository
@@ -646,7 +646,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAdjustmentItemReadModel>
 				{
-					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10).GetReadModel()
+					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","customsCategory","",8,19,new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentAdjustmentRepository
@@ -659,7 +659,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAdjustmentItemReadModel>
 				{
-					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10).GetReadModel()
+					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","customsCategory","",8,19,new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentAdjustmentRepository
@@ -672,7 +672,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentAdjustmentItemReadModel>
 				{
-					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","",8,19,new UomId(1),"","",10).GetReadModel()
+					new GarmentAdjustmentItem(guidAdjustmentItem,guidLoading,guidSewingDOItem,new Guid(),new Guid(),new Guid(),new SizeId(1),"",new ProductId(1),"","","customsCategory","",8,19,new UomId(1),"","",10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentAdjustmentRepository
@@ -686,7 +686,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentSewingInItemReadModel>
 				{
-					new GarmentSewingInItem(guidSewingInItem,guidSewingIn,guidSewingOutItem,new Guid(),guidLoadingItem,guidFinishingOutItem,new Guid(), new ProductId(1),"","","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
+					new GarmentSewingInItem(guidSewingInItem,guidSewingIn,guidSewingOutItem,new Guid(),guidLoadingItem,guidFinishingOutItem,new Guid(), new ProductId(1),"","","customsCategory","",new SizeId(1),"",0, new UomId(1),"","",10,100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentSewingInRepository
@@ -713,7 +713,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodItemReadModel>
 				{
-					new GarmentExpenditureGoodItem(new Guid(),guidExpenditure,new Guid(), new SizeId(1),"",100,100,new UomId(1),"","",100,100).GetReadModel()
+					new GarmentExpenditureGoodItem(new Guid(),guidExpenditure,new Guid(),"customsCategory", new SizeId(1),"",100,100,new UomId(1),"","",100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentExpenditureGoodRepository
@@ -726,7 +726,7 @@ namespace Manufactures.Tests.Queries.GarmentMonitoringProductionStockFlows
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodReturnItemReadModel>
 				{
-					new GarmentExpenditureGoodReturnItem(new Guid(),guidExpenditureReturn,guidExpenditure,new Guid(),new Guid(), new SizeId(1),"",100,new UomId(1),"","",100,100).GetReadModel()
+					new GarmentExpenditureGoodReturnItem(new Guid(),guidExpenditureReturn,guidExpenditure,new Guid(),new Guid(),"customsCategory", new SizeId(1),"",100,new UomId(1),"","",100,100).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentExpenditureGoodReturnRepository

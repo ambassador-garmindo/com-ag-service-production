@@ -295,7 +295,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAdjustments
 			   .Setup(s => s.Query)
 			   .Returns(new List<GarmentFinishedGoodStockReadModel>
 			   {
-					new GarmentFinishedGoodStock(finishedGoodStockId,"","RONo","article",new UnitDepartmentId(1),"code","name",new GarmentComodityId(1),"","",new SizeId(1),"", new UomId(1),"",10,100,100).GetReadModel()
+					new GarmentFinishedGoodStock(finishedGoodStockId,"","RONo","article",new UnitDepartmentId(1),"code","name",new GarmentComodityId(1),"","","",new SizeId(1),"", new UomId(1),"",10,100,100).GetReadModel()
 			   }.AsQueryable());
 
 			_mockAdjustmentRepository

@@ -78,7 +78,7 @@ namespace Manufactures.Tests.Controllers.Api
                     new GarmentExpenditureGoodReturn(id,"returNo","returType",new UnitDepartmentId(1),"unitCode","unitName","roNo","article",new GarmentComodityId(1),"comodityCode","comodityName",new BuyerId(1),"buyerCode","buyerName",DateTimeOffset.Now,"invoice","returDesc")
                });
 
-            GarmentExpenditureGoodReturnItem goodReturnItem = new GarmentExpenditureGoodReturnItem(id, id, id, id, id, new SizeId(1), "sizeName", 1, new UomId(1), "uomUnit", "description", 1, 1);
+            GarmentExpenditureGoodReturnItem goodReturnItem = new GarmentExpenditureGoodReturnItem(id, id, id, id, id,"customsCategory", new SizeId(1), "sizeName", 1, new UomId(1), "uomUnit", "description", 1, 1);
 
             _mockGarmentExpenditureGoodReturnItemRepository
                 .Setup(s => s.Query)
@@ -112,7 +112,7 @@ namespace Manufactures.Tests.Controllers.Api
               .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentExpenditureGoodReturnItemReadModel,bool>>>()))
               .Returns(new List<GarmentExpenditureGoodReturnItem>()
               {
-                   new GarmentExpenditureGoodReturnItem(id,id,id,id,id,new SizeId(1),"sizename",1,new UomId(1),"uomUnit","description",1,1)
+                   new GarmentExpenditureGoodReturnItem(id,id,id,id,id,"customsCategory",new SizeId(1),"sizename",1,new UomId(1),"uomUnit","description",1,1)
               });
 
             // Act
@@ -200,10 +200,10 @@ namespace Manufactures.Tests.Controllers.Api
               .Setup(s => s.Find(It.IsAny<IQueryable<GarmentExpenditureGoodReturnItemReadModel>>()))
               .Returns(new List<GarmentExpenditureGoodReturnItem>()
               {
-                   new GarmentExpenditureGoodReturnItem(id,id,id,id,id,new SizeId(1),"sizename",1,new UomId(1),"uomUnit","description",1,1)
+                   new GarmentExpenditureGoodReturnItem(id,id,id,id,id,"customsCategory",new SizeId(1),"sizename",1,new UomId(1),"uomUnit","description",1,1)
               });
 
-            GarmentExpenditureGoodReturnItem goodReturnItem = new GarmentExpenditureGoodReturnItem(id, id, id, id, id, new SizeId(1), "sizeName", 1, new UomId(1), "uomUnit", "description", 1, 1);
+            GarmentExpenditureGoodReturnItem goodReturnItem = new GarmentExpenditureGoodReturnItem(id, id, id, id, id, "customsCategory", new SizeId(1), "sizeName", 1, new UomId(1), "uomUnit", "description", 1, 1);
 
             _mockGarmentExpenditureGoodReturnItemRepository
                 .Setup(s => s.Query)
