@@ -80,6 +80,7 @@ namespace Manufactures.Data.EntityFrameworkCore.GarmentPreparings.Repositories
                         Unit = y.UomUnit
                     },
                     FabricType = y.FabricType,
+                    CustomsCategory = y.CustomsCategory,
                     RemainingQuantity = y.RemainingQuantity,
                     BasicPrice = y.BasicPrice,
                     GarmentPreparingId = y.GarmentPreparingId,

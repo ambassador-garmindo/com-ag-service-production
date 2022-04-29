@@ -14,7 +14,7 @@ namespace Manufactures.ViewModels.GarmentAvalProducts
 
         public GarmentAvalProductItem MapItem(GarmentAvalProductItemDto viewModel, Guid headerId)
         {
-            return new GarmentAvalProductItem(Guid.NewGuid(), headerId, new GarmentPreparingId(viewModel.PreparingId.Id), new GarmentPreparingItemId(viewModel.PreparingItemId.Id), new ProductId(viewModel.Product.Id), viewModel.Product.Code, viewModel.Product.Name, viewModel.DesignColor, viewModel.Quantity, new UomId(viewModel.Uom.Id), viewModel.Uom.Unit, viewModel.BasicPrice,viewModel.IsReceived);
+            return new GarmentAvalProductItem(Guid.NewGuid(), headerId, new GarmentPreparingId(viewModel.PreparingId.Id), new GarmentPreparingItemId(viewModel.PreparingItemId.Id), viewModel.CustomsCategory, new ProductId(viewModel.Product.Id), viewModel.Product.Code, viewModel.Product.Name, viewModel.DesignColor, viewModel.Quantity, new UomId(viewModel.Uom.Id), viewModel.Uom.Unit, viewModel.BasicPrice,viewModel.IsReceived);
         }
     }
 }

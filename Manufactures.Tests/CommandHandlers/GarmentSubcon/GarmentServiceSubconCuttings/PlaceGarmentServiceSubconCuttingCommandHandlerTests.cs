@@ -117,7 +117,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentSubcon.GarmentServiceSubconC
 
             GarmentCuttingIn garmentCuttingIn = new GarmentCuttingIn(cuttingInGuid, "", "", "", "RONo", "", new UnitDepartmentId(1), "", "", DateTimeOffset.Now, 1);
             GarmentCuttingInItem garmentCuttingInItem = new GarmentCuttingInItem(cuttingInItemGuid, cuttingInGuid, new Guid(), 1, "", new Guid(), "");
-            GarmentCuttingInDetail garmentCuttingInDetail = new GarmentCuttingInDetail(cuttingInDetailGuid, cuttingInItemGuid, new Guid(), new Guid(), new Guid(), new ProductId(1), "", "", "ColorD", "", 1, new UomId(1), "", 10, new UomId(1), "", 10, 1, 1, 1, "");
+            GarmentCuttingInDetail garmentCuttingInDetail = new GarmentCuttingInDetail(cuttingInDetailGuid, cuttingInItemGuid, new Guid(), new Guid(), new Guid(), new ProductId(1), "", "", "ColorD", "", "", 1, new UomId(1), "", 10, new UomId(1), "", 10, 1, 1, 1, "");
 
             GarmentServiceSubconCuttingDetail garmentServiceSubconCuttingDetail = new GarmentServiceSubconCuttingDetail(subconCuttingDetailGuid, new Guid(),  "ColorD", 1);
             GarmentServiceSubconCuttingSize garmentServiceSubconCuttingSize = new GarmentServiceSubconCuttingSize(new Guid(),new SizeId(1),"",1,new UomId(1),"", "ColorD", subconCuttingDetailGuid, cuttingInGuid, cuttingInDetailGuid,new ProductId(1), "", "");
@@ -242,7 +242,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentSubcon.GarmentServiceSubconC
             };
             GarmentCuttingIn garmentCuttingIn = new GarmentCuttingIn(cuttingInGuid, "", "", "", "RONo", "", new UnitDepartmentId(1), "", "", DateTimeOffset.Now, 1);
             GarmentCuttingInItem garmentCuttingInItem = new GarmentCuttingInItem(cuttingInItemGuid, cuttingInGuid, new Guid(), 1, "", new Guid(), "");
-            GarmentCuttingInDetail garmentCuttingInDetail = new GarmentCuttingInDetail(cuttingInDetailGuid, cuttingInItemGuid, new Guid(), new Guid(), new Guid(), new ProductId(1), "", "", "ColorD", "", 1, new UomId(1), "", 10, new UomId(1), "", 10, 1, 1, 1, "");
+            GarmentCuttingInDetail garmentCuttingInDetail = new GarmentCuttingInDetail(cuttingInDetailGuid, cuttingInItemGuid, new Guid(), new Guid(), new Guid(), new ProductId(1), "", "", "ColorD","", "", 1, new UomId(1), "", 10, new UomId(1), "", 10, 1, 1, 1, "");
 
             GarmentServiceSubconCuttingDetail garmentServiceSubconCuttingDetail = new GarmentServiceSubconCuttingDetail(subconCuttingDetailGuid, new Guid(), "ColorD", 1);
             GarmentServiceSubconCuttingSize garmentServiceSubconCuttingSize = new GarmentServiceSubconCuttingSize(new Guid(), new SizeId(1), "", 1, new UomId(1), "", "ColorD", subconCuttingDetailGuid, cuttingInGuid, cuttingInDetailGuid, new ProductId(1), "", "");
@@ -371,7 +371,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentSubcon.GarmentServiceSubconC
             };
             GarmentCuttingIn garmentCuttingIn = new GarmentCuttingIn(cuttingInGuid, "", "", "", "RONo", "", new UnitDepartmentId(1), "", "", DateTimeOffset.Now, 1);
             GarmentCuttingInItem garmentCuttingInItem = new GarmentCuttingInItem(cuttingInItemGuid, cuttingInGuid, new Guid(), 1, "", new Guid(), "");
-            GarmentCuttingInDetail garmentCuttingInDetail = new GarmentCuttingInDetail(cuttingInDetailGuid, cuttingInItemGuid, new Guid(), new Guid(), new Guid(), new ProductId(1), "", "", "ColorD", "", 1, new UomId(1), "", 10, new UomId(1), "", 10, 1, 1, 1, "");
+            GarmentCuttingInDetail garmentCuttingInDetail = new GarmentCuttingInDetail(cuttingInDetailGuid, cuttingInItemGuid, new Guid(), new Guid(), new Guid(), new ProductId(1), "", "", "ColorD","", "", 1, new UomId(1), "", 10, new UomId(1), "", 10, 1, 1, 1, "");
 
             GarmentServiceSubconCuttingDetail garmentServiceSubconCuttingDetail = new GarmentServiceSubconCuttingDetail(subconCuttingDetailGuid, new Guid(), "ColorD", 1);
             GarmentServiceSubconCuttingSize garmentServiceSubconCuttingSize = new GarmentServiceSubconCuttingSize(new Guid(), new SizeId(1), "", 1, new UomId(1), "", "ColorD", subconCuttingDetailGuid, cuttingInGuid, cuttingInDetailGuid, new ProductId(1), "", "");

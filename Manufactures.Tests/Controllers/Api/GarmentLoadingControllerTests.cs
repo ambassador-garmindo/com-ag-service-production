@@ -114,7 +114,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentLoadingItemReadModel, bool>>>()))
                 .Returns(new List<GarmentLoadingItem>()
                 {
-                    new GarmentLoadingItem(Guid.NewGuid(), Guid.NewGuid(),Guid.NewGuid(),new SizeId(1), null, new ProductId(1), null, null, null, 1,1,10,new UomId(1),null, null,1)
+                    new GarmentLoadingItem(Guid.NewGuid(), Guid.NewGuid(),Guid.NewGuid(),new SizeId(1), null, new ProductId(1), null, null,null, null, 1,1,10,new UomId(1),null, null,1)
                 });
 
             //_mockSewingDOItemRepository
@@ -145,7 +145,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentLoadingItemReadModel, bool>>>()))
                 .Returns(new List<GarmentLoadingItem>()
                 {
-                    new GarmentLoadingItem(Guid.NewGuid(), Guid.NewGuid(),Guid.NewGuid(),new SizeId(1), "size", new ProductId(1), null, null, "design", 1,1,10,new UomId(1),null, "color",1)
+                    new GarmentLoadingItem(Guid.NewGuid(), Guid.NewGuid(),Guid.NewGuid(),new SizeId(1), "size", new ProductId(1), null, null, null, "design", 1,1,10,new UomId(1),null, "color",1)
                 });
 
             //_mockSewingDOItemRepository
@@ -232,7 +232,7 @@ namespace Manufactures.Tests.Controllers.Api
               .Setup(s => s.Find(It.IsAny<IQueryable<GarmentLoadingItemReadModel>>()))
               .Returns(new List<GarmentLoadingItem>()
               {
-                    new GarmentLoadingItem(id, id,id,new SizeId(1), "size", new ProductId(1), null, null, "design", 1,1,10,new UomId(1),null, "color",1)
+                    new GarmentLoadingItem(id, id,id,new SizeId(1), "size", new ProductId(1), null, null,null, "design", 1,1,10,new UomId(1),null, "color",1)
               });
 
             var orderData = new

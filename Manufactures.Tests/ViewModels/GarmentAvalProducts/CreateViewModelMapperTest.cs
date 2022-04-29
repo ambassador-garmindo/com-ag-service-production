@@ -26,7 +26,7 @@ namespace Manufactures.Tests.ViewModels.GarmentAvalProducts
                 UnitName = "UnitName",
                 Items = new List<GarmentAvalProductItemValueObject>()
                 {
-                     new GarmentAvalProductItemValueObject(id,id,new GarmentPreparingId("value"),new GarmentPreparingItemId("value"),new Product(),"designColor",1,new Uom())
+                     new GarmentAvalProductItemValueObject(id,id,new GarmentPreparingId("value"),new GarmentPreparingItemId("value"),"customs",new Product(),"designColor",1,new Uom())
                 }
             };
 
@@ -38,7 +38,7 @@ namespace Manufactures.Tests.ViewModels.GarmentAvalProducts
         public void MapItem_Return_Success()
         {
             Guid id = Guid.NewGuid();
-            GarmentAvalProductItemDto dto = new GarmentAvalProductItemDto(new GarmentAvalProductItem(id, id, new GarmentPreparingId("value"), new GarmentPreparingItemId("value"), new ProductId(1), "productCode", "productName", "designColor", 1, new UomId(1), "uomUnit", 1, true));
+            GarmentAvalProductItemDto dto = new GarmentAvalProductItemDto(new GarmentAvalProductItem(id, id, new GarmentPreparingId("value"), new GarmentPreparingItemId("value"),"customs", new ProductId(1), "productCode", "productName", "designColor", 1, new UomId(1), "uomUnit", 1, true));
             CreateViewModelMapper viewModelMapper = new CreateViewModelMapper();
             viewModelMapper.MapItem(dto, id);
         }

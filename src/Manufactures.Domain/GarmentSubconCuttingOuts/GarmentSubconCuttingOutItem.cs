@@ -16,12 +16,13 @@ namespace Manufactures.Domain.GarmentSubconCuttingOuts
         public ProductId ProductId { get; private set; }
         public string ProductCode { get; private set; }
         public string ProductName { get; private set; }
+        public string CustomsCategory { get; private set; }
         public string DesignColor { get; private set; }
         public double TotalCuttingOut { get; private set; }
         public double TotalCuttingOutQuantity { get; private set; }
 
 
-        public GarmentSubconCuttingOutItem(Guid identity, Guid cuttingInId, Guid cuttingInDetailId, Guid cutOutId, ProductId productId, string productCode, string productName, string designColor, double totalCuttingOut) : base(identity)
+        public GarmentSubconCuttingOutItem(Guid identity, Guid cuttingInId, Guid cuttingInDetailId, Guid cutOutId, ProductId productId, string productCode, string productName, string customsCategory, string designColor, double totalCuttingOut) : base(identity)
         {
             //MarkTransient();
 
@@ -32,6 +33,7 @@ namespace Manufactures.Domain.GarmentSubconCuttingOuts
             ProductId = productId;
             ProductCode = productCode;
             ProductName = productName;
+            CustomsCategory = customsCategory;
             DesignColor = designColor;
             TotalCuttingOut = totalCuttingOut;
             
@@ -44,6 +46,7 @@ namespace Manufactures.Domain.GarmentSubconCuttingOuts
                 ProductId = ProductId.Value,
                 ProductCode = ProductCode,
                 ProductName = ProductName,
+                CustomsCategory = CustomsCategory,
                 DesignColor = DesignColor,
                 TotalCuttingOut = TotalCuttingOut,
             };
@@ -59,6 +62,7 @@ namespace Manufactures.Domain.GarmentSubconCuttingOuts
             ProductId = new ProductId(readModel.ProductId);
             ProductCode = readModel.ProductCode;
             ProductName = readModel.ProductName;
+            CustomsCategory = readModel.CustomsCategory;
             DesignColor = readModel.DesignColor;
             TotalCuttingOut = readModel.TotalCuttingOut;
         }

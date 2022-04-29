@@ -65,7 +65,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentSubconFinishingIns
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentFinishingInItemReadModel, bool>>>()))
                 .Returns(new List<GarmentFinishingInItem>()
                 {
-                    new GarmentFinishingInItem(Guid.Empty, Guid.Empty, Guid.Empty, Guid.NewGuid(), subconCuttingGuid, new SizeId(1), null, new ProductId(1), null, null, null, 1, 1, new UomId(1), null, null, 1, 1)
+                    new GarmentFinishingInItem(Guid.Empty, Guid.Empty, Guid.Empty, Guid.NewGuid(), subconCuttingGuid, new SizeId(1), null, new ProductId(1), null, null, null, null, 1, 1, new UomId(1), null, null, 1, 1)
                 });
 
             _mockSubconCuttingRepository

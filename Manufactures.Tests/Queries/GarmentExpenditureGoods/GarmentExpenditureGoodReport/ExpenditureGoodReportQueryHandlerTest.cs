@@ -76,7 +76,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentExpenditureGoodItemReadModel>
                 {
-                    new Domain.GarmentExpenditureGoods.GarmentExpenditureGoodItem(guidExpenditureGoodItem,guidExpenditureGood,Guid.NewGuid(),new Domain.Shared.ValueObjects.SizeId(1),"",1,0,new Domain.Shared.ValueObjects.UomId(1),"","",0,0).GetReadModel()
+                    new Domain.GarmentExpenditureGoods.GarmentExpenditureGoodItem(guidExpenditureGoodItem,guidExpenditureGood,Guid.NewGuid(),"",new Domain.Shared.ValueObjects.SizeId(1),"",1,0,new Domain.Shared.ValueObjects.UomId(1),"","",0,0).GetReadModel()
                 }.AsQueryable());
 
             _mockgarmentExpenditureGoodRepository

@@ -106,7 +106,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentAdjustmentItemReadModel, bool>>>()))
                 .Returns(new List<GarmentAdjustmentItem>()
                 {
-                    new GarmentAdjustmentItem(Guid.NewGuid(), Guid.NewGuid(),Guid.NewGuid(),Guid.NewGuid(),Guid.Empty,Guid.Empty,new SizeId(1), null, new ProductId(1), null, null, null, 1,1,new UomId(1),null, null,1)
+                    new GarmentAdjustmentItem(Guid.NewGuid(), Guid.NewGuid(),Guid.NewGuid(),Guid.NewGuid(),Guid.Empty,Guid.Empty,new SizeId(1), null, new ProductId(1), null, null,null, null, 1,1,new UomId(1),null, null,1)
                 });
 
             //_mockSewingDOItemRepository
@@ -182,7 +182,7 @@ namespace Manufactures.Tests.Controllers.Api
             .Setup(s => s.Find(It.IsAny<IQueryable<GarmentAdjustmentItemReadModel>>()))
             .Returns(new List<GarmentAdjustmentItem>()
             {
-                    new GarmentAdjustmentItem(id,id,id,id,id,id,new SizeId(1),"sizeName",new ProductId(1),"productCode","productName","designCOlor",1,1,new UomId(1),"uomUnit","color",1)
+                    new GarmentAdjustmentItem(id,id,id,id,id,id,new SizeId(1),"sizeName",new ProductId(1),"productCode","productName","customsCategory","designColor",1,1,new UomId(1),"uomUnit","color",1)
             });
 
 

@@ -10,6 +10,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFin
         {
         }
 
+        public int Tot { get; internal set; }
         public string BonMasuk { get; internal set; }
         public DateTimeOffset TglBonMasuk { get; internal set; }
         public string KodeBarang { get; internal set; }
@@ -21,6 +22,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFin
 
         public GarmentReceiptFinishedGoodDto(GarmentReceiptFinishedGoodDto garmentGoodsReceipt)
         {
+            Tot = garmentGoodsReceipt.Tot;
             BonMasuk = garmentGoodsReceipt.BonMasuk;
             TglBonMasuk = garmentGoodsReceipt.TglBonMasuk;
             KodeBarang = garmentGoodsReceipt.KodeBarang;

@@ -185,6 +185,7 @@ namespace Manufactures.Controllers.Api
             return Ok(order.Identity);
 
         }
+
 		[HttpGet("monitoring")]
 		public async Task<IActionResult> GetMonitoring(int unit, DateTime dateFrom, DateTime dateTo, int page = 1, int size = 25, string Order = "{}")
 		{
@@ -199,6 +200,7 @@ namespace Manufactures.Controllers.Api
 				viewModel.count
 			});
 		}
+
 		[HttpGet("complete")]
         public async Task<IActionResult> GetComplete(int page = 1, int size = 25, string order = "{}", [Bind(Prefix = "Select[]")]List<string> select = null, string keyword = null, string filter = "{}")
         {
@@ -347,6 +349,35 @@ namespace Manufactures.Controllers.Api
             });
         }
 
+        [HttpGet("in/download")]
+        public async Task<IActionResult> GetXlsReceiptFinishedGood(DateTime dateFrom, DateTime dateTo, int page = 1, int size = 25, string Order = "{}")
+        {
+            try
+            {
+                VerifyUser();
+                GetXlsReceiptFinishedGoodsQuery query = new GetXlsReceiptFinishedGoodsQuery(page, size, Order, dateFrom, dateTo, WorkContext.Token);
+                byte[] xlsInBytes;
+
+                var xls = await Mediator.Send(query);
+
+                string filename = "Laporan Pemasukan Hasil Produksi ";
+
+                if (dateFrom != null) filename += " " + ((DateTime)dateFrom).ToString("dd-MM-yyyy");
+
+                if (dateTo != null) filename += "_" + ((DateTime)dateTo).ToString("dd-MM-yyyy");
+                filename += ".xlsx";
+
+                xlsInBytes = xls.ToArray();
+                var file = File(xlsInBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename);
+                return file;
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
         [HttpGet("mutation")]
         public async Task<IActionResult> GetMutation(DateTime dateFrom, DateTime dateTo, int page = 1, int size = 25, string Order = "{}")
         {
@@ -386,7 +417,6 @@ namespace Manufactures.Controllers.Api
             }
             catch (Exception e)
             {
-
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
@@ -433,6 +463,16 @@ namespace Manufactures.Controllers.Api
 
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
+        }
+
+        [HttpGet("basic-price")]
+        public async Task<IActionResult> GetBasicPriceByRONo(string keyword = null, string filter = "{}")
+        {
+            VerifyUser();
+
+            var query = _garmentExpenditureGoodRepository.BasicPriceByRO(keyword, filter);
+
+            return Ok(query);
         }
     }
 }

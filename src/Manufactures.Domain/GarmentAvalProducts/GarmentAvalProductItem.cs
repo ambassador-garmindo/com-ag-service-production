@@ -14,6 +14,7 @@ namespace Manufactures.Domain.GarmentAvalProducts
         public Guid APId { get; private set; }
         public GarmentPreparingId PreparingId { get; private set; }
         public GarmentPreparingItemId PreparingItemId { get; private set; }
+        public string CustomsCategory { get; private set; }
         public ProductId ProductId { get; private set; }
         public string ProductCode { get; private set; }
         public string ProductName { get; private set; }
@@ -24,7 +25,7 @@ namespace Manufactures.Domain.GarmentAvalProducts
         public double BasicPrice { get; private set; }
         public bool IsReceived { get; private set; }
 
-        public GarmentAvalProductItem(Guid identity, Guid apId, GarmentPreparingId preparingId, GarmentPreparingItemId preparingItemId, ProductId productId, string productCode, string productName, string designColor, double quantity, UomId uomId, string uomUnit, double basicPrice, bool isReceived) : base(identity)
+        public GarmentAvalProductItem(Guid identity, Guid apId, GarmentPreparingId preparingId, GarmentPreparingItemId preparingItemId, string customsCategory, ProductId productId, string productCode, string productName, string designColor, double quantity, UomId uomId, string uomUnit, double basicPrice, bool isReceived) : base(identity)
         {
             this.MarkTransient();
 
@@ -32,6 +33,7 @@ namespace Manufactures.Domain.GarmentAvalProducts
             APId = apId;
             PreparingId = preparingId;
             PreparingItemId = preparingItemId;
+            CustomsCategory = customsCategory;
             ProductId = productId;
             ProductCode = productCode;
             ProductName = productName;
@@ -47,6 +49,7 @@ namespace Manufactures.Domain.GarmentAvalProducts
                 APId = APId,
                 PreparingId = PreparingId.Value,
                 PreparingItemId = PreparingItemId.Value,
+                CustomsCategory = CustomsCategory,
                 ProductId = ProductId.Value,
                 ProductCode = ProductCode,
                 ProductName = ProductName,
@@ -65,6 +68,7 @@ namespace Manufactures.Domain.GarmentAvalProducts
             APId = ReadModel.APId;
             PreparingId = new GarmentPreparingId(ReadModel.PreparingId);
             PreparingItemId = new GarmentPreparingItemId(ReadModel.PreparingItemId);
+            CustomsCategory = ReadModel.CustomsCategory;
             ProductId = new ProductId(ReadModel.ProductId);
             ProductCode = ReadModel.ProductCode;
             ProductName = ReadModel.ProductName;

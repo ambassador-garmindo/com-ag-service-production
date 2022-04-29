@@ -16,6 +16,7 @@ namespace Manufactures.Dtos
             Article = finishedGoodStock.Article;
             Unit = new UnitDepartment( finishedGoodStock.UnitId.Value, finishedGoodStock.UnitCode, finishedGoodStock.UnitName);
             Comodity = new GarmentComodity (finishedGoodStock.ComodityId.Value, finishedGoodStock.ComodityCode, finishedGoodStock.ComodityName);
+            CustomsCategory = finishedGoodStock.CustomsCategory;
             Size = new SizeValueObject(finishedGoodStock.SizeId.Value, finishedGoodStock.SizeName);
             Quantity = finishedGoodStock.Quantity;
             Uom = new Uom( finishedGoodStock.UomId.Value, finishedGoodStock.UomUnit) ;
@@ -28,6 +29,7 @@ namespace Manufactures.Dtos
         public string RONo { get; private set; }
         public string Article { get; private set; }
         public GarmentComodity Comodity { get; private set; }
+        public string CustomsCategory { get; private set; }
         public SizeValueObject Size { get; private set; }
         public double Quantity { get; private set; }
         public Uom Uom { get; private set; }

@@ -15,6 +15,7 @@ namespace Manufactures.Domain.GarmentAvalProducts.ReadModels
         public Guid APId { get; internal set; }
         public string PreparingId { get; internal set; }
         public string PreparingItemId { get; internal set; }
+        public string CustomsCategory { get; internal set; }
         public int ProductId { get; internal set; }
         public string ProductCode { get; internal set; }
         public string ProductName { get; internal set; }

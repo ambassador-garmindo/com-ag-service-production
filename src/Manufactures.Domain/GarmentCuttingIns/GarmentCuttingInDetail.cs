@@ -22,6 +22,7 @@ namespace Manufactures.Domain.GarmentCuttingIns
 
         public string DesignColor { get; private set; }
         public string FabricType { get; private set; }
+        public string CustomsCategory { get; private set; }
 
         public double PreparingQuantity { get; private set; }
         public UomId PreparingUomId { get; private set; }
@@ -64,6 +65,15 @@ namespace Manufactures.Domain.GarmentCuttingIns
             }
         }
 
+        public void SetCustomsCategory(string CustomsCategory)
+        {
+            if(this.CustomsCategory != CustomsCategory)
+            {
+                this.CustomsCategory = CustomsCategory;
+                ReadModel.CustomsCategory = CustomsCategory;
+            }
+        }
+
         public void SetPrice(double Price)
         {
             if (this.Price != Price)
@@ -82,7 +92,7 @@ namespace Manufactures.Domain.GarmentCuttingIns
             }
         }
 
-        public GarmentCuttingInDetail(Guid identity, Guid cutInItemId, Guid preparingItemId, Guid sewingOutItemId, Guid sewingOutDetailId, ProductId productId, string productCode, string productName, string designColor, string fabricType, double preparingQuantity, UomId preparingUomId, string preparingUomUnit, int cuttingInQuantity, UomId cuttingInUomId, string cuttingInUomUnit, double remainingQuantity, double basicPrice, double price,double fc, string color) : base(identity)
+        public GarmentCuttingInDetail(Guid identity, Guid cutInItemId, Guid preparingItemId, Guid sewingOutItemId, Guid sewingOutDetailId, ProductId productId, string productCode, string productName, string designColor, string fabricType, string customsCategory, double preparingQuantity, UomId preparingUomId, string preparingUomUnit, int cuttingInQuantity, UomId cuttingInUomId, string cuttingInUomUnit, double remainingQuantity, double basicPrice, double price,double fc, string color) : base(identity)
         {
             //MarkTransient();
 
@@ -95,6 +105,7 @@ namespace Manufactures.Domain.GarmentCuttingIns
             ProductName = productName;
             DesignColor = designColor;
             FabricType = fabricType;
+            CustomsCategory = customsCategory;
             PreparingQuantity = preparingQuantity;
             PreparingUomId = preparingUomId;
             PreparingUomUnit = preparingUomUnit;
@@ -118,6 +129,7 @@ namespace Manufactures.Domain.GarmentCuttingIns
                 ProductName = ProductName,
                 DesignColor = DesignColor,
                 FabricType = FabricType,
+                CustomsCategory = CustomsCategory,
                 PreparingQuantity = PreparingQuantity,
                 PreparingUomId = PreparingUomId.Value,
                 PreparingUomUnit = PreparingUomUnit,
@@ -145,6 +157,7 @@ namespace Manufactures.Domain.GarmentCuttingIns
             ProductName = readModel.ProductName;
             DesignColor = readModel.DesignColor;
             FabricType = readModel.FabricType;
+            CustomsCategory = readModel.CustomsCategory;
             PreparingQuantity = readModel.PreparingQuantity;
             PreparingUomId = new UomId(readModel.PreparingUomId);
             PreparingUomUnit = readModel.PreparingUomUnit;

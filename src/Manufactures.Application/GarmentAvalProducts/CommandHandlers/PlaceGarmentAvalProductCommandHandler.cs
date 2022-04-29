@@ -41,7 +41,7 @@ namespace Manufactures.Application.GarmentAvalProducts.CommandHandlers
             //if (garmentAvalProduct == null)
             //{
             GarmentAvalProduct garmentAvalProduct = new GarmentAvalProduct(Guid.NewGuid(), request.RONo, request.Article, request.AvalDate, new Domain.Shared.ValueObjects.UnitDepartmentId(request.Unit.Id), request.Unit.Code, request.Unit.Name);
-                request.Items.Select(x => new GarmentAvalProductItem(Guid.NewGuid(), garmentAvalProduct.Identity, x.PreparingId, x.PreparingItemId, new ProductId(x.Product.Id), x.Product.Code, x.Product.Name, x.DesignColor, x.Quantity, new UomId(x.Uom.Id), x.Uom.Unit, x.BasicPrice,x.IsReceived)).ToList()
+                request.Items.Select(x => new GarmentAvalProductItem(Guid.NewGuid(), garmentAvalProduct.Identity, x.PreparingId, x.PreparingItemId, x.CustomsCategory, new ProductId(x.Product.Id), x.Product.Code, x.Product.Name, x.DesignColor, x.Quantity, new UomId(x.Uom.Id), x.Uom.Unit, x.BasicPrice,x.IsReceived)).ToList()
                     .ForEach(async x => await _garmentAvalProductItemRepository.Update(x));
             //}
 

@@ -50,7 +50,7 @@ namespace Manufactures.Tests.Queries.GarmentCuttingOuts
             Guid guidCuttingOutDetail = Guid.NewGuid();
 
             GarmentCuttingOutReadModel garmentCuttingOut = new GarmentCuttingOut(guidCuttingOut, "cutOutNo", "cuttingOutType", new UnitDepartmentId(1), "unitFromCode", "unitFromName", DateTimeOffset.Now, "rONo", "article", new UnitDepartmentId(1), "unitCode", "unitName", new GarmentComodityId(1), "comodityCode", "comodityName", false).GetReadModel();
-            GarmentCuttingOutItemReadModel garmentCuttingOutItem = new GarmentCuttingOutItem(guidCuttingOutItem, Guid.NewGuid(), Guid.NewGuid(), guidCuttingOut, new ProductId(1), "productCode", "productName", "designColor", 10).GetReadModel();
+            GarmentCuttingOutItemReadModel garmentCuttingOutItem = new GarmentCuttingOutItem(guidCuttingOutItem, Guid.NewGuid(), Guid.NewGuid(), guidCuttingOut, new ProductId(1), "productCode", "productName","customsCategory", "designColor", 10).GetReadModel();
             garmentCuttingOutItem.GarmentCuttingOutDetail.Add(new GarmentCuttingOutDetail(guidCuttingOutDetail, guidCuttingOutItem, new SizeId(1), "sizeName", "color", 10, 10, new UomId(1), "cuttingOutUomUnit", 10, 10).GetReadModel());
             garmentCuttingOut.GarmentCuttingOutItem.Add(garmentCuttingOutItem);
 

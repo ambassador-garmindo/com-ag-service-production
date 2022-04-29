@@ -94,6 +94,7 @@ namespace Manufactures.Application.GarmentAdjustments.CommandHandlers
 							item.Product != null ? new ProductId(item.Product.Id) : new ProductId(0),
 							item.Product != null ? item.Product.Code : null,
 							item.Product != null ? item.Product.Name : null,
+                            item.CustomsCategory,
 							item.DesignColor,
 							item.Quantity,
 							item.BasicPrice,
@@ -106,7 +107,7 @@ namespace Manufactures.Application.GarmentAdjustments.CommandHandlers
 					}
 					else
 					{
-                        var garmentFinishingGoodStock = _garmentFinishedGoodStockRepository.Query.Where(x => x.SizeId == item.Size.Id && x.UomId == item.Uom.Id && x.RONo == request.RONo && x.UnitId == request.Unit.Id && x.Quantity > 0).OrderBy(a => a.CreatedDate).ToList();
+                        var garmentFinishingGoodStock = _garmentFinishedGoodStockRepository.Query.Where(x => x.SizeId == item.Size.Id && x.UomId == item.Uom.Id && x.RONo == request.RONo && x.UnitId == request.Unit.Id && x.CustomsCategory == item.CustomsCategory && x.Quantity > 0).OrderBy(a => a.CreatedDate).ToList();
                         double qty = item.Quantity;
                         foreach (var finishedGood in garmentFinishingGoodStock)
                         {
@@ -209,7 +210,7 @@ namespace Manufactures.Application.GarmentAdjustments.CommandHandlers
                 foreach (var data in finishedGoodItemToBeUpdated)
 				{
 					var garmentFinishedGoodstock = _garmentFinishedGoodStockRepository.Query.Where(x => x.Identity == data.Key).Select(s => new GarmentFinishedGoodStock(s)).Single();
-                    var item = request.Items.Where(a => new SizeId(a.Size.Id) == garmentFinishedGoodstock.SizeId && new UomId(a.Uom.Id) == garmentFinishedGoodstock.UomId).Single();
+                    var item = request.Items.Where(a => new SizeId(a.Size.Id) == garmentFinishedGoodstock.SizeId && new UomId(a.Uom.Id) == garmentFinishedGoodstock.UomId && a.CustomsCategory == garmentFinishedGoodstock.CustomsCategory).Single();
 
                     var qty = garmentFinishedGoodstock.Quantity - data.Value;
 
@@ -226,6 +227,7 @@ namespace Manufactures.Application.GarmentAdjustments.CommandHandlers
                         item.Product != null ? new ProductId(item.Product.Id) : new ProductId(0),
                         item.Product != null ? item.Product.Code : null,
                         item.Product != null ? item.Product.Name : null,
+                        item.CustomsCategory,
                         item.DesignColor,
                         qty,
                         item.BasicPrice,
@@ -254,6 +256,7 @@ namespace Manufactures.Application.GarmentAdjustments.CommandHandlers
                             garmentFinishedGoodstock.ComodityId,
                             garmentFinishedGoodstock.ComodityCode,
                             garmentFinishedGoodstock.ComodityName,
+                            garmentFinishedGoodstock.CustomsCategory,
                             garmentFinishedGoodstock.SizeId,
                             garmentFinishedGoodstock.SizeName,
                             garmentFinishedGoodstock.UomId,

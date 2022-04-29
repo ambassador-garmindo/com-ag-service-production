@@ -71,12 +71,12 @@ namespace Manufactures.Tests.CommandHandlers.GarmentExpenditureGoods
 
             GarmentFinishedGoodStock garmentFinishedGoodStock = new GarmentFinishedGoodStock(finStockGuid,
                  "no", "ro", "article", expenditureGood.UnitId, expenditureGood.UnitCode, expenditureGood.UnitName,
-                 expenditureGood.ComodityId, expenditureGood.ComodityCode, expenditureGood.ComodityName,
+                 expenditureGood.ComodityId, expenditureGood.ComodityCode, expenditureGood.ComodityName, "customsCategory",
                  new SizeId(1), null, new UomId(1), null, 1, 1, 1);
 
             GarmentFinishedGoodStockHistory garmentFinishedGoodStockHistory = new GarmentFinishedGoodStockHistory(Guid.NewGuid(), garmentFinishedGoodStock.Identity,
                Guid.Empty, Guid.Empty, exGoodGuid, exGoodItemGuid, Guid.Empty, Guid.Empty, returId, returItemId, null, "ro", "article", expenditureGood.UnitId, expenditureGood.UnitCode, expenditureGood.UnitName,
-               expenditureGood.ComodityId, expenditureGood.ComodityCode, expenditureGood.ComodityName,
+               expenditureGood.ComodityId, expenditureGood.ComodityCode, expenditureGood.ComodityName, "customsCategory",
                new SizeId(1), null, new UomId(1), null, 1, 1, 1);
 
             _mockFinishedGoodStockRepository
@@ -96,7 +96,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentExpenditureGoods
                .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentExpenditureGoodItemReadModel, bool>>>()))
                .Returns(new List<GarmentExpenditureGoodItem>()
                {
-                    new GarmentExpenditureGoodItem(exGoodItemGuid, exGoodGuid, finStockGuid,new SizeId(1), null, 1,0, new UomId(1), null,null, 1,1)
+                    new GarmentExpenditureGoodItem(exGoodItemGuid, exGoodGuid, finStockGuid,"customsCategory",new SizeId(1), null, 1,0, new UomId(1), null,null, 1,1)
                });
 
             //_mockExpenditureGoodItemRepository

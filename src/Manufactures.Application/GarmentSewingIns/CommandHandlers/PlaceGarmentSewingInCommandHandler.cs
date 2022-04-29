@@ -76,6 +76,7 @@ namespace Manufactures.Application.GarmentSewingIns.CommandHandlers
                     new ProductId(item.Product.Id),
                     item.Product.Code,
                     item.Product.Name,
+                    item.CustomsCategory,
                     item.DesignColor,
                     new SizeId(item.Size.Id),
                     item.Size.Size,

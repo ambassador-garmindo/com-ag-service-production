@@ -91,7 +91,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodItemReadModel>
 				{
-					new GarmentExpenditureGoodItem(guidExpenditureGoodItem,guidExpenditureGood,new Guid(),new SizeId(1),"",10,0,new UomId(1),"","",10,10).GetReadModel()
+					new GarmentExpenditureGoodItem(guidExpenditureGoodItem,guidExpenditureGood,new Guid(),"customsCategory",new SizeId(1),"",10,0,new UomId(1),"","",10,10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentExpenditureGoodRepository
@@ -148,7 +148,7 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentExpenditureGoodItemReadModel>
 				{
-					new GarmentExpenditureGoodItem(guidExpenditureGoodItem,guidExpenditureGood,new Guid(),new SizeId(1),"",10,0,new UomId(1),"","",10,10).GetReadModel()
+					new GarmentExpenditureGoodItem(guidExpenditureGoodItem,guidExpenditureGood,new Guid(),"customsCategory",new SizeId(1),"",10,0,new UomId(1),"","",10,10).GetReadModel()
 				}.AsQueryable());
 
 			_mockGarmentExpenditureGoodRepository

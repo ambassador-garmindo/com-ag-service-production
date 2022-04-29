@@ -13,6 +13,7 @@ namespace Manufactures.Domain.GarmentSewingDOs.ValueObjects
         public Guid CuttingOutDetailId { get; set; }
         public Guid CuttingOutItemId { get; set; }
         public Product Product { get; set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get; set; }
         public SizeValueObject Size { get; set; }
         public double Quantity { get; set; }

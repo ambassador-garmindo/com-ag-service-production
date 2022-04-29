@@ -96,6 +96,7 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
                         new ProductId(item.Product.Id),
                         item.Product.Code,
                         item.Product.Name,
+                        item.CustomsCategory,
                         item.DesignColor,
                         new SizeId(item.Size.Id),
                         item.Size.Size,
@@ -226,6 +227,7 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
                                     item.Product.Name,
                                     item.DesignColor,
                                     null,
+                                    item.CustomsCategory,
                                     0,
                                     new UomId(0),
                                     null,
@@ -255,6 +257,7 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
                                     item.Product.Name,
                                     item.DesignColor,
                                     null,
+                                    item.CustomsCategory,
                                     0,
                                     new UomId(0),
                                     null,
@@ -280,6 +283,7 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
             #endregion
 
             #region Create SewingIn
+
             if (request.SewingTo == "SEWING")
             {
                 GarmentSewingIn garmentSewingIn = new GarmentSewingIn(
@@ -321,6 +325,7 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
                                     new ProductId(item.Product.Id),
                                     item.Product.Code,
                                     item.Product.Name,
+                                    item.CustomsCategory,
                                     item.DesignColor,
                                     new SizeId(detail.Size.Id),
                                     detail.Size.Size,
@@ -348,6 +353,7 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
                                     new ProductId(item.Product.Id),
                                     item.Product.Code,
                                     item.Product.Name,
+                                    item.CustomsCategory,
                                     item.DesignColor,
                                     new SizeId(item.Size.Id),
                                     item.Size.Size,
@@ -364,9 +370,11 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
                     }
                 }
             }
+
             #endregion
 
             #region Create FinishingIn
+
             if (request.SewingTo == "FINISHING")
             {
                 GarmentFinishingIn garmentFinishingIn = new GarmentFinishingIn(
@@ -408,6 +416,7 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
                                     new ProductId(item.Product.Id),
                                     item.Product.Code,
                                     item.Product.Name,
+                                    item.CustomsCategory,
                                     item.DesignColor,
                                     detail.Quantity,
                                     detail.Quantity,
@@ -433,6 +442,7 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
                                 new ProductId(item.Product.Id),
                                 item.Product.Code,
                                 item.Product.Name,
+                                item.CustomsCategory,
                                 item.DesignColor,
                                 item.Quantity,
                                 item.RemainingQuantity,
@@ -447,6 +457,7 @@ namespace Manufactures.Application.GarmentSewingOuts.CommandHandlers
                     }
                 }
             }
+
             #endregion
             _storage.Save();
 

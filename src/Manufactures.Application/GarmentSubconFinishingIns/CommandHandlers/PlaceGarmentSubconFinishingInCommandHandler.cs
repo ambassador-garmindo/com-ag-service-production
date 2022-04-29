@@ -82,6 +82,7 @@ namespace Manufactures.Application.GarmentFinishingIns.CommandHandlers
                     new ProductId(item.Product.Id),
                     item.Product.Code,
                     item.Product.Name,
+                    item.CustomsCategory,
                     item.DesignColor,
                     item.Quantity,
                     item.RemainingQuantity,

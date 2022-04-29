@@ -12,6 +12,7 @@ namespace Manufactures.Dtos
         {
             Id = garmentLoadingItem.Identity;
             Product = new Product(garmentLoadingItem.ProductId.Value, garmentLoadingItem.ProductCode, garmentLoadingItem.ProductName);
+            CustomsCategory = garmentLoadingItem.CustomsCategory;
             DesignColor = garmentLoadingItem.DesignColor;
             Size= new SizeValueObject(garmentLoadingItem.SizeId.Value, garmentLoadingItem.SizeName);
             Quantity = garmentLoadingItem.Quantity;
@@ -26,8 +27,8 @@ namespace Manufactures.Dtos
 
         public Guid Id { get; set; }
         public Guid SewingDOItemId { get; set; }
-
         public Product Product { get; set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get; set; }
         public SizeValueObject Size { get; set; }
         public double Quantity { get; set; }

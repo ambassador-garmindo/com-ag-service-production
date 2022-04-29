@@ -89,7 +89,7 @@ namespace Manufactures.Tests.Controllers.Api
             Guid finishingInItemGuid = Guid.NewGuid();
             Guid finishingInGuid = Guid.NewGuid();
             Guid finishingOutItemGuid = Guid.NewGuid();
-            GarmentFinishingOutItem garmentFinishingOutItem = new GarmentFinishingOutItem(finishingOutItemGuid, finishingOutGuid, finishingInGuid, finishingInItemGuid, new ProductId(1), null, null, null, new SizeId(1), null, 1, new UomId(1), null, null, 1, 1, 1);
+            GarmentFinishingOutItem garmentFinishingOutItem = new GarmentFinishingOutItem(finishingOutItemGuid, finishingOutGuid, finishingInGuid, finishingInItemGuid, new ProductId(1), null, null,null, null, new SizeId(1), null, 1, new UomId(1), null, null, 1, 1, 1);
             _mockGarmentFinishingOutItemRepository
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentFinishingOutItemReadModel>()
@@ -132,7 +132,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentFinishingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentFinishingOutItem>()
                 {
-                    new GarmentFinishingOutItem(finishingOutItemGuid, finishingOutGuid, finishingInGuid, finishingInItemGuid, new ProductId(1), null, null, null, new SizeId(1), null, 1, new UomId(1), null, null, 1,1,1)
+                    new GarmentFinishingOutItem(finishingOutItemGuid, finishingOutGuid, finishingInGuid, finishingInItemGuid, new ProductId(1), null, null,null, null, new SizeId(1), null, 1, new UomId(1), null, null, 1,1,1)
                 });
 
             _mockGarmentFinishingOutDetailRepository
@@ -173,7 +173,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentFinishingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentFinishingOutItem>()
                 {
-                    new GarmentFinishingOutItem(finishingOutItemGuid, finishingOutGuid, finishingInGuid, finishingInItemGuid, new ProductId(1), null, null, "design", new SizeId(1), "size", 1, new UomId(1), null, "color", 1,1,1)
+                    new GarmentFinishingOutItem(finishingOutItemGuid, finishingOutGuid, finishingInGuid, finishingInItemGuid, new ProductId(1), null, null,null, "design", new SizeId(1), "size", 1, new UomId(1), null, "color", 1,1,1)
                 });
 
             _mockGarmentFinishingOutDetailRepository
@@ -367,7 +367,7 @@ namespace Manufactures.Tests.Controllers.Api
 
             _mockGarmentFinishingOutItemRepository
              .Setup(s => s.Find(It.IsAny<IQueryable<GarmentFinishingOutItemReadModel>>()))
-             .Returns(new List<GarmentFinishingOutItem>() { new GarmentFinishingOutItem(id,id,id,id,new ProductId(1),"productCode", "productName","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1) });
+             .Returns(new List<GarmentFinishingOutItem>() { new GarmentFinishingOutItem(id,id,id,id,new ProductId(1),"productCode", "productName","customsCategory","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1) });
 
             _mockGarmentFinishingOutDetailRepository
                 .Setup(s => s.Query)

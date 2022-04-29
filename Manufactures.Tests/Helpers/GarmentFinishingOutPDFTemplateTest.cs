@@ -24,7 +24,7 @@ namespace Manufactures.Tests.Helpers
                CreatedBy = "CreatedBy",
                
             };
-            var finishingOutItem = new GarmentFinishingOutItemDto(new GarmentFinishingOutItem(id, id, id, id, new ProductId(1), "productCode", "productName", "designColor", new SizeId(1), "sizeName", 1, new UomId(1), "uomUnit", "color", 1, 1, 1));
+            var finishingOutItem = new GarmentFinishingOutItemDto(new GarmentFinishingOutItem(id, id, id, id, new ProductId(1), "productCode", "productName","customsCategory","designColor", new SizeId(1), "sizeName", 1, new UomId(1), "uomUnit", "color", 1, 1, 1));
             finishingOutItem.Details = new List<GarmentFinishingOutDetailDto>()
             {
                 new GarmentFinishingOutDetailDto(new GarmentFinishingOutDetail(id,id,new SizeId(1),"sizeName",1,new UomId(1),"uomUnit"))

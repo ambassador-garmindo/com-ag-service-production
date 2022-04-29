@@ -111,7 +111,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentExpenditureGoodReturns
                 null,null,new BuyerId(1),null,null,DateTimeOffset.Now,null,null,0,null,false,0);
 
             GarmentExpenditureGoodItem garmentExpenditureGoodItem = new GarmentExpenditureGoodItem(
-                exGoodItemGuid, exGoodGuid, finStockGuid, new SizeId(1), null, 1, 0, new UomId(1), null, "Color", 1, 1);
+                exGoodItemGuid, exGoodGuid, finStockGuid, "customsCategory", new SizeId(1), null, 1, 0, new UomId(1), null, "Color", 1, 1);
 
             _mockExpenditureGoodRepository
                 .Setup(s => s.Query)

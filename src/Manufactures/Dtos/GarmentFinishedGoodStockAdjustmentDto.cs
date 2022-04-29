@@ -20,6 +20,7 @@ namespace Manufactures.Dtos
 			ComodityId = transaction.ComodityId;
 			ComodityCode = transaction.ComodityCode;
 			ComodityName = transaction.ComodityName;
+            CustomsCategory = transaction.CustomsCategory;
 			SizeId = transaction.SizeId;
 			SizeName = transaction.SizeName;
 			Quantity = transaction.Quantity;
@@ -38,6 +39,7 @@ namespace Manufactures.Dtos
 		public GarmentComodityId ComodityId { get; private set; }
 		public string ComodityCode { get; private set; }
 		public string ComodityName { get; private set; }
+        public string CustomsCategory { get; private set; }
 		public SizeId SizeId { get; private set; }
 		public string SizeName { get; private set; }
 		public double Quantity { get; private set; }

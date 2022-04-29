@@ -49,12 +49,13 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAvalProducts.CommandHandlers
                 AvalDate = DateTimeOffset.Now,
                 Items = new List<GarmentAvalProductItemValueObject>()
                    {
-                       new GarmentAvalProductItemValueObject(id,id,new GarmentPreparingId(id.ToString()),new GarmentPreparingItemId(id.ToString()),new Product(),"designColor",1,new Uom())
+                       new GarmentAvalProductItemValueObject(id,id,new GarmentPreparingId(id.ToString()),new GarmentPreparingItemId(id.ToString()),"customs",new Product(),"designColor",1,new Uom())
                        {
                            Identity =id,
                            APId =id,
                            PreparingItemId =new GarmentPreparingItemId(id.ToString()),
                            PreparingId =new GarmentPreparingId(id.ToString()),
+                           CustomsCategory="customs",
                            Product =new Product()
                            {
                                Id =1,
@@ -88,7 +89,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAvalProducts.CommandHandlers
               .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentAvalProductItemReadModel, bool>>>()))
               .Returns(new List<GarmentAvalProductItem>()
               {
-                      new GarmentAvalProductItem(id,id,new GarmentPreparingId(id.ToString()),new GarmentPreparingItemId(id.ToString()),new ProductId(1),"productCode","productName","designColor",1,new UomId(1),"uomUnit",1,false)
+                      new GarmentAvalProductItem(id,id,new GarmentPreparingId(id.ToString()),new GarmentPreparingItemId(id.ToString()),"customs",new ProductId(1),"productCode","productName","designColor",1,new UomId(1),"uomUnit",1,false)
               });
     
 
@@ -125,12 +126,13 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAvalProducts.CommandHandlers
                 AvalDate = DateTimeOffset.Now,
                 Items = new List<GarmentAvalProductItemValueObject>()
                    {
-                       new GarmentAvalProductItemValueObject(id,id,new GarmentPreparingId(id.ToString()),new GarmentPreparingItemId(id.ToString()),new Product(),"designColor",1,new Uom())
+                       new GarmentAvalProductItemValueObject(id,id,new GarmentPreparingId(id.ToString()),new GarmentPreparingItemId(id.ToString()),"customs",new Product(),"designColor",1,new Uom())
                        {
                            Identity =id,
                            APId =id,
                            PreparingItemId =new GarmentPreparingItemId(id.ToString()),
                            PreparingId =new GarmentPreparingId(id.ToString()),
+                           CustomsCategory ="customs",
                            Product =new Product()
                            {
                                Id =1,
