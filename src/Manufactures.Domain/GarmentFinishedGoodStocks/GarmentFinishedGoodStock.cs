@@ -11,7 +11,6 @@ namespace Manufactures.Domain.GarmentFinishedGoodStocks
 {
     public class GarmentFinishedGoodStock : AggregateRoot<GarmentFinishedGoodStock, GarmentFinishedGoodStockReadModel>
     {
-
         public string FinishedGoodStockNo { get; private set; }
         public UnitDepartmentId UnitId { get; private set; }
         public string UnitCode { get; private set; }

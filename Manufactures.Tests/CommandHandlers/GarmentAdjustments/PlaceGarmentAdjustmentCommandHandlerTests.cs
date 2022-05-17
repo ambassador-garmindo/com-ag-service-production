@@ -259,90 +259,92 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAdjustments
             result.Should().NotBeNull();
         }
 
-		//[Fact]
-		//public async Task Handle_StateUnderTest_ExpectedBehavior_BARANGJADI()
-		//{
-		//	// Arrange
-		//	Guid finishedGoodStockId = Guid.NewGuid();
-		//	Guid sewingDOGuid = Guid.NewGuid();
-		//	PlaceGarmentAdjustmentCommandHandler unitUnderTest = CreatePlaceGarmentAdjustmentCommandHandler();
-		//	CancellationToken cancellationToken = CancellationToken.None;
-		//	PlaceGarmentAdjustmentCommand placeGarmentAdjustmentCommand = new PlaceGarmentAdjustmentCommand()
-		//	{
-		//		RONo = "RONo",
-		//		Unit = new UnitDepartment(1, "UnitCode", "UnitName"),
-		//		AdjustmentType = "BARANG JADI",
-		//		AdjustmentDate = DateTimeOffset.Now,
-		//		Article = "Article",
-		//		Comodity = new GarmentComodity(1, "ComoCode", "ComoName"),
-		//		Items = new List<GarmentAdjustmentItemValueObject>
-		//		{
-		//			new GarmentAdjustmentItemValueObject
-		//			{
-		//				IsSave=true,
-		//				FinishingInItemId=Guid.Empty,
-		//				FinishedGoodStockId=finishedGoodStockId,
-		//				Size=new SizeValueObject(1, "Size"),
-		//				Quantity=1,
-		//				RemainingQuantity=2,
-		//				Product= new Product(1, "ProdCode", "ProdName"),
-		//				Uom=new Uom(1, "Uom"),
-		//				Color="www"
-		//			}
-		//		},
+        [Fact]
+        public async Task Handle_StateUnderTest_ExpectedBehavior_BARANGJADI()
+        {
+            // Arrange
+            Guid finishedGoodStockId = Guid.NewGuid();
+            Guid sewingDOGuid = Guid.NewGuid();
+            PlaceGarmentAdjustmentCommandHandler unitUnderTest = CreatePlaceGarmentAdjustmentCommandHandler();
+            CancellationToken cancellationToken = CancellationToken.None;
+            PlaceGarmentAdjustmentCommand placeGarmentAdjustmentCommand = new PlaceGarmentAdjustmentCommand()
+            {
+                RONo = "RONo",
+                Unit = new UnitDepartment(1, "UnitCode", "UnitName"),
+                AdjustmentType = "BARANG JADI",
+                AdjustmentDate = DateTimeOffset.Now,
+                Article = "Article",
+                Comodity = new GarmentComodity(1, "ComoCode", "ComoName"),
+                Items = new List<GarmentAdjustmentItemValueObject>
+                {
+                    new GarmentAdjustmentItemValueObject
+                    {
+                        IsSave=true,
+                        FinishingInItemId=Guid.Empty,
+                        FinishedGoodStockId=finishedGoodStockId,
+                        Size=new SizeValueObject(1, "Size"),
+                        CustomsCategory = "",
+                        Quantity=1,
+                        RemainingQuantity=2,
+                        Product= new Product(1, "ProdCode", "ProdName"),
+                        Uom=new Uom(1, "Uom"),
+                        Color="www"
+                    }
+                },
 
-		//	};
-		//	_mockFinishedGoodStockRepository
-		//	   .Setup(s => s.Query)
-		//	   .Returns(new List<GarmentFinishedGoodStockReadModel>
-		//	   {
-		//			new GarmentFinishedGoodStock(finishedGoodStockId,"","RONo","article",new UnitDepartmentId(1),"code","name",new GarmentComodityId(1),"","","",new SizeId(1),"", new UomId(1),"",10,100,100).GetReadModel()
-		//	   }.AsQueryable());
+            };
+            _mockFinishedGoodStockRepository
+               .Setup(s => s.Query)
+               .Returns(new List<GarmentFinishedGoodStockReadModel>
+               {
+                    new GarmentFinishedGoodStock(finishedGoodStockId,"","RONo","article",new UnitDepartmentId(1),"code","name",new GarmentComodityId(1),"","","",new SizeId(1),"", new UomId(1),"",10,100,100).GetReadModel()
+               }.AsQueryable());
 
-		//	_mockAdjustmentRepository
-		//	   .Setup(s => s.Query)
-		//	   .Returns(new List<GarmentAdjustmentReadModel>().AsQueryable());
+            _mockAdjustmentRepository
+               .Setup(s => s.Query)
+               .Returns(new List<GarmentAdjustmentReadModel>().AsQueryable());
 
-  //          GarmentComodityPrice garmentComodity = new GarmentComodityPrice(
-  //              Guid.NewGuid(),
-  //              true,
-  //              DateTimeOffset.Now,
-  //              new UnitDepartmentId(placeGarmentAdjustmentCommand.Unit.Id),
-  //              placeGarmentAdjustmentCommand.Unit.Code,
-  //              placeGarmentAdjustmentCommand.Unit.Name,
-  //              new GarmentComodityId(placeGarmentAdjustmentCommand.Comodity.Id),
-  //              placeGarmentAdjustmentCommand.Comodity.Code,
-  //              placeGarmentAdjustmentCommand.Comodity.Name,
-  //              1000
-  //              );
-  //          _mockComodityPriceRepository
-  //              .Setup(s => s.Query)
-  //              .Returns(new List<GarmentComodityPriceReadModel>
-  //              {
-  //                  garmentComodity.GetReadModel()
-  //              }.AsQueryable());
+            GarmentComodityPrice garmentComodity = new GarmentComodityPrice(
+                Guid.NewGuid(),
+                true,
+                DateTimeOffset.Now,
+                new UnitDepartmentId(placeGarmentAdjustmentCommand.Unit.Id),
+                placeGarmentAdjustmentCommand.Unit.Code,
+                placeGarmentAdjustmentCommand.Unit.Name,
+                new GarmentComodityId(placeGarmentAdjustmentCommand.Comodity.Id),
+                placeGarmentAdjustmentCommand.Comodity.Code,
+                placeGarmentAdjustmentCommand.Comodity.Name,
+                1000
+                );
 
-  //          _mockAdjustmentRepository
-		//		.Setup(s => s.Update(It.IsAny<GarmentAdjustment>()))
-		//		.Returns(Task.FromResult(It.IsAny<GarmentAdjustment>()));
-		//	_mockAdjustmentItemRepository
-		//		.Setup(s => s.Update(It.IsAny<GarmentAdjustmentItem>()))
-		//		.Returns(Task.FromResult(It.IsAny<GarmentAdjustmentItem>()));
-		//	_mockFinishedGoodStockRepository
-		//		.Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStock>()))
-		//		.Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStock>()));
-		//	_mockFinishedGoodStockHistoryRepository
-		//		.Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStockHistory>()))
-		//		.Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStockHistory>()));
-		//	_MockStorage
-		//		.Setup(x => x.Save())
-		//		.Verifiable();
+            _mockComodityPriceRepository
+                .Setup(s => s.Query)
+                .Returns(new List<GarmentComodityPriceReadModel>
+                {
+                    garmentComodity.GetReadModel()
+                }.AsQueryable());
 
-		//	// Act
-		//	var result = await unitUnderTest.Handle(placeGarmentAdjustmentCommand, cancellationToken);
+            _mockAdjustmentRepository
+                .Setup(s => s.Update(It.IsAny<GarmentAdjustment>()))
+                .Returns(Task.FromResult(It.IsAny<GarmentAdjustment>()));
+            _mockAdjustmentItemRepository
+                .Setup(s => s.Update(It.IsAny<GarmentAdjustmentItem>()))
+                .Returns(Task.FromResult(It.IsAny<GarmentAdjustmentItem>()));
+            _mockFinishedGoodStockRepository
+                .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStock>()))
+                .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStock>()));
+            _mockFinishedGoodStockHistoryRepository
+                .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStockHistory>()))
+                .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStockHistory>()));
+            _MockStorage
+                .Setup(x => x.Save())
+                .Verifiable();
 
-		//	// Assert
-		//	result.Should().NotBeNull();
-		//}
-	}
+            // Act
+            var result = await unitUnderTest.Handle(placeGarmentAdjustmentCommand, cancellationToken);
+
+            // Assert
+            result.Should().NotBeNull();
+        }
+    }
 }
