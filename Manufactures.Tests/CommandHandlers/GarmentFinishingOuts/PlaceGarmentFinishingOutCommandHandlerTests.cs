@@ -70,215 +70,215 @@ namespace Manufactures.Tests.CommandHandlers.GarmentFinishingOuts
             return new PlaceGarmentFinishingOutCommandHandler(_MockStorage.Object);
         }
 
-        [Fact]
-        public async Task Handle_StateUnderTest_ExpectedBehavior_GudangJadi()
-        {
-            // Arrange
-            Guid finishingInItemGuid = Guid.NewGuid();
-            PlaceGarmentFinishingOutCommandHandler unitUnderTest = CreatePlaceGarmentFinishingOutCommandHandler();
-            CancellationToken cancellationToken = CancellationToken.None;
-            PlaceGarmentFinishingOutCommand placeGarmentFinishingOutCommand = new PlaceGarmentFinishingOutCommand()
-            {
-                RONo = "RONo",
-                Unit = new UnitDepartment(1, "UnitCode", "UnitName"),
-                UnitTo = new UnitDepartment(1, "UnitCode2", "UnitName2"),
-                Article = "Article",
-                IsDifferentSize = true,
-                FinishingTo = "GUDANG JADI",
-                Comodity = new GarmentComodity(1, "ComoCode", "ComoName"),
-                FinishingOutDate = DateTimeOffset.Now,
-                Items = new List<GarmentFinishingOutItemValueObject>
-                {
-                    new GarmentFinishingOutItemValueObject
-                    {
-                        Product = new Product(1, "ProductCode", "ProductName"),
-                        Uom = new Uom(1, "UomUnit"),
-                        FinishingInId= new Guid(),
-                        FinishingInItemId=finishingInItemGuid,
-                        Color="Color",
-                        Size=new SizeValueObject(1, "Size"),
-                        IsSave=true,
-                        Quantity=1,
-                        DesignColor= "ColorD",
-                        Details = new List<GarmentFinishingOutDetailValueObject>
-                        {
-                            new GarmentFinishingOutDetailValueObject
-                            {
-                                Size=new SizeValueObject(1, "Size"),
-                                Uom = new Uom(1, "UomUnit"),
-                                Quantity=1
-                            }
-                        }
-                    }
-                },
+        //[Fact]
+        //public async Task Handle_StateUnderTest_ExpectedBehavior_GudangJadi()
+        //{
+        //    // Arrange
+        //    Guid finishingInItemGuid = Guid.NewGuid();
+        //    PlaceGarmentFinishingOutCommandHandler unitUnderTest = CreatePlaceGarmentFinishingOutCommandHandler();
+        //    CancellationToken cancellationToken = CancellationToken.None;
+        //    PlaceGarmentFinishingOutCommand placeGarmentFinishingOutCommand = new PlaceGarmentFinishingOutCommand()
+        //    {
+        //        RONo = "RONo",
+        //        Unit = new UnitDepartment(1, "UnitCode", "UnitName"),
+        //        UnitTo = new UnitDepartment(1, "UnitCode2", "UnitName2"),
+        //        Article = "Article",
+        //        IsDifferentSize = true,
+        //        FinishingTo = "GUDANG JADI",
+        //        Comodity = new GarmentComodity(1, "ComoCode", "ComoName"),
+        //        FinishingOutDate = DateTimeOffset.Now,
+        //        Items = new List<GarmentFinishingOutItemValueObject>
+        //        {
+        //            new GarmentFinishingOutItemValueObject
+        //            {
+        //                Product = new Product(1, "ProductCode", "ProductName"),
+        //                Uom = new Uom(1, "UomUnit"),
+        //                FinishingInId= new Guid(),
+        //                FinishingInItemId=finishingInItemGuid,
+        //                Color="Color",
+        //                Size=new SizeValueObject(1, "Size"),
+        //                IsSave=true,
+        //                Quantity=1,
+        //                DesignColor= "ColorD",
+        //                Details = new List<GarmentFinishingOutDetailValueObject>
+        //                {
+        //                    new GarmentFinishingOutDetailValueObject
+        //                    {
+        //                        Size=new SizeValueObject(1, "Size"),
+        //                        Uom = new Uom(1, "UomUnit"),
+        //                        Quantity=1
+        //                    }
+        //                }
+        //            }
+        //        },
 
-            };
+        //    };
 
-            _mockFinishingOutRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentFinishingOutReadModel>().AsQueryable());
-            _mockFinishingInItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentFinishingInItemReadModel>
-                {
-                    new GarmentFinishingInItemReadModel(finishingInItemGuid)
-                }.AsQueryable());
+        //    _mockFinishingOutRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentFinishingOutReadModel>().AsQueryable());
+        //    _mockFinishingInItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentFinishingInItemReadModel>
+        //        {
+        //            new GarmentFinishingInItemReadModel(finishingInItemGuid)
+        //        }.AsQueryable());
 
-            _mockFinishedGoodStockRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentFinishedGoodStockReadModel>().AsQueryable());
+        //    _mockFinishedGoodStockRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentFinishedGoodStockReadModel>().AsQueryable());
 
-            GarmentComodityPrice garmentComodity = new GarmentComodityPrice(
-                Guid.NewGuid(),
-                true,
-                DateTimeOffset.Now,
-                new UnitDepartmentId(placeGarmentFinishingOutCommand.Unit.Id),
-                placeGarmentFinishingOutCommand.Unit.Code,
-                placeGarmentFinishingOutCommand.Unit.Name,
-                new GarmentComodityId( placeGarmentFinishingOutCommand.Comodity.Id),
-                placeGarmentFinishingOutCommand.Comodity.Code,
-                placeGarmentFinishingOutCommand.Comodity.Name,
-                1000
-                );
-            _mockComodityPriceRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentComodityPriceReadModel>
-                {
-                    garmentComodity.GetReadModel()
-                }.AsQueryable());
+        //    GarmentComodityPrice garmentComodity = new GarmentComodityPrice(
+        //        Guid.NewGuid(),
+        //        true,
+        //        DateTimeOffset.Now,
+        //        new UnitDepartmentId(placeGarmentFinishingOutCommand.Unit.Id),
+        //        placeGarmentFinishingOutCommand.Unit.Code,
+        //        placeGarmentFinishingOutCommand.Unit.Name,
+        //        new GarmentComodityId( placeGarmentFinishingOutCommand.Comodity.Id),
+        //        placeGarmentFinishingOutCommand.Comodity.Code,
+        //        placeGarmentFinishingOutCommand.Comodity.Name,
+        //        1000
+        //        );
+        //    _mockComodityPriceRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentComodityPriceReadModel>
+        //        {
+        //            garmentComodity.GetReadModel()
+        //        }.AsQueryable());
 
-            _mockFinishingOutRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishingOut>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishingOut>()));
-            _mockFinishingOutItemRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishingOutItem>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishingOutItem>()));
-            _mockFinishingOutDetailRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishingOutDetail>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishingOutDetail>()));
-            _mockFinishingInItemRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishingInItem>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishingInItem>()));
+        //    _mockFinishingOutRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishingOut>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishingOut>()));
+        //    _mockFinishingOutItemRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishingOutItem>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishingOutItem>()));
+        //    _mockFinishingOutDetailRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishingOutDetail>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishingOutDetail>()));
+        //    _mockFinishingInItemRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishingInItem>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishingInItem>()));
 
-            _mockFinishedGoodStockRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStock>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStock>()));
+        //    _mockFinishedGoodStockRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStock>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStock>()));
 
-            _mockFinishedGoodStockHistoryRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStockHistory>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStockHistory>()));
+        //    _mockFinishedGoodStockHistoryRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStockHistory>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStockHistory>()));
 
 
-            _MockStorage
-                .Setup(x => x.Save())
-                .Verifiable();
+        //    _MockStorage
+        //        .Setup(x => x.Save())
+        //        .Verifiable();
 
-            // Act
-            var result = await unitUnderTest.Handle(placeGarmentFinishingOutCommand, cancellationToken);
+        //    // Act
+        //    var result = await unitUnderTest.Handle(placeGarmentFinishingOutCommand, cancellationToken);
 
-            // Assert
-            result.Should().NotBeNull();
-        }
+        //    // Assert
+        //    result.Should().NotBeNull();
+        //}
 
-        [Fact]
-        public async Task Handle_StateUnderTest_ExpectedBehavior_IsnotDifferentSize_GudangJadi()
-        {
-            // Arrange
-            Guid finishingInItemGuid = Guid.NewGuid();
-            PlaceGarmentFinishingOutCommandHandler unitUnderTest = CreatePlaceGarmentFinishingOutCommandHandler();
-            CancellationToken cancellationToken = CancellationToken.None;
-            PlaceGarmentFinishingOutCommand placeGarmentFinishingOutCommand = new PlaceGarmentFinishingOutCommand()
-            {
-                RONo = "RONo",
-                Unit = new UnitDepartment(1, "UnitCode", "UnitName"),
-                UnitTo = new UnitDepartment(1, "UnitCode2", "UnitName2"),
-                Article = "Article",
-                IsDifferentSize = false,
-                FinishingTo = "GUDANG JADI",
-                Comodity = new GarmentComodity(1, "ComoCode", "ComoName"),
-                FinishingOutDate = DateTimeOffset.Now,
-                Items = new List<GarmentFinishingOutItemValueObject>
-                {
-                    new GarmentFinishingOutItemValueObject
-                    {
-                        Product = new Product(1, "ProductCode", "ProductName"),
-                        Uom = new Uom(1, "UomUnit"),
-                        FinishingInId= new Guid(),
-                        FinishingInItemId=finishingInItemGuid,
-                        Color="Color",
-                        Size=new SizeValueObject(1, "Size"),
-                        IsSave=true,
-                        Quantity=1,
-                        DesignColor= "ColorD",
+        //[Fact]
+        //public async Task Handle_StateUnderTest_ExpectedBehavior_IsnotDifferentSize_GudangJadi()
+        //{
+        //    // Arrange
+        //    Guid finishingInItemGuid = Guid.NewGuid();
+        //    PlaceGarmentFinishingOutCommandHandler unitUnderTest = CreatePlaceGarmentFinishingOutCommandHandler();
+        //    CancellationToken cancellationToken = CancellationToken.None;
+        //    PlaceGarmentFinishingOutCommand placeGarmentFinishingOutCommand = new PlaceGarmentFinishingOutCommand()
+        //    {
+        //        RONo = "RONo",
+        //        Unit = new UnitDepartment(1, "UnitCode", "UnitName"),
+        //        UnitTo = new UnitDepartment(1, "UnitCode2", "UnitName2"),
+        //        Article = "Article",
+        //        IsDifferentSize = false,
+        //        FinishingTo = "GUDANG JADI",
+        //        Comodity = new GarmentComodity(1, "ComoCode", "ComoName"),
+        //        FinishingOutDate = DateTimeOffset.Now,
+        //        Items = new List<GarmentFinishingOutItemValueObject>
+        //        {
+        //            new GarmentFinishingOutItemValueObject
+        //            {
+        //                Product = new Product(1, "ProductCode", "ProductName"),
+        //                Uom = new Uom(1, "UomUnit"),
+        //                FinishingInId= new Guid(),
+        //                FinishingInItemId=finishingInItemGuid,
+        //                Color="Color",
+        //                Size=new SizeValueObject(1, "Size"),
+        //                IsSave=true,
+        //                Quantity=1,
+        //                DesignColor= "ColorD",
                         
-                    }
-                },
+        //            }
+        //        },
 
-            };
+        //    };
 
-            _mockFinishingOutRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentFinishingOutReadModel>().AsQueryable());
-            _mockFinishingInItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentFinishingInItemReadModel>
-                {
-                    new GarmentFinishingInItemReadModel(finishingInItemGuid)
-                }.AsQueryable());
+        //    _mockFinishingOutRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentFinishingOutReadModel>().AsQueryable());
+        //    _mockFinishingInItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentFinishingInItemReadModel>
+        //        {
+        //            new GarmentFinishingInItemReadModel(finishingInItemGuid)
+        //        }.AsQueryable());
 
-            _mockFinishedGoodStockRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentFinishedGoodStockReadModel>().AsQueryable());
+        //    _mockFinishedGoodStockRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentFinishedGoodStockReadModel>().AsQueryable());
 
-            GarmentComodityPrice garmentComodity = new GarmentComodityPrice(
-                Guid.NewGuid(),
-                true,
-                DateTimeOffset.Now,
-                new UnitDepartmentId(placeGarmentFinishingOutCommand.Unit.Id),
-                placeGarmentFinishingOutCommand.Unit.Code,
-                placeGarmentFinishingOutCommand.Unit.Name,
-                new GarmentComodityId(placeGarmentFinishingOutCommand.Comodity.Id),
-                placeGarmentFinishingOutCommand.Comodity.Code,
-                placeGarmentFinishingOutCommand.Comodity.Name,
-                1000
-                );
-            _mockComodityPriceRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentComodityPriceReadModel>
-                {
-                    garmentComodity.GetReadModel()
-                }.AsQueryable());
+        //    GarmentComodityPrice garmentComodity = new GarmentComodityPrice(
+        //        Guid.NewGuid(),
+        //        true,
+        //        DateTimeOffset.Now,
+        //        new UnitDepartmentId(placeGarmentFinishingOutCommand.Unit.Id),
+        //        placeGarmentFinishingOutCommand.Unit.Code,
+        //        placeGarmentFinishingOutCommand.Unit.Name,
+        //        new GarmentComodityId(placeGarmentFinishingOutCommand.Comodity.Id),
+        //        placeGarmentFinishingOutCommand.Comodity.Code,
+        //        placeGarmentFinishingOutCommand.Comodity.Name,
+        //        1000
+        //        );
+        //    _mockComodityPriceRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentComodityPriceReadModel>
+        //        {
+        //            garmentComodity.GetReadModel()
+        //        }.AsQueryable());
 
-            _mockFinishingOutRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishingOut>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishingOut>()));
-            _mockFinishingOutItemRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishingOutItem>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishingOutItem>()));
+        //    _mockFinishingOutRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishingOut>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishingOut>()));
+        //    _mockFinishingOutItemRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishingOutItem>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishingOutItem>()));
             
-            _mockFinishingInItemRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishingInItem>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishingInItem>()));
+        //    _mockFinishingInItemRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishingInItem>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishingInItem>()));
 
-            _mockFinishedGoodStockRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStock>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStock>()));
+        //    _mockFinishedGoodStockRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStock>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStock>()));
 
-            _mockFinishedGoodStockHistoryRepository
-                .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStockHistory>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStockHistory>()));
+        //    _mockFinishedGoodStockHistoryRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentFinishedGoodStockHistory>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentFinishedGoodStockHistory>()));
 
 
-            _MockStorage
-                .Setup(x => x.Save())
-                .Verifiable();
+        //    _MockStorage
+        //        .Setup(x => x.Save())
+        //        .Verifiable();
 
-            // Act
-            var result = await unitUnderTest.Handle(placeGarmentFinishingOutCommand, cancellationToken);
+        //    // Act
+        //    var result = await unitUnderTest.Handle(placeGarmentFinishingOutCommand, cancellationToken);
 
-            // Assert
-            result.Should().NotBeNull();
-        }
+        //    // Assert
+        //    result.Should().NotBeNull();
+        //}
 
         [Fact]
         public async Task Handle_StateUnderTest_ExpectedBehavior_Finishing_DiffSize()
