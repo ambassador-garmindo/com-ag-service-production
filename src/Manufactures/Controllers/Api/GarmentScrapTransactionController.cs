@@ -1,4 +1,5 @@
-﻿using Manufactures.Domain.GarmentScrapSources.Commands;
+﻿using Manufactures.Application.GarmentScrapTransactions.Queries.GetMutationScrap;
+using Manufactures.Domain.GarmentScrapSources.Commands;
 using Manufactures.Domain.GarmentScrapSources.Repositories;
 using Manufactures.Dtos;
 using Microsoft.AspNetCore.Authorization;
@@ -121,5 +122,15 @@ namespace Manufactures.Controllers.Api
 
 			return Ok(order.Identity);
 		}
-	}
+
+        [HttpGet("mutation")]
+        public async Task<IActionResult> GetMutation(DateTime dateFrom, DateTime dateTo)
+        {
+            VerifyUser();
+            GetMutationScrapQuery query = new GetMutationScrapQuery(dateFrom, dateTo, WorkContext.Token);
+            var viewModel = await Mediator.Send(query);
+
+            return Ok(viewModel.garmentMonitorings);
+        }
+    }
 }

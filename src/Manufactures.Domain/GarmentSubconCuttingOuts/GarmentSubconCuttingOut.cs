@@ -29,8 +29,9 @@ namespace Manufactures.Domain.GarmentSubconCuttingOuts
         public string POSerialNumber { get; private set; }
         public double PlanPORemainingQuantity { get; private set; }
         public double TotalQty { get; private set; }
+        public bool IsUsed { get; private set; }
 
-        public GarmentSubconCuttingOut(Guid identity, string cutOutNo, string cuttingOutType, UnitDepartmentId unitFromId, string unitFromCode, string unitFromName, DateTimeOffset cuttingOutDate, string rONo, string article, GarmentComodityId comodityId, string comodityCode, string comodityName, long epoId, long epoItemId, string poSerialNumber) : base(identity)
+        public GarmentSubconCuttingOut(Guid identity, string cutOutNo, string cuttingOutType, UnitDepartmentId unitFromId, string unitFromCode, string unitFromName, DateTimeOffset cuttingOutDate, string rONo, string article, GarmentComodityId comodityId, string comodityCode, string comodityName, long epoId, long epoItemId, string poSerialNumber, bool isUsed) : base(identity)
         {
             Validator.ThrowIfNull(() => unitFromId);
             Validator.ThrowIfNull(() => rONo);
@@ -52,6 +53,7 @@ namespace Manufactures.Domain.GarmentSubconCuttingOuts
             EPOId = epoId;
             EPOItemId = epoItemId;
             POSerialNumber = poSerialNumber;
+            IsUsed = isUsed;
 
             ReadModel = new GarmentCuttingOutReadModel(Identity)
             {
@@ -68,8 +70,8 @@ namespace Manufactures.Domain.GarmentSubconCuttingOuts
                 ComodityName = ComodityName,
                 EPOId = EPOId,
                 EPOItemId = EPOItemId,
-                POSerialNumber = POSerialNumber
-
+                POSerialNumber = POSerialNumber,
+                IsUsed=IsUsed
             };
 
             ReadModel.AddDomainEvent(new OnGarmentSubconCuttingOutPlaced(Identity));
@@ -91,8 +93,19 @@ namespace Manufactures.Domain.GarmentSubconCuttingOuts
             EPOId = readModel.EPOId;
             EPOItemId = readModel.EPOItemId;
             POSerialNumber = readModel.POSerialNumber;
+            IsUsed = readModel.IsUsed;
         }
 
+        public void SetIsUsed(bool isUsed)
+        {
+            if (IsUsed != isUsed)
+            {
+                IsUsed = isUsed;
+                ReadModel.IsUsed = isUsed;
+
+                MarkModified();
+            }
+        }
         public void Modify()
         {
             MarkModified();

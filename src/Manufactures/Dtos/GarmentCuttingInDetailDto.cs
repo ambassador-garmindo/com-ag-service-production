@@ -16,6 +16,7 @@ namespace Manufactures.Dtos
             Product = new Product(garmentCuttingInDetail.ProductId.Value, garmentCuttingInDetail.ProductCode, garmentCuttingInDetail.ProductName);
             DesignColor = garmentCuttingInDetail.DesignColor;
             FabricType = garmentCuttingInDetail.FabricType;
+            CustomsCategory = garmentCuttingInDetail.CustomsCategory;
             PreparingQuantity = garmentCuttingInDetail.PreparingQuantity;
             PreparingUom = new Uom(garmentCuttingInDetail.PreparingUomId.Value, garmentCuttingInDetail.PreparingUomUnit);
             CuttingInQuantity = garmentCuttingInDetail.CuttingInQuantity;
@@ -34,6 +35,7 @@ namespace Manufactures.Dtos
 
         public string DesignColor { get; set; }
         public string FabricType { get; set; }
+        public string CustomsCategory { get; set; }
 
         public double PreparingRemainingQuantity { get; set; }
         public double PreparingQuantity { get; set; }

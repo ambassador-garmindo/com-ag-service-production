@@ -96,7 +96,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAdjustments
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentAdjustmentItemReadModel, bool>>>()))
                 .Returns(new List<GarmentAdjustmentItem>()
                 {
-                    new GarmentAdjustmentItem(Guid.Empty, Guid.Empty,sewingDOItemGuid,sewingInItemGuid,Guid.Empty,Guid.Empty,new SizeId(1), null, new ProductId(1), null, null, null, 1,10,new UomId(1),null, null,1)
+                    new GarmentAdjustmentItem(Guid.Empty, Guid.Empty,sewingDOItemGuid,sewingInItemGuid,Guid.Empty,Guid.Empty,new SizeId(1), null, new ProductId(1), null, null,null, null, 1,10,new UomId(1),null, null,1)
                 });
 
 
@@ -174,7 +174,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAdjustments
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentAdjustmentItemReadModel, bool>>>()))
                 .Returns(new List<GarmentAdjustmentItem>()
                 {
-                    new GarmentAdjustmentItem(Guid.Empty, Guid.Empty,sewingDOItemGuid,sewingInItemGuid,Guid.Empty,Guid.Empty,new SizeId(1), null, new ProductId(1), null, null, null, 1,10,new UomId(1),null, null,1)
+                    new GarmentAdjustmentItem(Guid.Empty, Guid.Empty,sewingDOItemGuid,sewingInItemGuid,Guid.Empty,Guid.Empty,new SizeId(1), null, new ProductId(1), null, null,null, null, 1,10,new UomId(1),null, null,1)
                 });
 
 
@@ -252,7 +252,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentAdjustments
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentAdjustmentItemReadModel, bool>>>()))
                 .Returns(new List<GarmentAdjustmentItem>()
                 {
-                    new GarmentAdjustmentItem(Guid.Empty, Guid.Empty,sewingDOItemGuid,Guid.Empty,finishingInItemGuid,Guid.Empty,new SizeId(1), null, new ProductId(1), null, null, null, 1,10,new UomId(1),null, null,1)
+                    new GarmentAdjustmentItem(Guid.Empty, Guid.Empty,sewingDOItemGuid,Guid.Empty,finishingInItemGuid,Guid.Empty,new SizeId(1), null, new ProductId(1), null, null,null, null, 1,10,new UomId(1),null, null,1)
                 });
 
 

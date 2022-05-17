@@ -13,6 +13,7 @@ namespace Manufactures.Domain.GarmentFinishingIns.ValueObjects
         public Guid SewingOutItemId { get;  set; }
         public Guid SewingOutDetailId { get;  set; }
         public Product Product { get;  set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get;  set; }
         public SizeValueObject Size { get;  set; }
         public double Quantity { get;  set; }

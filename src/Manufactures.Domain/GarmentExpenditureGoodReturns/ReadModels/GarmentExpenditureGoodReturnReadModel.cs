@@ -28,7 +28,8 @@ namespace Manufactures.Domain.GarmentExpenditureGoodReturns.ReadModels
         public string Invoice { get; internal set; }
         public string ContractNo { get; internal set; }
         public string ReturDesc { get; internal set; }
-        public virtual List<GarmentExpenditureGoodReturnItemReadModel> Items { get; internal set; }
+		public string UId { get; set; }
+		public virtual List<GarmentExpenditureGoodReturnItemReadModel> Items { get; internal set; }
 
     }
 }

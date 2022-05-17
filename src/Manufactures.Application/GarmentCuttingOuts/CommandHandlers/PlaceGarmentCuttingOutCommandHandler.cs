@@ -61,7 +61,8 @@ namespace Manufactures.Application.GarmentCuttingOuts.CommandHandlers
                 request.Unit.Name,
                 new GarmentComodityId(request.Comodity.Id),
                 request.Comodity.Code,
-                request.Comodity.Name
+                request.Comodity.Name,
+                request.IsUsed
             );
 
             GarmentSewingDO garmentSewingDO = new GarmentSewingDO(
@@ -94,6 +95,7 @@ namespace Manufactures.Application.GarmentCuttingOuts.CommandHandlers
                     new ProductId(item.Product.Id),
                     item.Product.Code,
                     item.Product.Name,
+                    item.CustomsCategory,
                     item.DesignColor,
                     item.TotalCuttingOutQuantity
                 );
@@ -135,6 +137,7 @@ namespace Manufactures.Application.GarmentCuttingOuts.CommandHandlers
                         new ProductId(item.Product.Id),
                         item.Product.Code,
                         item.Product.Name,
+                        garmentCuttingOutItem.CustomsCategory,
                         item.DesignColor,
                         new SizeId(detail.Size.Id),
                         detail.Size.Size,
@@ -150,7 +153,6 @@ namespace Manufactures.Application.GarmentCuttingOuts.CommandHandlers
                     await _garmentSewingDOItemRepository.Update(garmentSewingDOItem);
 
                 }
-
                 await _garmentCuttingOutItemRepository.Update(garmentCuttingOutItem);
             }
 

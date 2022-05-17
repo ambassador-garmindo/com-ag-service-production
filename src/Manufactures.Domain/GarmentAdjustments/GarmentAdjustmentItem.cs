@@ -18,6 +18,7 @@ namespace Manufactures.Domain.GarmentAdjustments
 		public ProductId ProductId { get; internal set; }
         public string ProductCode { get; internal set; }
         public string ProductName { get; internal set; }
+        public string CustomsCategory { get; internal set; }
         public string DesignColor { get; internal set; }
         public SizeId SizeId { get; internal set; }
         public string SizeName { get; internal set; }
@@ -47,7 +48,7 @@ namespace Manufactures.Domain.GarmentAdjustments
             }
         }
 
-        public GarmentAdjustmentItem(Guid identity, Guid loadingId, Guid sewingDOItemId, Guid sewingInItemId, Guid finishingInItemId,Guid finishedGoodStockId, SizeId sizeId, string sizeName, ProductId productId, string productCode, string productName, string designColor, double quantity, double basicPrice, UomId uomId, string uomUnit, string color, double price) : base(identity)
+        public GarmentAdjustmentItem(Guid identity, Guid loadingId, Guid sewingDOItemId, Guid sewingInItemId, Guid finishingInItemId,Guid finishedGoodStockId, SizeId sizeId, string sizeName, ProductId productId, string productCode, string productName, string customsCategory, string designColor, double quantity, double basicPrice, UomId uomId, string uomUnit, string color, double price) : base(identity)
         {
 			Id = identity;
             AdjustmentId = loadingId;
@@ -58,6 +59,7 @@ namespace Manufactures.Domain.GarmentAdjustments
             ProductId = productId;
             ProductCode = productCode;
             ProductName = productCode;
+            CustomsCategory = customsCategory;
             DesignColor = designColor;
             SizeId = sizeId;
             SizeName = sizeName;
@@ -70,7 +72,6 @@ namespace Manufactures.Domain.GarmentAdjustments
 
             ReadModel = new GarmentAdjustmentItemReadModel(Identity)
             {
-				
                 AdjustmentId = loadingId,
                 SewingDOItemId = SewingDOItemId,
                 SewingInItemId= SewingInItemId,
@@ -79,6 +80,7 @@ namespace Manufactures.Domain.GarmentAdjustments
                 ProductId = ProductId.Value,
                 ProductCode = ProductCode,
                 ProductName = ProductName,
+                CustomsCategory = CustomsCategory,
                 DesignColor = DesignColor,
                 SizeId = SizeId.Value,
                 SizeName = SizeName,
@@ -103,6 +105,7 @@ namespace Manufactures.Domain.GarmentAdjustments
             ProductId = new ProductId(readModel.ProductId);
             ProductCode = readModel.ProductCode;
             ProductName = readModel.ProductCode;
+            CustomsCategory = readModel.CustomsCategory;
             DesignColor = readModel.DesignColor;
             SizeId = new SizeId(readModel.SizeId);
             SizeName = readModel.SizeName;

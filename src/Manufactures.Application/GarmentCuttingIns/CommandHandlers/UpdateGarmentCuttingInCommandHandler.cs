@@ -60,6 +60,7 @@ namespace Manufactures.Application.GarmentCuttingIns.CommandHandlers
                     cutInDetail.SetRemainingQuantity(detail.RemainingQuantity);
                     cutInDetail.SetPrice(detail.Price);
                     cutInDetail.SetFC(detail.FC);
+                    cutInDetail.SetCustomsCategory(detail.CustomsCategory);
 
                     cutInDetail.Modify();
                     await _garmentCuttingInDetailRepository.Update(cutInDetail);

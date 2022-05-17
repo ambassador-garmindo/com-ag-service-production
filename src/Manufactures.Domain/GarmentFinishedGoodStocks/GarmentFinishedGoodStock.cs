@@ -21,6 +21,7 @@ namespace Manufactures.Domain.GarmentFinishedGoodStocks
         public GarmentComodityId ComodityId { get; private set; }
         public string ComodityCode { get; private set; }
         public string ComodityName { get; private set; }
+        public string CustomsCategory { get; private set; }
         public SizeId SizeId { get; private set; }
         public string SizeName { get; private set; }
         public double Quantity { get; private set; }
@@ -31,7 +32,7 @@ namespace Manufactures.Domain.GarmentFinishedGoodStocks
 		public double ComodityPrice { get; private set; }
 
 
-		public GarmentFinishedGoodStock(Guid identity, string finishedGoodStockNo, string rONo, string article, UnitDepartmentId unitId, string unitCode, string unitName, GarmentComodityId comodityId, string comodityCode, string comodityName, SizeId sizeId, string sizeName, UomId uomId, string uomUnit, double quantity, double basicPrice, double price) : base(identity)
+		public GarmentFinishedGoodStock(Guid identity, string finishedGoodStockNo, string rONo, string article, UnitDepartmentId unitId, string unitCode, string unitName, GarmentComodityId comodityId, string comodityCode, string comodityName, string customsCategory, SizeId sizeId, string sizeName, UomId uomId, string uomUnit, double quantity, double basicPrice, double price) : base(identity)
         {
             Validator.ThrowIfNull(() => unitId);
             Validator.ThrowIfNull(() => rONo);
@@ -48,6 +49,7 @@ namespace Manufactures.Domain.GarmentFinishedGoodStocks
             ComodityId = comodityId;
             ComodityCode = comodityCode;
             ComodityName = comodityName;
+            CustomsCategory = customsCategory;
             SizeId = sizeId;
             SizeName = sizeName;
             Quantity = quantity;
@@ -55,8 +57,8 @@ namespace Manufactures.Domain.GarmentFinishedGoodStocks
             UomUnit = uomUnit;
             BasicPrice = basicPrice;
             Price = price;
-			 
-			ReadModel = new GarmentFinishedGoodStockReadModel(Identity)
+
+            ReadModel = new GarmentFinishedGoodStockReadModel(Identity)
             {
                 FinishedGoodStockNo = FinishedGoodStockNo,
                 RONo = RONo,
@@ -67,6 +69,7 @@ namespace Manufactures.Domain.GarmentFinishedGoodStocks
                 ComodityId = ComodityId.Value,
                 ComodityCode = ComodityCode,
                 ComodityName = ComodityName,
+                CustomsCategory = CustomsCategory,
                 SizeId = SizeId.Value,
                 SizeName= SizeName,
                 Quantity= Quantity,
@@ -91,6 +94,7 @@ namespace Manufactures.Domain.GarmentFinishedGoodStocks
             ComodityId = new GarmentComodityId(readModel.ComodityId);
             ComodityCode = readModel.ComodityCode;
             ComodityName = readModel.ComodityName;
+            CustomsCategory = readModel.CustomsCategory;
             SizeId = new SizeId(readModel.SizeId);
             SizeName = readModel.SizeName;
             Quantity = readModel.Quantity;

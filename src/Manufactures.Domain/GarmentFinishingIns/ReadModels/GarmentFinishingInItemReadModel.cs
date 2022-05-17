@@ -15,9 +15,11 @@ namespace Manufactures.Domain.GarmentFinishingIns.ReadModels
         public Guid SewingOutItemId { get; internal set; }
         public Guid SewingOutDetailId { get; internal set; }
         public Guid SubconCuttingId { get; internal set; }
+        public long DODetailId { get; internal set; }
         public int ProductId { get; internal set; }
         public string ProductCode { get; internal set; }
         public string ProductName { get; internal set; }
+        public string CustomsCategory { get; internal set; }
         public string DesignColor { get; internal set; }
         public int SizeId { get; internal set; }
         public string SizeName { get; internal set; }

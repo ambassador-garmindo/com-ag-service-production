@@ -30,6 +30,7 @@ namespace Manufactures.Domain.GarmentCuttingOuts.ReadModels
         public long EPOItemId { get; internal set; }
         public string POSerialNumber { get; internal set; }
 		public string UId { get; private set; }
-		public virtual List<GarmentCuttingOutItemReadModel> GarmentCuttingOutItem { get; internal set; }
+        public bool IsUsed { get; internal set; }
+        public virtual List<GarmentCuttingOutItemReadModel> GarmentCuttingOutItem { get; internal set; }
     }
 }

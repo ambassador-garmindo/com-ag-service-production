@@ -54,7 +54,8 @@ namespace Manufactures.Application.GarmentAvalComponents.CommandHandlers
                 new GarmentComodityId(garmentComodity.Id),
                 garmentComodity.Code,
                 garmentComodity.Name,
-                request.Date.GetValueOrDefault()
+                request.Date.GetValueOrDefault(),
+                request.IsReceived
             );
 
             foreach (var item in request.Items.Where(w => w.IsSave))

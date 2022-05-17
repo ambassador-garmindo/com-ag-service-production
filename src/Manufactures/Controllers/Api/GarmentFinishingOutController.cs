@@ -35,6 +35,7 @@ namespace Manufactures.Controllers.Api
             _garmentFinishingOutDetailRepository = Storage.GetRepository<IGarmentFinishingOutDetailRepository>();
             _garmentFinishingInItemRepository = Storage.GetRepository<IGarmentFinishingInItemRepository>();
         }
+
         [HttpGet]
         public async Task<IActionResult> Get(int page = 1, int size = 25, string order = "{}", [Bind(Prefix = "Select[]")]List<string> select = null, string keyword = null, string filter = "{}")
         {
@@ -203,6 +204,7 @@ namespace Manufactures.Controllers.Api
 				viewModel.count
 			});
 		}
+
 		[HttpGet("download")]
 		public async Task<IActionResult> GetXls(int unit, DateTime dateFrom, DateTime dateTo,string type, int page = 1, int size = 25, string Order = "{}")
 		{

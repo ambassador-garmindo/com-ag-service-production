@@ -22,6 +22,7 @@ namespace Manufactures.Domain.GarmentCuttingOuts.Commands
         public string Article { get; set; }
         public UnitDepartment Unit { get; set; }
         public GarmentComodity Comodity { get; set; }
+        public bool IsUsed { get; set; }
         public List<GarmentCuttingOutItemValueObject> Items { get; set; }
 
         public void SetIdentity(Guid id)

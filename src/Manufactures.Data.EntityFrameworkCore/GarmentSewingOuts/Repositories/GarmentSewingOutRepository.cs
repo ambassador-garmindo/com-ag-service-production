@@ -42,6 +42,28 @@ namespace Manufactures.Data.EntityFrameworkCore.GarmentSewingOuts.Repositories
             return data;
         }
 
+        public IQueryable<GarmentSewingOutReadModel> ReadComplete(int page, int size, string order, string keyword, string filter)
+        {
+            var data = Query;
+
+            Dictionary<string, object> FilterDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(filter);
+            data = QueryHelper<GarmentSewingOutReadModel>.Filter(data, FilterDictionary);
+
+            List<string> SearchAttributes = new List<string>
+            {
+                "RONo",
+            };
+
+            data = QueryHelper<GarmentSewingOutReadModel>.Search(data, SearchAttributes, keyword);
+
+            Dictionary<string, string> OrderDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(order);
+            data = OrderDictionary.Count == 0 ? data.OrderByDescending(o => o.ModifiedDate) : QueryHelper<GarmentSewingOutReadModel>.Order(data, OrderDictionary);
+
+            //var data2 = data.Skip((page - 1) * size).Take(size);
+
+            return data;
+        }
+
         public IQueryable ReadDynamic(string order, string search, string select, string keyword, string filter)
         {
             var data = Query ;

@@ -15,6 +15,7 @@ namespace Manufactures.Dtos
             CuttingOutDetailId = garmentSewingDOItem.CuttingOutDetailId;
             CuttingOutItemId = garmentSewingDOItem.CuttingOutItemId;
             Product = new Product(garmentSewingDOItem.ProductId.Value, garmentSewingDOItem.ProductCode, garmentSewingDOItem.ProductName);
+            CustomsCategory = garmentSewingDOItem.CustomsCategory;
             DesignColor = garmentSewingDOItem.DesignColor;
             Size = new SizeValueObject(garmentSewingDOItem.SizeId.Value, garmentSewingDOItem.SizeName);
             Quantity = garmentSewingDOItem.Quantity;
@@ -32,6 +33,7 @@ namespace Manufactures.Dtos
         public Guid CuttingOutDetailId { get; set; }
         public Guid CuttingOutItemId { get; set; }
         public Product Product { get; set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get; set; }
         public SizeValueObject Size { get; set; }
         public double Quantity { get; set; }

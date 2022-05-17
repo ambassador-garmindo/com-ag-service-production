@@ -12,6 +12,7 @@ namespace Manufactures.Dtos
         {
             Id = garmentFinishingInItem.Identity;
             Product = new Product(garmentFinishingInItem.ProductId.Value, garmentFinishingInItem.ProductCode, garmentFinishingInItem.ProductName);
+            CustomsCategory = garmentFinishingInItem.CustomsCategory;
             DesignColor = garmentFinishingInItem.DesignColor;
             Size = new SizeValueObject(garmentFinishingInItem.SizeId.Value, garmentFinishingInItem.SizeName);
             Quantity = garmentFinishingInItem.Quantity;
@@ -26,8 +27,8 @@ namespace Manufactures.Dtos
 
         public Guid Id { get; set; }
         public Guid SewingOutItemId { get; set; }
-
         public Product Product { get; set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get; set; }
         public SizeValueObject Size { get; set; }
         public double Quantity { get; set; }

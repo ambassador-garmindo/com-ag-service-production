@@ -27,6 +27,7 @@ namespace Manufactures.Domain.GarmentAvalComponents.ReadModels
         public decimal Price { get; internal set; }
         public decimal BasicPrice { get; internal set; }
 
-        public virtual GarmentAvalComponentReadModel GarmentAvalComponent { get; internal set; }
+		public string UId { get; internal set; }
+		public virtual GarmentAvalComponentReadModel GarmentAvalComponent { get; internal set; }
     }
 }

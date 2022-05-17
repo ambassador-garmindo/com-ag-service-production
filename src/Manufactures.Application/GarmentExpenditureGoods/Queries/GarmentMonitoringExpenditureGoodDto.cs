@@ -18,6 +18,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 		public string buyerCode { get; internal set; }
 		public string colour { get; internal set; }
 		public string name { get; internal set; }
+        public string unitname { get; internal set; }
 		public double qty { get; internal set; }
 		public string invoice { get; internal set; }
 		public decimal price { get; internal set; }
@@ -34,7 +35,8 @@ namespace Manufactures.Application.GarmentExpenditureGoods.Queries
 			colour = garmentMonitoring.colour;
 			name = garmentMonitoring.name;
 			qty = garmentMonitoring.qty;
-			invoice = garmentMonitoring.invoice;
+            unitname = garmentMonitoring.unitname;
+            invoice = garmentMonitoring.invoice;
 			nominal = garmentMonitoring.nominal;
 		}
 	}

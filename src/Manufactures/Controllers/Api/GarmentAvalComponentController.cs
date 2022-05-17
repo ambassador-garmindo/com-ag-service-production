@@ -32,7 +32,8 @@ namespace Manufactures.Controllers.Api
             {
                 page,
                 size,
-                viewModel.count
+                count = viewModel.GarmentAvalComponents.Count,
+                viewModel.total
             });
         }
 
@@ -70,6 +71,15 @@ namespace Manufactures.Controllers.Api
             var data = await Mediator.Send(command);
 
             return Ok(data.Identity);
+        }
+
+        [HttpPut("update-received")]
+        public async Task<IActionResult> UpdateIsReceived([FromBody] UpdateIsReceivedGarmentAvalComponentCommand command)
+        {
+            VerifyUser();
+            var order = await Mediator.Send(command);
+
+            return Ok();
         }
     }
 }

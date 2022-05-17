@@ -36,6 +36,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.CommandHandlers
             });
             ExpenditureGood.SetCarton(request.Carton);
             ExpenditureGood.SetExpenditureDate(request.ExpenditureDate);
+            ExpenditureGood.SetPackingListId(request.PackingListId);
             ExpenditureGood.SetInvoice(request.Invoice);
             ExpenditureGood.SetIsReceived(request.IsReceived);
             ExpenditureGood.Modify();

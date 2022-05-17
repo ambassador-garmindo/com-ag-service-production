@@ -79,7 +79,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentCuttingOuts
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentCuttingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentCuttingOutItem>()
                 {
-                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingInGuid, cuttingInDetailGuid, cuttingOutGuid,new ProductId(1), null, null, null, 0)
+                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingInGuid, cuttingInDetailGuid, cuttingOutGuid,new ProductId(1), null,null, null, null, 0)
                 });
 
             _mockCuttingOutDetailRepository
@@ -116,7 +116,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentCuttingOuts
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingDOItemReadModel, bool>>>()))
                 .Returns(new List<GarmentSewingDOItem>()
                 {
-                    new GarmentSewingDOItem(Guid.Empty, sewingDOGuid, cuttingOutDetailGuid, cuttingOutItemGuid,new ProductId(1), null, null,null, new SizeId(1), null,0,new UomId(1), null,null,0,0,0)
+                    new GarmentSewingDOItem(Guid.Empty, sewingDOGuid, cuttingOutDetailGuid, cuttingOutItemGuid,new ProductId(1), null, null,null,null, new SizeId(1), null,0,new UomId(1), null,null,0,0,0)
                 });
 
             _mockCuttingOutRepository

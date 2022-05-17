@@ -62,7 +62,8 @@ namespace Manufactures.Application.GarmentExpenditureGoods.CommandHandlers
                 request.ContractNo,
                 request.Carton,
                 request.Description,
-                request.IsReceived
+                request.IsReceived,
+                request.PackingListId
             );
 
             Dictionary<string, double> finStockToBeUpdated = new Dictionary<string, double>();
@@ -73,7 +74,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.CommandHandlers
                 if (item.isSave)
                 {
                     double StockQty = 0;
-                    var garmentFinishingGoodStock = _garmentFinishedGoodStockRepository.Query.Where(x => x.SizeId == item.Size.Id && x.UomId == item.Uom.Id && x.RONo == request.RONo && x.UnitId == request.Unit.Id && x.Quantity > 0).OrderBy(a => a.CreatedDate).ToList();
+                    var garmentFinishingGoodStock = _garmentFinishedGoodStockRepository.Query.Where(x => x.SizeId == item.Size.Id && x.UomId == item.Uom.Id && x.RONo == request.RONo && x.UnitId == request.Unit.Id && x.CustomsCategory == item.CustomsCategory && x.Quantity > 0).OrderBy(a => a.CreatedDate).ToList();
 
                     double qty = item.Quantity;
                     foreach (var finishedGood in garmentFinishingGoodStock)
@@ -82,7 +83,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.CommandHandlers
                         {
                             finstockQty.Add(finishedGood.Identity, finishedGood.Quantity);
                         }
-                        string key = finishedGood.Identity.ToString() + "~" + item.Description;
+                        string key = finishedGood.Identity.ToString() + "~" + item.Description + "~" + item.CustomsCategory;
                         if (qty > 0)
                         {
                             double remainQty = finstockQty[finishedGood.Identity] - qty;
@@ -115,7 +116,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.CommandHandlers
 
                 var garmentFinishingGoodStockItem = _garmentFinishedGoodStockRepository.Query.Where(x => x.Identity == Guid.Parse(keyString[0])).Select(s => new GarmentFinishedGoodStock(s)).Single();
 
-                var item = request.Items.Where(a => new SizeId(a.Size.Id) == garmentFinishingGoodStockItem.SizeId && new UomId(a.Uom.Id) == garmentFinishingGoodStockItem.UomId && a.Description == keyString[1]).Single();
+                var item = request.Items.Where(a => new SizeId(a.Size.Id) == garmentFinishingGoodStockItem.SizeId && new UomId(a.Uom.Id) == garmentFinishingGoodStockItem.UomId && a.Description == keyString[1] && a.CustomsCategory == keyString[2]).Single();
 
                 item.Price = (item.BasicPrice + ((double)garmentComodityPrice.Price * 1)) * item.Quantity;
                 var qty = garmentFinishingGoodStockItem.Quantity - finStock.Value;
@@ -124,6 +125,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.CommandHandlers
                     Guid.NewGuid(),
                     garmentExpenditureGood.Identity,
                     garmentFinishingGoodStockItem.Identity,
+                    item.CustomsCategory,
                     new SizeId(item.Size.Id),
                     item.Size.Size,
                     qty,
@@ -157,6 +159,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.CommandHandlers
                                             garmentExpenditureGood.ComodityId,
                                             garmentExpenditureGood.ComodityCode,
                                             garmentExpenditureGood.ComodityName,
+                                            garmentExpenditureGoodItem.CustomsCategory,
                                             garmentExpenditureGoodItem.SizeId,
                                             garmentExpenditureGoodItem.SizeName,
                                             garmentExpenditureGoodItem.UomId,
@@ -191,7 +194,7 @@ namespace Manufactures.Application.GarmentExpenditureGoods.CommandHandlers
             var day = now.ToString("dd");
             var unitcode = request.Unit.Code;
 
-            var pre = request.ExpenditureType == "EXPORT" ? "EGE" : request.ExpenditureType == "SISA" ? "EGS" : "EGL";
+            var pre = request.ExpenditureType == "EXPORT" ? "EGE" : (request.ExpenditureType == "SISA" ? "EGS" : (request.ExpenditureType == "LOKAL" ? "EGL" : "EGLL"));
 
             var prefix = $"{pre}{unitcode}{year}{month}";
 

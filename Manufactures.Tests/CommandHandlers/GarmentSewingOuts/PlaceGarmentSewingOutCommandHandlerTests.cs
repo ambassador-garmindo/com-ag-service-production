@@ -63,118 +63,118 @@ namespace Manufactures.Tests.CommandHandlers.GarmentSewingOuts
             return new PlaceGarmentSewingOutCommandHandler(_MockStorage.Object);
         }
 
-        [Fact]
-        public async Task Handle_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            Guid sewingInItemGuid = Guid.NewGuid();
-            PlaceGarmentSewingOutCommandHandler unitUnderTest = CreatePlaceGarmentSewingOutCommandHandler();
-            CancellationToken cancellationToken = CancellationToken.None;
-            PlaceGarmentSewingOutCommand placeGarmentSewingOutCommand = new PlaceGarmentSewingOutCommand()
-            {
-                RONo = "RONo",
-                Unit = new UnitDepartment(1, "UnitCode", "UnitName"),
-                UnitTo = new UnitDepartment(2, "UnitCode2", "UnitName2"),
-                Article="Article",
-                IsDifferentSize=true,
-                Buyer=new Buyer(1,"BuyerCode", "BuyerName"),
-                SewingTo="CUTTING",
-                Comodity=new GarmentComodity(1,"ComoCode", "ComoName"),
-                SewingOutDate = DateTimeOffset.Now,
-                Items = new List<GarmentSewingOutItemValueObject>
-                {
-                    new GarmentSewingOutItemValueObject
-                    {
-                        Product = new Product(1, "ProductCode", "ProductName"),
-                        Uom = new Uom(1, "UomUnit"),
-                        SewingInId= new Guid(),
-                        SewingInItemId=sewingInItemGuid,
-                        Color="Color",
-                        Size=new SizeValueObject(1, "Size"),
-                        IsSave=true,
-                        Quantity=1,
-                        DesignColor= "ColorD",
-                        Details = new List<GarmentSewingOutDetailValueObject>
-                        {
-                            new GarmentSewingOutDetailValueObject
-                            {
-                                Size=new SizeValueObject(1, "Size"),
-                                Uom = new Uom(1, "UomUnit"),
-                                Quantity=1
-                            }
-                        }
-                    }
-                },
+        //[Fact]
+        //public async Task Handle_StateUnderTest_ExpectedBehavior()
+        //{
+        //    // Arrange
+        //    Guid sewingInItemGuid = Guid.NewGuid();
+        //    PlaceGarmentSewingOutCommandHandler unitUnderTest = CreatePlaceGarmentSewingOutCommandHandler();
+        //    CancellationToken cancellationToken = CancellationToken.None;
+        //    PlaceGarmentSewingOutCommand placeGarmentSewingOutCommand = new PlaceGarmentSewingOutCommand()
+        //    {
+        //        RONo = "RONo",
+        //        Unit = new UnitDepartment(1, "UnitCode", "UnitName"),
+        //        UnitTo = new UnitDepartment(2, "UnitCode2", "UnitName2"),
+        //        Article="Article",
+        //        IsDifferentSize=true,
+        //        Buyer=new Buyer(1,"BuyerCode", "BuyerName"),
+        //        SewingTo="CUTTING",
+        //        Comodity=new GarmentComodity(1,"ComoCode", "ComoName"),
+        //        SewingOutDate = DateTimeOffset.Now,
+        //        Items = new List<GarmentSewingOutItemValueObject>
+        //        {
+        //            new GarmentSewingOutItemValueObject
+        //            {
+        //                Product = new Product(1, "ProductCode", "ProductName"),
+        //                Uom = new Uom(1, "UomUnit"),
+        //                SewingInId= new Guid(),
+        //                SewingInItemId=sewingInItemGuid,
+        //                Color="Color",
+        //                Size=new SizeValueObject(1, "Size"),
+        //                IsSave=true,
+        //                Quantity=1,
+        //                DesignColor= "ColorD",
+        //                Details = new List<GarmentSewingOutDetailValueObject>
+        //                {
+        //                    new GarmentSewingOutDetailValueObject
+        //                    {
+        //                        Size=new SizeValueObject(1, "Size"),
+        //                        Uom = new Uom(1, "UomUnit"),
+        //                        Quantity=1
+        //                    }
+        //                }
+        //            }
+        //        },
 
-            };
+        //    };
 
-            _mockSewingOutRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentSewingOutReadModel>().AsQueryable());
-            _mockSewingInItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentSewingInItemReadModel>
-                {
-                    new GarmentSewingInItemReadModel(sewingInItemGuid)
-                }.AsQueryable());
+        //    _mockSewingOutRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentSewingOutReadModel>().AsQueryable());
+        //    _mockSewingInItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentSewingInItemReadModel>
+        //        {
+        //            new GarmentSewingInItemReadModel(sewingInItemGuid)
+        //        }.AsQueryable());
 
-            _mockCuttingInRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingInReadModel>().AsQueryable());
+        //    _mockCuttingInRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentCuttingInReadModel>().AsQueryable());
 
-            GarmentComodityPrice garmentComodity = new GarmentComodityPrice(
-                Guid.NewGuid(),
-                true,
-                DateTimeOffset.Now,
-                new UnitDepartmentId(placeGarmentSewingOutCommand.Unit.Id),
-                placeGarmentSewingOutCommand.Unit.Code,
-                placeGarmentSewingOutCommand.Unit.Name,
-                new GarmentComodityId(placeGarmentSewingOutCommand.Comodity.Id),
-                placeGarmentSewingOutCommand.Comodity.Code,
-                placeGarmentSewingOutCommand.Comodity.Name,
-                1000
-                );
-            _mockComodityPriceRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentComodityPriceReadModel>
-                {
-                    garmentComodity.GetReadModel()
-                }.AsQueryable());
-
-
-            _mockSewingOutRepository
-                .Setup(s => s.Update(It.IsAny<GarmentSewingOut>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentSewingOut>()));
-            _mockSewingOutItemRepository
-                .Setup(s => s.Update(It.IsAny<GarmentSewingOutItem>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentSewingOutItem>()));
-            _mockSewingOutDetailRepository
-                .Setup(s => s.Update(It.IsAny<GarmentSewingOutDetail>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentSewingOutDetail>()));
-            _mockSewingInItemRepository
-                .Setup(s => s.Update(It.IsAny<GarmentSewingInItem>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentSewingInItem>()));
+        //    GarmentComodityPrice garmentComodity = new GarmentComodityPrice(
+        //        Guid.NewGuid(),
+        //        true,
+        //        DateTimeOffset.Now,
+        //        new UnitDepartmentId(placeGarmentSewingOutCommand.Unit.Id),
+        //        placeGarmentSewingOutCommand.Unit.Code,
+        //        placeGarmentSewingOutCommand.Unit.Name,
+        //        new GarmentComodityId(placeGarmentSewingOutCommand.Comodity.Id),
+        //        placeGarmentSewingOutCommand.Comodity.Code,
+        //        placeGarmentSewingOutCommand.Comodity.Name,
+        //        1000
+        //        );
+        //    _mockComodityPriceRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentComodityPriceReadModel>
+        //        {
+        //            garmentComodity.GetReadModel()
+        //        }.AsQueryable());
 
 
-            _mockCuttingInRepository
-                .Setup(s => s.Update(It.IsAny<GarmentCuttingIn>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentCuttingIn>()));
-            _mockCuttingInItemRepository
-                .Setup(s => s.Update(It.IsAny<GarmentCuttingInItem>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentCuttingInItem>()));
-            _mockCuttingInDetailRepository
-                .Setup(s => s.Update(It.IsAny<GarmentCuttingInDetail>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentCuttingInDetail>()));
+        //    _mockSewingOutRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentSewingOut>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentSewingOut>()));
+        //    _mockSewingOutItemRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentSewingOutItem>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentSewingOutItem>()));
+        //    _mockSewingOutDetailRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentSewingOutDetail>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentSewingOutDetail>()));
+        //    _mockSewingInItemRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentSewingInItem>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentSewingInItem>()));
 
-            _MockStorage
-                .Setup(x => x.Save())
-                .Verifiable();
 
-            // Act
-            var result = await unitUnderTest.Handle(placeGarmentSewingOutCommand, cancellationToken);
+        //    _mockCuttingInRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentCuttingIn>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentCuttingIn>()));
+        //    _mockCuttingInItemRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentCuttingInItem>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentCuttingInItem>()));
+        //    _mockCuttingInDetailRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentCuttingInDetail>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentCuttingInDetail>()));
 
-            // Assert
-            result.Should().NotBeNull();
-        }
+        //    _MockStorage
+        //        .Setup(x => x.Save())
+        //        .Verifiable();
+
+        //    // Act
+        //    var result = await unitUnderTest.Handle(placeGarmentSewingOutCommand, cancellationToken);
+
+        //    // Assert
+        //    result.Should().NotBeNull();
+        //}
     }
 }

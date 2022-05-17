@@ -26,9 +26,10 @@ namespace Manufactures.Domain.GarmentCuttingOuts
         public GarmentComodityId ComodityId { get; private set; }
         public string ComodityCode { get; private set; }
         public string ComodityName { get; private set; }
+        public bool IsUsed { get; private set; }
 
-		public string UId { get; private set; }
-		public GarmentCuttingOut(Guid identity, string cutOutNo, string cuttingOutType, UnitDepartmentId unitFromId, string unitFromCode, string unitFromName, DateTimeOffset cuttingOutDate, string rONo, string article, UnitDepartmentId unitId, string unitCode, string unitName, GarmentComodityId comodityId, string comodityCode, string comodityName) : base(identity)
+        public string UId { get; private set; }
+		public GarmentCuttingOut(Guid identity, string cutOutNo, string cuttingOutType, UnitDepartmentId unitFromId, string unitFromCode, string unitFromName, DateTimeOffset cuttingOutDate, string rONo, string article, UnitDepartmentId unitId, string unitCode, string unitName, GarmentComodityId comodityId, string comodityCode, string comodityName, bool isUsed) : base(identity)
         {
             Validator.ThrowIfNull(() => unitFromId);
             Validator.ThrowIfNull(() => unitId);
@@ -51,6 +52,7 @@ namespace Manufactures.Domain.GarmentCuttingOuts
             ComodityId = comodityId;
             ComodityCode = comodityCode;
             ComodityName = comodityName;
+            IsUsed = isUsed;
 
             ReadModel = new GarmentCuttingOutReadModel(Identity)
             {
@@ -68,6 +70,8 @@ namespace Manufactures.Domain.GarmentCuttingOuts
                 ComodityId = ComodityId.Value,
                 ComodityCode = ComodityCode,
                 ComodityName = ComodityName,
+                IsUsed=IsUsed,
+                GarmentCuttingOutItem = new List<GarmentCuttingOutItemReadModel>()
             };
 
             ReadModel.AddDomainEvent(new OnGarmentCuttingOutPlaced(Identity));
@@ -87,8 +91,9 @@ namespace Manufactures.Domain.GarmentCuttingOuts
             UnitCode = readModel.UnitCode;
             UnitName = readModel.UnitName;
             ComodityId = new GarmentComodityId(readModel.ComodityId);
-            ComodityCode = ReadModel.ComodityCode;
-            ComodityName = ReadModel.ComodityName;
+            ComodityCode = readModel.ComodityCode;
+            ComodityName = readModel.ComodityName;
+            IsUsed = readModel.IsUsed;
         }
 
         public void SetDate(DateTimeOffset cuttingOutDate)
@@ -97,6 +102,17 @@ namespace Manufactures.Domain.GarmentCuttingOuts
             {
                 CuttingOutDate = cuttingOutDate;
                 ReadModel.CuttingOutDate = cuttingOutDate;
+
+                MarkModified();
+            }
+        }
+
+        public void SetIsUsed(bool isUsed)
+        {
+            if (IsUsed != isUsed)
+            {
+                IsUsed = isUsed;
+                ReadModel.IsUsed = isUsed;
 
                 MarkModified();
             }

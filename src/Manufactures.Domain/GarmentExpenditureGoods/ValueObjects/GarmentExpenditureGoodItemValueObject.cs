@@ -11,6 +11,7 @@ namespace Manufactures.Domain.GarmentExpenditureGoods.ValueObjects
         public Guid Id { get;  set; }
         public Guid ExpenditureGoodId { get;  set; }
         public Guid FinishedGoodStockId { get; set; }
+        public string CustomsCategory { get; set; }
         public SizeValueObject Size { get;  set; }
         public double Quantity { get;  set; }
         public double ReturQuantity { get; set; }

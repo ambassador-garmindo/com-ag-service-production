@@ -20,6 +20,7 @@ namespace Manufactures.Domain.GarmentAdjustments.ReadModels
 		public int ProductId { get; internal set; }
         public string ProductCode { get; internal set; }
         public string ProductName { get; internal set; }
+        public string CustomsCategory { get; internal set; }
         public string DesignColor { get; internal set; }
         public int SizeId { get; internal set; }
         public string SizeName { get; internal set; }
@@ -29,7 +30,8 @@ namespace Manufactures.Domain.GarmentAdjustments.ReadModels
         public string Color { get; internal set; }
         public double BasicPrice { get; internal set; }
         public double Price { get; internal set; }
+		public string UId { get; set; }
 
-        public virtual GarmentAdjustmentReadModel GarmentAdjustment { get; internal set; }
+		public virtual GarmentAdjustmentReadModel GarmentAdjustment { get; internal set; }
     }
 }

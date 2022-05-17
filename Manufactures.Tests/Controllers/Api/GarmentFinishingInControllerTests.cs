@@ -110,7 +110,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentFinishingInItemReadModel, bool>>>()))
                 .Returns(new List<GarmentFinishingInItem>()
                 {
-                    new GarmentFinishingInItem(Guid.NewGuid(), Guid.NewGuid(),Guid.NewGuid(),Guid.NewGuid(), Guid.Empty,new SizeId(1), null, new ProductId(1), null, null, null, 1,1,new UomId(1),null, null,1,1)
+                    new GarmentFinishingInItem(Guid.NewGuid(), Guid.NewGuid(),Guid.NewGuid(),Guid.NewGuid(), Guid.Empty,new SizeId(1), null, new ProductId(1), null, null,null, null, 1,1,new UomId(1),null, null,1,1)
                 });
 
             //_mockSewingOutItemRepository
@@ -187,7 +187,7 @@ namespace Manufactures.Tests.Controllers.Api
                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentFinishingInItemReadModel>>()))
                .Returns(new List<GarmentFinishingInItem>()
                {
-                    new GarmentFinishingInItem(id, id,id,id, id,new SizeId(1),"sizeName", new ProductId(1),"productCode", "productName","designColor", 1,1,new UomId(1),"uomUnit","color",1,1)
+                    new GarmentFinishingInItem(id, id,id,id, id,new SizeId(1),"sizeName", new ProductId(1),"productCode", "productName","customsCategory","designColor", 1,1,new UomId(1),"uomUnit","color",1,1)
                });
             // Act
 

@@ -14,6 +14,7 @@ namespace Manufactures.Domain.GarmentExpenditureGoodReturns
         public Guid ExpenditureGoodId { get; private set; }
         public Guid ExpenditureGoodItemId { get; private set; }
         public Guid FinishedGoodStockId { get; private set; }
+        public string CustomsCategory { get; private set; }
         public SizeId SizeId { get; private set; }
         public string SizeName { get; private set; }
         public double Quantity { get; private set; }
@@ -23,12 +24,13 @@ namespace Manufactures.Domain.GarmentExpenditureGoodReturns
         public double BasicPrice { get; private set; }
         public double Price { get; private set; }
 
-        public GarmentExpenditureGoodReturnItem(Guid identity, Guid returId, Guid expenditureGoodId, Guid expenditureGoodItemId, Guid finishedGoodStockId, SizeId sizeId, string sizeName, double quantity, UomId uomId, string uomUnit, string description, double basicPrice, double price) : base(identity)
+        public GarmentExpenditureGoodReturnItem(Guid identity, Guid returId, Guid expenditureGoodId, Guid expenditureGoodItemId, Guid finishedGoodStockId, string customsCategory, SizeId sizeId, string sizeName, double quantity, UomId uomId, string uomUnit, string description, double basicPrice, double price) : base(identity)
         {
             ReturId = returId;
             ExpenditureGoodId = expenditureGoodId;
             ExpenditureGoodItemId = expenditureGoodItemId;
             FinishedGoodStockId = finishedGoodStockId;
+            CustomsCategory = customsCategory;
             SizeId = sizeId;
             SizeName = sizeName;
             Quantity = quantity;
@@ -44,6 +46,7 @@ namespace Manufactures.Domain.GarmentExpenditureGoodReturns
                 ExpenditureGoodId = ExpenditureGoodId,
                 ExpenditureGoodItemId= ExpenditureGoodItemId,
                 FinishedGoodStockId = FinishedGoodStockId,
+                CustomsCategory = CustomsCategory,
                 SizeId = SizeId.Value,
                 SizeName = SizeName,
                 Quantity = Quantity,
@@ -63,6 +66,7 @@ namespace Manufactures.Domain.GarmentExpenditureGoodReturns
             ExpenditureGoodId = readModel.ExpenditureGoodId;
             ExpenditureGoodItemId = readModel.ExpenditureGoodItemId;
             FinishedGoodStockId = readModel.FinishedGoodStockId;
+            CustomsCategory = readModel.CustomsCategory;
             SizeId = new SizeId(readModel.SizeId);
             SizeName = readModel.SizeName;
             Quantity = readModel.Quantity;

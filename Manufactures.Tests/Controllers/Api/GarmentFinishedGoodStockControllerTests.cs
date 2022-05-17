@@ -66,7 +66,7 @@ namespace Manufactures.Tests.Controllers.Api
 				.Setup(s => s.Find(It.IsAny<IQueryable<GarmentFinishedGoodStockReadModel>>()))
 				.Returns(new List<GarmentFinishedGoodStock>()
 				{
-					new GarmentFinishedGoodStock(Guid.NewGuid(),"","","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","",new Domain.Shared.ValueObjects.SizeId(1),"",new Domain.Shared.ValueObjects.UomId(1),"",10,10,10)
+					new GarmentFinishedGoodStock(Guid.NewGuid(),"","","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","","",new Domain.Shared.ValueObjects.SizeId(1),"",new Domain.Shared.ValueObjects.UomId(1),"",10,10,10)
 				});
 
 			// Act
@@ -91,7 +91,7 @@ namespace Manufactures.Tests.Controllers.Api
 				.Setup(s => s.Find(It.IsAny<IQueryable<GarmentFinishedGoodStockReadModel>>()))
 				.Returns(new List<GarmentFinishedGoodStock>()
 				{
-					new GarmentFinishedGoodStock(id,"","","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","",new Domain.Shared.ValueObjects.SizeId(1),"",new Domain.Shared.ValueObjects.UomId(1),"",10,10,10)
+					new GarmentFinishedGoodStock(id,"","","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","","",new Domain.Shared.ValueObjects.SizeId(1),"",new Domain.Shared.ValueObjects.UomId(1),"",10,10,10)
 				});
 			var orderData = new
 			{
@@ -117,7 +117,7 @@ namespace Manufactures.Tests.Controllers.Api
 				.Setup(s => s.Find(It.IsAny<IQueryable<GarmentFinishedGoodStockReadModel>>()))
 				.Returns(new List<GarmentFinishedGoodStock>()
 				{
-					new GarmentFinishedGoodStock(Guid.NewGuid(),"","","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","",new Domain.Shared.ValueObjects.SizeId(1),"",new Domain.Shared.ValueObjects.UomId(1),"",10,10,10)
+					new GarmentFinishedGoodStock(Guid.NewGuid(),"","","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","","",new Domain.Shared.ValueObjects.SizeId(1),"",new Domain.Shared.ValueObjects.UomId(1),"",10,10,10)
 				});
 
 			// Act
@@ -144,7 +144,7 @@ namespace Manufactures.Tests.Controllers.Api
 			   .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentFinishedGoodStockReadModel, bool>>>()))
 			   .Returns(new List<GarmentFinishedGoodStock>()
 			   {
-					new GarmentFinishedGoodStock(identity,"","","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","",new Domain.Shared.ValueObjects.SizeId(1),"",new Domain.Shared.ValueObjects.UomId(1),"",10,10,10)
+					new GarmentFinishedGoodStock(identity,"","","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","","",new Domain.Shared.ValueObjects.SizeId(1),"",new Domain.Shared.ValueObjects.UomId(1),"",10,10,10)
 			   });
 			var result = await unitUnderTest.Get(identity.ToString());
 

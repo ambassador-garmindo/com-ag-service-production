@@ -9,6 +9,8 @@ using Manufactures.Domain.GarmentFinishingIns.Repositories;
 using Manufactures.Domain.GarmentFinishingOuts;
 using Manufactures.Domain.GarmentFinishingOuts.Commands;
 using Manufactures.Domain.GarmentFinishingOuts.Repositories;
+using Manufactures.Domain.GarmentSewingIns;
+using Manufactures.Domain.GarmentSewingIns.Repositories;
 using Manufactures.Domain.Shared.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -29,6 +31,8 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
         private readonly IGarmentFinishedGoodStockRepository _garmentFinishedGoodStockRepository;
         private readonly IGarmentFinishedGoodStockHistoryRepository _garmentFinishedGoodStockHistoryRepository;
         private readonly IGarmentComodityPriceRepository _garmentComodityPriceRepository;
+        private readonly IGarmentSewingInRepository _garmentSewingInRepository;
+        private readonly IGarmentSewingInItemRepository _garmentSewingInItemRepository;
 
         public RemoveGarmentFinishingOutCommandHandler(IStorage storage)
         {
@@ -40,6 +44,8 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
             _garmentFinishedGoodStockRepository = storage.GetRepository<IGarmentFinishedGoodStockRepository>();
             _garmentFinishedGoodStockHistoryRepository = storage.GetRepository<IGarmentFinishedGoodStockHistoryRepository>();
             _garmentComodityPriceRepository = storage.GetRepository<IGarmentComodityPriceRepository>();
+            _garmentSewingInRepository = storage.GetRepository<IGarmentSewingInRepository>();
+            _garmentSewingInItemRepository = storage.GetRepository<IGarmentSewingInItemRepository>();
         }
 
         public async Task<GarmentFinishingOut> Handle(RemoveGarmentFinishingOutCommand request, CancellationToken cancellationToken)
@@ -50,6 +56,34 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
             Dictionary<GarmentFinishedGoodStock, double> finGood = new Dictionary<GarmentFinishedGoodStock, double>();
 
             GarmentComodityPrice garmentComodityPrice = _garmentComodityPriceRepository.Query.Where(a => a.IsValid == true && new UnitDepartmentId(a.UnitId) == finishOut.UnitToId && new GarmentComodityId( a.ComodityId) == finishOut.ComodityId).Select(s => new GarmentComodityPrice(s)).Single();
+
+            if (finishOut.FinishingTo == "SEWING")
+            {
+                Guid sewInId = Guid.Empty;
+                _garmentFinishingOutItemRepository.Find(o => o.FinishingOutId == finishOut.Identity).ForEach(async finOutItem =>
+                {
+                    var sewInItem = _garmentSewingInItemRepository.Query.Where(o => o.FinishingOutItemId == finOutItem.Identity).Select(o => new GarmentSewingInItem(o)).Single();
+                    sewInId = sewInItem.SewingInId;
+                    if (finishOut.IsDifferentSize)
+                    {
+                        _garmentFinishingOutDetailRepository.Find(o => o.FinishingOutItemId == finOutItem.Identity).ForEach(async finOutDetail =>
+                        {
+                            sewInItem = _garmentSewingInItemRepository.Query.Where(o => o.FinishingOutDetailId == finOutDetail.Identity).Select(o => new GarmentSewingInItem(o)).Single();
+
+                            sewInItem.Remove();
+                            await _garmentSewingInItemRepository.Update(sewInItem);
+                        });
+                    }
+                    else
+                    {
+                        sewInItem.Remove();
+                        await _garmentSewingInItemRepository.Update(sewInItem);
+                    }
+                });
+                var sewIn = _garmentSewingInRepository.Query.Where(a => a.Identity == sewInId).Select(o => new GarmentSewingIn(o)).Single();
+                sewIn.Remove();
+                await _garmentSewingInRepository.Update(sewIn);
+            }
 
             _garmentFinishingOutItemRepository.Find(o => o.FinishingOutId == finishOut.Identity).ForEach(async finishOutItem =>
             {
@@ -70,12 +104,13 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                         {
                             var garmentFinishedGoodExist = _garmentFinishedGoodStockRepository.Query.Where(
                             a => a.RONo == finishOut.RONo &&
-                                a.Article == finishOut.Article &&
-                                a.BasicPrice == finishOutItem.BasicPrice &&
-                                new UnitDepartmentId(a.UnitId) == finishOut.UnitToId &&
-                                new SizeId(a.SizeId) == finishOutDetail.SizeId &&
-                                new GarmentComodityId(a.ComodityId) == finishOut.ComodityId &&
-                                new UomId(a.UomId) == finishOutDetail.UomId
+                                 a.Article == finishOut.Article &&
+                                 a.BasicPrice == finishOutItem.BasicPrice &&
+                                 new UnitDepartmentId(a.UnitId) == finishOut.UnitToId &&
+                                 new SizeId(a.SizeId) == finishOutDetail.SizeId &&
+                                 new GarmentComodityId(a.ComodityId) == finishOut.ComodityId &&
+                                 new UomId(a.UomId) == finishOutDetail.UomId &&
+                                 a.CustomsCategory == finishOutItem.CustomsCategory
                             ).Select(s => new GarmentFinishedGoodStock(s)).Single();
 
                             if (finGood.ContainsKey(garmentFinishedGoodExist))
@@ -112,12 +147,13 @@ namespace Manufactures.Application.GarmentFinishingOuts.CommandHandlers
                     {
                         var garmentFinishedGoodExist = _garmentFinishedGoodStockRepository.Query.Where(
                             a => a.RONo == finishOut.RONo &&
-                                a.Article == finishOut.Article &&
-                                a.BasicPrice == finishOutItem.BasicPrice &&
-                                new UnitDepartmentId(a.UnitId) == finishOut.UnitToId &&
-                                new SizeId(a.SizeId) == finishOutItem.SizeId &&
-                                new GarmentComodityId(a.ComodityId) == finishOut.ComodityId &&
-                                new UomId(a.UomId) == finishOutItem.UomId
+                                 a.Article == finishOut.Article &&
+                                 a.BasicPrice == finishOutItem.BasicPrice &&
+                                 new UnitDepartmentId(a.UnitId) == finishOut.UnitToId &&
+                                 new SizeId(a.SizeId) == finishOutItem.SizeId &&
+                                 new GarmentComodityId(a.ComodityId) == finishOut.ComodityId &&
+                                 new UomId(a.UomId) == finishOutItem.UomId &&
+                                 a.CustomsCategory == finishOutItem.CustomsCategory
                             ).Select(s => new GarmentFinishedGoodStock(s)).Single();
 
                         if (finGood.ContainsKey(garmentFinishedGoodExist))

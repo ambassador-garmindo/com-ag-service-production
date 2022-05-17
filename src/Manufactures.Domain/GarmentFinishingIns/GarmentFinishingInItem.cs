@@ -17,6 +17,7 @@ namespace Manufactures.Domain.GarmentFinishingIns
         public ProductId ProductId { get; private set; }
         public string ProductCode { get; private set; }
         public string ProductName { get; private set; }
+        public string CustomsCategory { get; private set; }
         public string DesignColor { get; private set; }
         public SizeId SizeId { get; private set; }
         public string SizeName { get; private set; }
@@ -37,7 +38,7 @@ namespace Manufactures.Domain.GarmentFinishingIns
             }
         }
 
-        public GarmentFinishingInItem(Guid identity, Guid finishingInId, Guid sewingOutItemId, Guid sewingOutDetailId, Guid subconCuttingId, SizeId sizeId, string sizeName, ProductId productId, string productCode, string productName, string designColor, double quantity, double remainingQuantity, UomId uomId, string uomUnit, string color, double basicPrice, double price) : base(identity)
+        public GarmentFinishingInItem(Guid identity, Guid finishingInId, Guid sewingOutItemId, Guid sewingOutDetailId, Guid subconCuttingId, SizeId sizeId, string sizeName, ProductId productId, string productCode, string productName, string customsCategory, string designColor, double quantity, double remainingQuantity, UomId uomId, string uomUnit, string color, double basicPrice, double price) : base(identity)
         {
             FinishingInId = finishingInId;
             SewingOutItemId = sewingOutItemId;
@@ -46,6 +47,7 @@ namespace Manufactures.Domain.GarmentFinishingIns
             ProductId = productId;
             ProductCode = productCode;
             ProductName = productCode;
+            CustomsCategory = customsCategory;
             DesignColor = designColor;
             SizeId = sizeId;
             SizeName = sizeName;
@@ -66,6 +68,7 @@ namespace Manufactures.Domain.GarmentFinishingIns
                 ProductId = ProductId.Value,
                 ProductCode = ProductCode,
                 ProductName = ProductName,
+                CustomsCategory = CustomsCategory,
                 DesignColor = DesignColor,
                 SizeId = SizeId.Value,
                 SizeName = SizeName,
@@ -90,6 +93,7 @@ namespace Manufactures.Domain.GarmentFinishingIns
             ProductId = new ProductId(readModel.ProductId);
             ProductCode = readModel.ProductCode;
             ProductName = readModel.ProductCode;
+            CustomsCategory = readModel.CustomsCategory;
             DesignColor = readModel.DesignColor;
             SizeId = new SizeId(readModel.SizeId);
             SizeName = readModel.SizeName;

@@ -12,6 +12,7 @@ namespace Manufactures.Domain.GarmentExpenditureGoods.ReadModels
         }
         public Guid ExpenditureGoodId { get; internal set; }
         public Guid FinishedGoodStockId { get; internal set; }
+        public string CustomsCategory { get; internal set; }
         public int SizeId { get; internal set; }
         public string SizeName { get; internal set; }
         public double Quantity { get; internal set; }
@@ -21,7 +22,8 @@ namespace Manufactures.Domain.GarmentExpenditureGoods.ReadModels
         public string Description { get; internal set; }
         public double BasicPrice { get; internal set; }
         public double Price { get; internal set; }
-        public virtual GarmentExpenditureGoodReadModel GarmentExpenditureGood { get; internal set; }
+		public string UId { get; set; }
+		public virtual GarmentExpenditureGoodReadModel GarmentExpenditureGood { get; internal set; }
 
     }
 }

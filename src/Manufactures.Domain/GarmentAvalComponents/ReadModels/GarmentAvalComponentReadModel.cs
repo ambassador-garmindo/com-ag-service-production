@@ -22,6 +22,7 @@ namespace Manufactures.Domain.GarmentAvalComponents.ReadModels
         public string ComodityCode { get; internal set; }
         public string ComodityName { get; internal set; }
         public DateTimeOffset Date { get; internal set; }
+        public bool IsReceived { get; internal set; }
 
         public virtual ICollection<GarmentAvalComponentItemReadModel> Items { get; internal set; }
     }

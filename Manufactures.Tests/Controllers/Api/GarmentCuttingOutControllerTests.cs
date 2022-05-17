@@ -27,6 +27,7 @@ using Manufactures.Application.GarmentCuttingOuts.Queries;
 using System.IO;
 using FluentAssertions;
 using Newtonsoft.Json;
+using Manufactures.Application.GarmentCuttingOuts.Queries.GetAllCuttingOuts;
 
 namespace Manufactures.Tests.Controllers.Api
 {
@@ -90,47 +91,11 @@ namespace Manufactures.Tests.Controllers.Api
             // Arrange
             var unitUnderTest = CreateGarmentCuttingOutController();
 
-            _mockGarmentCuttingOutRepository
-                .Setup(s => s.Read(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new List<GarmentCuttingOutReadModel>().AsQueryable());
-
-            Guid cuttingOutGuid = Guid.NewGuid();
-            _mockGarmentCuttingOutRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutReadModel>>()))
-                .Returns(new List<GarmentCuttingOut>()
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetAllCuttingOutQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new CuttingOutListViewModel
                 {
-                    new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null)
-                });
-
-            Guid cuttingOutItemGuid = Guid.NewGuid();
-            GarmentCuttingOutItem garmentCuttingOutItem = new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, 1);
-            _mockGarmentCuttingOutItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingOutItemReadModel>()
-                {
-                    garmentCuttingOutItem.GetReadModel()
-                }.AsQueryable());
-
-            _mockGarmentCuttingOutItemRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutItemReadModel>>()))
-                .Returns(new List<GarmentCuttingOutItem>()
-                {
-                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, 1)
-                });
-
-            GarmentCuttingOutDetail garmentCuttingOutDetail = new GarmentCuttingOutDetail(Guid.NewGuid(), cuttingOutItemGuid, new SizeId(1), null, null, 1, 1, new UomId(1), null, 1, 1);
-            _mockGarmentCuttingOutDetailRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingOutDetailReadModel>()
-                {
-                    garmentCuttingOutDetail.GetReadModel()
-                }.AsQueryable());
-
-            _mockGarmentCuttingOutDetailRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutDetailReadModel>>()))
-                .Returns(new List<GarmentCuttingOutDetail>()
-                {
-                    new GarmentCuttingOutDetail(Guid.NewGuid(), cuttingOutItemGuid, new SizeId(1), null, null, 1, 1, new UomId(1), null, 1, 1)
+                    data = new List<GarmentCuttingOutListDto>()
                 });
 
             // Act
@@ -146,47 +111,11 @@ namespace Manufactures.Tests.Controllers.Api
             // Arrange
             var unitUnderTest = CreateGarmentCuttingOutController();
 
-            _mockGarmentCuttingOutRepository
-                .Setup(s => s.Read(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new List<GarmentCuttingOutReadModel>().AsQueryable());
-
-            Guid cuttingOutGuid = Guid.NewGuid();
-            _mockGarmentCuttingOutRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutReadModel>>()))
-                .Returns(new List<GarmentCuttingOut>()
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetAllCuttingOutQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new CuttingOutListViewModel
                 {
-                    new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null)
-                });
-
-            Guid cuttingOutItemGuid = Guid.NewGuid();
-            GarmentCuttingOutItem garmentCuttingOutItem = new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, 1);
-            _mockGarmentCuttingOutItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingOutItemReadModel>()
-                {
-                    garmentCuttingOutItem.GetReadModel()
-                }.AsQueryable());
-
-            _mockGarmentCuttingOutItemRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutItemReadModel>>()))
-                .Returns(new List<GarmentCuttingOutItem>()
-                {
-                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, 1)
-                });
-
-            GarmentCuttingOutDetail garmentCuttingOutDetail = new GarmentCuttingOutDetail(Guid.NewGuid(), cuttingOutItemGuid, new SizeId(1), null, null, 1, 1, new UomId(1), null, 1, 1);
-            _mockGarmentCuttingOutDetailRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingOutDetailReadModel>()
-                {
-                    garmentCuttingOutDetail.GetReadModel()
-                }.AsQueryable());
-
-            _mockGarmentCuttingOutDetailRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutDetailReadModel>>()))
-                .Returns(new List<GarmentCuttingOutDetail>()
-                {
-                    new GarmentCuttingOutDetail(Guid.NewGuid(), cuttingOutItemGuid, new SizeId(1), null, null, 1, 1, new UomId(1), null, 1, 1)
+                    data = new List<GarmentCuttingOutListDto>()
                 });
 
             // Act
@@ -207,47 +136,12 @@ namespace Manufactures.Tests.Controllers.Api
         {
             // Arrange
             var unitUnderTest = CreateGarmentCuttingOutController();
-            Guid id = Guid.NewGuid();
-            _mockGarmentCuttingOutRepository
-                .Setup(s => s.Read(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new List<GarmentCuttingOutReadModel>().AsQueryable());
 
-            
-            _mockGarmentCuttingOutRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutReadModel>>()))
-                .Returns(new List<GarmentCuttingOut>()
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetAllCuttingOutQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new CuttingOutListViewModel
                 {
-                    new GarmentCuttingOut(id,"cutOutNo","cuttingOutType", new UnitDepartmentId(1),"unitFromCode", "unitFromName", DateTimeOffset.Now, "RONo","article", new UnitDepartmentId(1),"unitCode", "unitName", new GarmentComodityId(1),"comodityCode", "comodityName")
-                });
-
-            GarmentCuttingOutItem garmentCuttingOutItem = new GarmentCuttingOutItem(id, id, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, 1);
-            _mockGarmentCuttingOutItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingOutItemReadModel>()
-                {
-                    garmentCuttingOutItem.GetReadModel()
-                }.AsQueryable());
-
-            _mockGarmentCuttingOutItemRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutItemReadModel>>()))
-                .Returns(new List<GarmentCuttingOutItem>()
-                {
-                    new GarmentCuttingOutItem(id, id, id, id, new ProductId(1),"productCode", "productName","designColor", 1)
-                });
-
-            GarmentCuttingOutDetail garmentCuttingOutDetail = new GarmentCuttingOutDetail(id, id, new SizeId(1),"sizeName", "color", 1, 1, new UomId(1),"cuttingOutUomUnit", 1, 1);
-            _mockGarmentCuttingOutDetailRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingOutDetailReadModel>()
-                {
-                    garmentCuttingOutDetail.GetReadModel()
-                }.AsQueryable());
-
-            _mockGarmentCuttingOutDetailRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutDetailReadModel>>()))
-                .Returns(new List<GarmentCuttingOutDetail>()
-                {
-                    new GarmentCuttingOutDetail(id, id, new SizeId(1),"sizename", "color", 1, 1, new UomId(1),"cuttingOutUomUnit", 1, 1)
+                    data = new List<GarmentCuttingOutListDto>()
                 });
 
             // Act
@@ -268,47 +162,12 @@ namespace Manufactures.Tests.Controllers.Api
         {
             // Arrange
             var unitUnderTest = CreateGarmentCuttingOutController();
-            Guid id = Guid.NewGuid();
-            _mockGarmentCuttingOutRepository
-                .Setup(s => s.Read(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new List<GarmentCuttingOutReadModel>().AsQueryable());
 
-
-            _mockGarmentCuttingOutRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutReadModel>>()))
-                .Returns(new List<GarmentCuttingOut>()
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetAllCuttingOutQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new CuttingOutListViewModel
                 {
-                    new GarmentCuttingOut(id,"cutOutNo","cuttingOutType", new UnitDepartmentId(1),"unitFromCode", "unitFromName", DateTimeOffset.Now, "RONo","article", new UnitDepartmentId(1),"unitCode", "unitName", new GarmentComodityId(1),"comodityCode", "comodityName")
-                });
-
-            GarmentCuttingOutItem garmentCuttingOutItem = new GarmentCuttingOutItem(id, id, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, 1);
-            _mockGarmentCuttingOutItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingOutItemReadModel>()
-                {
-                    garmentCuttingOutItem.GetReadModel()
-                }.AsQueryable());
-
-            _mockGarmentCuttingOutItemRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutItemReadModel>>()))
-                .Returns(new List<GarmentCuttingOutItem>()
-                {
-                    new GarmentCuttingOutItem(id, id, id, id, new ProductId(1),"productCode", "productName","designColor", 1)
-                });
-
-            GarmentCuttingOutDetail garmentCuttingOutDetail = new GarmentCuttingOutDetail(id, id, new SizeId(1), "sizeName", "color", 1, 1, new UomId(1), "cuttingOutUomUnit", 1, 1);
-            _mockGarmentCuttingOutDetailRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingOutDetailReadModel>()
-                {
-                    garmentCuttingOutDetail.GetReadModel()
-                }.AsQueryable());
-
-            _mockGarmentCuttingOutDetailRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutDetailReadModel>>()))
-                .Returns(new List<GarmentCuttingOutDetail>()
-                {
-                    new GarmentCuttingOutDetail(id, id, new SizeId(1),"sizename", "color", 1, 1, new UomId(1),"cuttingOutUomUnit", 1, 1)
+                    data = new List<GarmentCuttingOutListDto>()
                 });
 
             // Act
@@ -329,7 +188,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentCuttingOutReadModel, bool>>>()))
                 .Returns(new List<GarmentCuttingOut>()
                 {
-                    new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null)
+                    new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null,false)
                 });
 
             Guid cuttingOutItemGuid = Guid.NewGuid();
@@ -337,7 +196,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentCuttingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentCuttingOutItem>()
                 {
-                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, 1)
+                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1), null, null, null, null, 1)
                 });
 
             _mockGarmentCuttingOutDetailRepository
@@ -365,7 +224,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentCuttingOutReadModel, bool>>>()))
                 .Returns(new List<GarmentCuttingOut>()
                 {
-                    new GarmentCuttingOut(cuttingOutGuid,"cutOutNo", null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", "art", new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null)
+                    new GarmentCuttingOut(cuttingOutGuid,"cutOutNo", null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", "art", new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null,false)
                 });
 
             Guid cuttingOutItemGuid = Guid.NewGuid();
@@ -373,7 +232,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentCuttingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentCuttingOutItem>()
                 {
-                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"productCode", "productName", "design", 1)
+                    new GarmentCuttingOutItem(cuttingOutItemGuid, cuttingOutGuid, Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"productCode", "productName","customsCategory", "design", 1)
                 });
 
             _mockGarmentCuttingOutDetailRepository
@@ -400,7 +259,7 @@ namespace Manufactures.Tests.Controllers.Api
             Guid cuttingOutGuid = Guid.NewGuid();
             _MockMediator
                 .Setup(s => s.Send(It.IsAny<PlaceGarmentCuttingOutCommand>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null));
+                .ReturnsAsync(new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null, false));
 
             // Act
             var result = await unitUnderTest.Post(It.IsAny<PlaceGarmentCuttingOutCommand>());
@@ -433,7 +292,7 @@ namespace Manufactures.Tests.Controllers.Api
             Guid cuttingOutGuid = Guid.NewGuid();
             _MockMediator
                 .Setup(s => s.Send(It.IsAny<UpdateGarmentCuttingOutCommand>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null));
+                .ReturnsAsync(new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null, false));
 
             // Act
             var result = await unitUnderTest.Put(Guid.NewGuid().ToString(), new UpdateGarmentCuttingOutCommand());
@@ -461,7 +320,7 @@ namespace Manufactures.Tests.Controllers.Api
                .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingDOItemReadModel, bool>>>()))
                .Returns(new List<GarmentSewingDOItem>()
                {
-                    new GarmentSewingDOItem(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"producCode","productName","designColor",new SizeId(1),"sizeName",5,new UomId(1),"uomUnit","color",1,1,1)
+                    new GarmentSewingDOItem(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"producCode","productName","customCategory","designColor",new SizeId(1),"sizeName",5,new UomId(1),"uomUnit","color",1,1,1)
                });
 
            
@@ -491,12 +350,12 @@ namespace Manufactures.Tests.Controllers.Api
                .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingDOItemReadModel, bool>>>()))
                .Returns(new List<GarmentSewingDOItem>()
                {
-                    new GarmentSewingDOItem(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"producCode","productName","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
+                    new GarmentSewingDOItem(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), new ProductId(1),"producCode","productName","customCategory","designColor",new SizeId(1),"sizeName",1,new UomId(1),"uomUnit","color",1,1,1)
                });
 
             _MockMediator
                 .Setup(s => s.Send(It.IsAny<RemoveGarmentCuttingOutCommand>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null));
+                .ReturnsAsync(new GarmentCuttingOut(cuttingOutGuid, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null, false));
 
             // Act
             var result = await unitUnderTest.Delete(cuttingOutGuid.ToString());
@@ -566,7 +425,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutReadModel>>()))
                 .Returns(new List<GarmentCuttingOut>()
                 {
-                    new GarmentCuttingOut(id, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null)
+                    new GarmentCuttingOut(id, null, null, new UnitDepartmentId(1), null, null, DateTimeOffset.Now, "RONo", null, new UnitDepartmentId(1), null, null, new GarmentComodityId(1), null, null,false)
                 });
 
             _mockGarmentCuttingOutItemRepository
@@ -580,7 +439,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentCuttingOutItemReadModel>>()))
                 .Returns(new List<GarmentCuttingOutItem>()
                 {
-                    new GarmentCuttingOutItem(id,id,id,id,new ProductId(1),"productCode","productName","designColor",1)
+                    new GarmentCuttingOutItem(id,id,id,id,new ProductId(1),"productCode","productName","customsCategory","designColor",1)
                 });
 
             _mockGarmentCuttingOutDetailRepository

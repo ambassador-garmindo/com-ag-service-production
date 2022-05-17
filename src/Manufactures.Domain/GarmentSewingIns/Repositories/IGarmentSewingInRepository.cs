@@ -10,5 +10,6 @@ namespace Manufactures.Domain.GarmentSewingIns.Repositories
     public interface IGarmentSewingInRepository : IAggregateRepository<GarmentSewingIn, GarmentSewingInReadModel>
     {
         IQueryable<GarmentSewingInReadModel> Read(int page, int size, string order, string keyword, string filter);
+        IQueryable<GarmentSewingInReadModel> ReadComplete(int page, int size, string order, string keyword, string filter);
     }
 }

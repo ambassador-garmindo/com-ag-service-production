@@ -12,6 +12,7 @@ namespace Manufactures.Domain.GarmentSubconFinishingIns.ValueObjects
         public Guid FinishingInId { get;  set; }
         public Guid SubconCuttingId { get;  set; }
         public Product Product { get;  set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get;  set; }
         public SizeValueObject Size { get;  set; }
         public double Quantity { get;  set; }

@@ -134,27 +134,29 @@ namespace Manufactures.Controllers.Api
             VerifyUser();
 
             var query = _garmentSewingDORepository.Read(page, size, order, keyword, filter);
-            var count = query.Count();
 
-            var garmentSewingDODto = _garmentSewingDORepository.Find(query).Select(o => new GarmentSewingDODto(o)).ToArray();
-            var garmentSewingDOItemDto = _garmentSewingDOItemRepository.Find(_garmentSewingDOItemRepository.Query).Select(o => new GarmentSewingDOItemDto(o)).ToList();
+            // var garmentSewingDODto = _garmentSewingDORepository.Find(query).Select(o => new GarmentSewingDODto(o)).ToArray();
+            // var garmentSewingDOItemDto = _garmentSewingDOItemRepository.Find(_garmentSewingDOItemRepository.Query).Select(o => new GarmentSewingDOItemDto(o)).ToList();
             
-            Parallel.ForEach(garmentSewingDODto, itemDto =>
-            {
-                var garmentSewingDOItems = garmentSewingDOItemDto.Where(x => x.SewingDOId == itemDto.Id).OrderBy(x => x.Id).ToList();
+            // Parallel.ForEach(garmentSewingDODto, itemDto =>
+            // {
+            //     var garmentSewingDOItems = garmentSewingDOItemDto.Where(x => x.SewingDOId == itemDto.Id).OrderBy(x => x.Id).ToList();
 
-                itemDto.Items = garmentSewingDOItems;
+            //     itemDto.Items = garmentSewingDOItems;
 
-            });
+            // });
 
-            if (order != "{}")
-            {
-                Dictionary<string, string> OrderDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(order);
-                garmentSewingDODto = QueryHelper<GarmentSewingDODto>.Order(garmentSewingDODto.AsQueryable(), OrderDictionary).ToArray();
-            }
+            // if (order != "{}")
+            // {
+            //     Dictionary<string, string> OrderDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(order);
+            //     garmentSewingDODto = QueryHelper<GarmentSewingDODto>.Order(garmentSewingDODto.AsQueryable(), OrderDictionary).ToArray();
+            // }
+            
+            var newQuery = _garmentSewingDORepository.ReadExecute(query).ToList();
+            var count = newQuery.Count();
 
             await Task.Yield();
-            return Ok(garmentSewingDODto, info: new
+            return Ok(newQuery, info: new
             {
                 page,
                 size,

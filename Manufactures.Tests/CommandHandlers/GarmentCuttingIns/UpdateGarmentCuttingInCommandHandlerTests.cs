@@ -97,7 +97,7 @@ namespace Manufactures.Tests.CommandHandlers.CuttingIn
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentCuttingInDetailReadModel, bool>>>()))
                 .Returns(new List<GarmentCuttingInDetail>()
                 {
-                    new GarmentCuttingInDetail(Guid.Empty, Guid.Empty, preparingItemGuid,Guid.Empty,Guid.Empty, new ProductId(1), null, null, null, null, 0, new UomId(1), null, 0, new UomId(1), null, 0, 0,1,1,null)
+                    new GarmentCuttingInDetail(Guid.Empty, Guid.Empty, preparingItemGuid,Guid.Empty,Guid.Empty, new ProductId(1), null, null, null, null,null, 0, new UomId(1), null, 0, new UomId(1), null, 0, 0,1,1,null)
                 });
 
             _mockPreparingItemRepository

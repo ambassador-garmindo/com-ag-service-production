@@ -7,6 +7,6 @@ namespace Manufactures.Application.GarmentAvalComponents.Queries.GetAllGarmentAv
     public class GarmentAvalComponentsListViewModel
     {
         public List<GarmentAvalComponentDto> GarmentAvalComponents { get; set; }
-        public int count { get; set; }
+        public int total { get; set; }
     }
 }

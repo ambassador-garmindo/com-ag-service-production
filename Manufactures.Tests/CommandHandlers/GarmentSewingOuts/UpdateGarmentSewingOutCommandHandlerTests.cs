@@ -120,7 +120,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentSewingOuts
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingOutItemReadModel, bool>>>()))
                 .Returns(new List<GarmentSewingOutItem>()
                 {
-                    new GarmentSewingOutItem(Guid.Empty, sewingOutGuid, Guid.Empty,sewingInItemGuid,new ProductId(1),null,null,null,new SizeId(1), null, 1, new UomId(1), null,null, 1,1,1)
+                    new GarmentSewingOutItem(Guid.Empty, sewingOutGuid, Guid.Empty,sewingInItemGuid,new ProductId(1),null,null,null,null,new SizeId(1), null, 1, new UomId(1), null,null, 1,1,1)
                 });
             _mockSewingOutDetailRepository
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingOutDetailReadModel, bool>>>()))

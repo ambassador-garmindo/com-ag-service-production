@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GarmentBalanceStockProductions\ValueObjects\**" />
+    <EmbeddedResource Remove="GarmentBalanceStockProductions\ValueObjects\**" />
+    <None Remove="GarmentBalanceStockProductions\ValueObjects\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ExtCore.Data.Abstractions" Version="3.3.0" />
     <PackageReference Include="Moonlay.Domain" Version="1.0.6.2" />
   </ItemGroup>
@@ -16,8 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GarmentBalanceStockProductions\ValueObjects\" />
-    <Folder Include="GarmentCuttingOuts\Repositories\" />
+    <Folder Include="GarmentSubcon\ServiceSubconSewings\Commands\" />
   </ItemGroup>
 
 </Project>

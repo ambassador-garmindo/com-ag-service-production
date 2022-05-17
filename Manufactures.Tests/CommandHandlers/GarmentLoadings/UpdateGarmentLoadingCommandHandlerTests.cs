@@ -90,7 +90,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentLoadings
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentLoadingItemReadModel, bool>>>()))
                 .Returns(new List<GarmentLoadingItem>()
                 {
-                    new GarmentLoadingItem(Guid.Empty, Guid.Empty,sewingDOItemGuid,new SizeId(1), null, new ProductId(1), null, null, null, 1,1,10,new UomId(1),null, null,1)
+                    new GarmentLoadingItem(Guid.Empty, Guid.Empty,sewingDOItemGuid,new SizeId(1), null, new ProductId(1), null, null,null, null, 1,1,10,new UomId(1),null, null,1)
                 });
 
             _mockSewingDOItemRepository

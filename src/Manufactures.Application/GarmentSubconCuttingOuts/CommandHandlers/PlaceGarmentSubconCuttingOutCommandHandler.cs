@@ -57,7 +57,8 @@ namespace Manufactures.Application.GarmentSubconCuttingOuts.CommandHandlers
                 request.Comodity.Name,
                 request.EPOId,
                 request.EPOItemId,
-                request.POSerialNumber
+                request.POSerialNumber,
+                request.IsUsed
             );
 
             Dictionary<Guid, double> cuttingInDetailToBeUpdated = new Dictionary<Guid, double>();
@@ -74,6 +75,7 @@ namespace Manufactures.Application.GarmentSubconCuttingOuts.CommandHandlers
                     new ProductId(item.Product.Id),
                     item.Product.Code,
                     item.Product.Name,
+                    item.CustomsCategory,
                     item.DesignColor,
                     item.TotalCuttingOutQuantity
                 );
@@ -96,10 +98,10 @@ namespace Manufactures.Application.GarmentSubconCuttingOuts.CommandHandlers
                         detail.Remark.ToUpper()
                     );
 
-                    string key = request.RONo + "~" + detail.Size.Id.ToString() + "~" + detail.Size.Size + "~" 
-                        + item.Product.Id.ToString() + "~" + item.Product.Code + "~" + item.Product.Name + "~" 
-                        + request.Comodity.Id.ToString() + "~" + request.Comodity.Code + "~" +request.Comodity.Name + "~" 
-                        + item.DesignColor + "~" + detail.Remark.ToUpper() + "~" + detail.BasicPrice;
+                    string key = request.RONo + "~" + detail.Size.Id.ToString() + "~" + detail.Size.Size + "~"
+                        + item.Product.Id.ToString() + "~" + item.Product.Code + "~" + item.Product.Name + "~"
+                        + request.Comodity.Id.ToString() + "~" + request.Comodity.Code + "~" + request.Comodity.Name + "~"
+                        + item.DesignColor + "~" + detail.Remark.ToUpper() + "~" + detail.BasicPrice + "~";
 
                     if (cuttingSubconToBeUpdated.ContainsKey(key))
                     {

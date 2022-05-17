@@ -1,5 +1,8 @@
 ﻿using Barebone.Tests;
 using Manufactures.Application.GarmentExpenditureGoods.Queries;
+using Manufactures.Application.GarmentExpenditureGoods.Queries.GetMutationExpenditureGoods;
+using Manufactures.Application.GarmentExpenditureGoods.Queries.GetReceiptFinishedGoods;
+using Manufactures.Application.GarmentExpenditureGoods.Queries.GetReportExpenditureGoods;
 using Manufactures.Controllers.Api;
 using Manufactures.Domain.GarmentExpenditureGoods;
 using Manufactures.Domain.GarmentExpenditureGoods.Commands;
@@ -75,11 +78,11 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentExpenditureGoodReadModel>>()))
                 .Returns(new List<GarmentExpenditureGood>()
                 {
-                    new GarmentExpenditureGood(ExpenditureGoodGuid, null,null,new UnitDepartmentId(1),null,null,"RONo","article",new GarmentComodityId(1),null,null,new BuyerId(1), null, null,DateTimeOffset.Now,  null,null,0,null,false)
+                    new GarmentExpenditureGood(ExpenditureGoodGuid, null,null,new UnitDepartmentId(1),null,null,"RONo","article",new GarmentComodityId(1),null,null,new BuyerId(1), null, null,DateTimeOffset.Now,  null,null,0,null,false,1)
                 });
 
             Guid ExpenditureGoodItemGuid = Guid.NewGuid();
-            GarmentExpenditureGoodItem garmentExpenditureGoodItem = new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid, ExpenditureGoodGuid, new Guid(), new SizeId(1), null, 1,0, new UomId(1), null, null, 1, 1);
+            GarmentExpenditureGoodItem garmentExpenditureGoodItem = new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid, ExpenditureGoodGuid, new Guid(),"", new SizeId(1), null, 1,0, new UomId(1), null, null, 1, 1);
             _mockGarmentExpenditureGoodItemRepository
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentExpenditureGoodItemReadModel>()
@@ -105,7 +108,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentExpenditureGoodReadModel, bool>>>()))
                 .Returns(new List<GarmentExpenditureGood>()
                 {
-                    new GarmentExpenditureGood(ExpenditureGoodGuid, null,null,new UnitDepartmentId(1),null,null,"RONo","article",new GarmentComodityId(1),null,null,new BuyerId(1), null, null,DateTimeOffset.Now,  null,null,0,null,false)
+                    new GarmentExpenditureGood(ExpenditureGoodGuid, null,null,new UnitDepartmentId(1),null,null,"RONo","article",new GarmentComodityId(1),null,null,new BuyerId(1), null, null,DateTimeOffset.Now,  null,null,0,null,false,1)
                 });
 
             Guid finishingInItemGuid = Guid.NewGuid();
@@ -115,7 +118,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentExpenditureGoodItemReadModel, bool>>>()))
                 .Returns(new List<GarmentExpenditureGoodItem>()
                 {
-                    new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid, ExpenditureGoodGuid, new Guid(), new SizeId(1), null, 1,0, new UomId(1), null, null, 1, 1)
+                    new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid, ExpenditureGoodGuid, new Guid(),"", new SizeId(1), null, 1,0, new UomId(1), null, null, 1, 1)
                 });
 
             // Act
@@ -135,7 +138,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentExpenditureGoodReadModel, bool>>>()))
                 .Returns(new List<GarmentExpenditureGood>()
                 {
-                    new GarmentExpenditureGood(ExpenditureGoodGuid, null,null,new UnitDepartmentId(1),null,null,"RONo","article",new GarmentComodityId(1),null,null,new BuyerId(1), null, null,DateTimeOffset.Now,  null,null,0,null,false)
+                    new GarmentExpenditureGood(ExpenditureGoodGuid, null,null,new UnitDepartmentId(1),null,null,"RONo","article",new GarmentComodityId(1),null,null,new BuyerId(1), null, null,DateTimeOffset.Now,  null,null,0,null,false,1)
                 });
 
             Guid finishingInItemGuid = Guid.NewGuid();
@@ -145,7 +148,7 @@ namespace Manufactures.Tests.Controllers.Api
                 .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentExpenditureGoodItemReadModel, bool>>>()))
                 .Returns(new List<GarmentExpenditureGoodItem>()
                 {
-                    new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid, ExpenditureGoodGuid, new Guid(), new SizeId(1), "size", 1,0, new UomId(1), null, "desc", 1, 1)
+                    new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid, ExpenditureGoodGuid, new Guid(),"", new SizeId(1), "size", 1,0, new UomId(1), null, "desc", 1, 1)
                 });
 
             // Act
@@ -155,8 +158,6 @@ namespace Manufactures.Tests.Controllers.Api
             Assert.NotNull(result.GetType().GetProperty("FileStream"));
         }
 
-
-
         [Fact]
         public async Task Post_StateUnderTest_ExpectedBehavior()
         {
@@ -165,7 +166,7 @@ namespace Manufactures.Tests.Controllers.Api
             Guid ExpenditureGoodGuid = Guid.NewGuid();
             _MockMediator
                 .Setup(s => s.Send(It.IsAny<PlaceGarmentExpenditureGoodCommand>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GarmentExpenditureGood(ExpenditureGoodGuid, null, null, new UnitDepartmentId(1), null, null, "RONo", "article", new GarmentComodityId(1), null, null, new BuyerId(1), null, null, DateTimeOffset.Now, null, null, 0, null, false));
+                .ReturnsAsync(new GarmentExpenditureGood(ExpenditureGoodGuid, null, null, new UnitDepartmentId(1), null, null, "RONo", "article", new GarmentComodityId(1), null, null, new BuyerId(1), null, null, DateTimeOffset.Now, null, null, 0, null, false, 1));
 
             // Act
             var result = await unitUnderTest.Post(It.IsAny<PlaceGarmentExpenditureGoodCommand>());
@@ -197,7 +198,7 @@ namespace Manufactures.Tests.Controllers.Api
             Guid ExpenditureGoodGuid = Guid.NewGuid();
             _MockMediator
                 .Setup(s => s.Send(It.IsAny<UpdateGarmentExpenditureGoodCommand>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GarmentExpenditureGood(ExpenditureGoodGuid, null, null, new UnitDepartmentId(1), null, null, "RONo", "article", new GarmentComodityId(1), null, null, new BuyerId(1), null, null, DateTimeOffset.Now, null, null, 0, null, false)
+                .ReturnsAsync(new GarmentExpenditureGood(ExpenditureGoodGuid, null, null, new UnitDepartmentId(1), null, null, "RONo", "article", new GarmentComodityId(1), null, null, new BuyerId(1), null, null, DateTimeOffset.Now, null, null, 0, null, false, 1)
                 );
 
             // Act
@@ -215,7 +216,7 @@ namespace Manufactures.Tests.Controllers.Api
             Guid ExpenditureGoodGuid = Guid.NewGuid();
             _MockMediator
                 .Setup(s => s.Send(It.IsAny<RemoveGarmentExpenditureGoodCommand>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GarmentExpenditureGood(ExpenditureGoodGuid, null, null, new UnitDepartmentId(1), null, null, "RONo", "article", new GarmentComodityId(1), null, null, new BuyerId(1), null, null, DateTimeOffset.Now, null, null, 0, null, false)
+                .ReturnsAsync(new GarmentExpenditureGood(ExpenditureGoodGuid, null, null, new UnitDepartmentId(1), null, null, "RONo", "article", new GarmentComodityId(1), null, null, new BuyerId(1), null, null, DateTimeOffset.Now, null, null, 0, null, false, 1)
                 );
 
             // Act
@@ -233,7 +234,7 @@ namespace Manufactures.Tests.Controllers.Api
             Guid ExpenditureGoodGuid = Guid.NewGuid();
             _MockMediator
                 .Setup(s => s.Send(It.IsAny<UpdateIsReceivedGarmentExpenditureGoodCommand>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GarmentExpenditureGood(ExpenditureGoodGuid, null, null, new UnitDepartmentId(1), null, null, "RONo", "article", new GarmentComodityId(1), null, null, new BuyerId(1), null, null, DateTimeOffset.Now, null, null, 0, null, false)
+                .ReturnsAsync(new GarmentExpenditureGood(ExpenditureGoodGuid, null, null, new UnitDepartmentId(1), null, null, "RONo", "article", new GarmentComodityId(1), null, null, new BuyerId(1), null, null, DateTimeOffset.Now, null, null, 0, null, false, 1)
                 );
             // Act
             var result = await unitUnderTest.Patch(Guid.NewGuid().ToString(), false);
@@ -324,7 +325,7 @@ namespace Manufactures.Tests.Controllers.Api
                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentExpenditureGoodReadModel>>()))
                .Returns(new List<GarmentExpenditureGood>()
                {
-                    new GarmentExpenditureGood(ExpenditureGoodGuid, null,null,new UnitDepartmentId(1),null,null,"RONo","article",new GarmentComodityId(1),null,null,new BuyerId(1), null, null,DateTimeOffset.Now,  null,null,0,null,false)
+                    new GarmentExpenditureGood(ExpenditureGoodGuid, null,null,new UnitDepartmentId(1),null,null,"RONo","article",new GarmentComodityId(1),null,null,new BuyerId(1), null, null,DateTimeOffset.Now,  null,null,0,null,false,1)
                });
 
             _mockGarmentExpenditureGoodItemRepository
@@ -338,7 +339,7 @@ namespace Manufactures.Tests.Controllers.Api
             _mockGarmentExpenditureGoodItemRepository
                 .Setup(s => s.Find(It.IsAny<IQueryable<GarmentExpenditureGoodItemReadModel>>()))
                 .Returns(new List<GarmentExpenditureGoodItem>() { 
-                    new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid,ExpenditureGoodItemGuid,Guid.NewGuid(),new SizeId(1),"sizeName",1,1,new UomId(1),"uomUnit","description",1,1)
+                    new GarmentExpenditureGoodItem(ExpenditureGoodItemGuid,ExpenditureGoodItemGuid,Guid.NewGuid(),"",new SizeId(1),"sizeName",1,1,new UomId(1),"uomUnit","description",1,1)
                 });
 
 
@@ -378,6 +379,136 @@ namespace Manufactures.Tests.Controllers.Api
                 .Throws(new Exception());
 
             var result = await unitUnderTest.GetXls(1, DateTime.Now, DateTime.Now, "", 1, 25, "{}");
+            Assert.Equal((int)HttpStatusCode.InternalServerError, GetStatusCode(result));
+        }
+
+        [Fact]
+        public async Task GetReceiptGoods_Return_Success()
+        {
+            // Arrange
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+            Guid ExpenditureGoodGuid = Guid.NewGuid();
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetReceiptFinishedGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GarmentReceiptFinishedGoodListViewModel());
+
+            // Act
+            var result = await unitUnderTest.GetReceiptFinishedGood(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), 1, 25, "{}");
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        }
+
+        [Fact]
+        public async Task GetXLSReceiptGoodsBehavior()
+        {
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsReceiptFinishedGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new MemoryStream());
+
+            var result = await unitUnderTest.GetXlsReceiptFinishedGood(DateTime.Now, DateTime.Now, 1, 25, "{}");
+            Assert.Equal("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.GetType().GetProperty("ContentType").GetValue(result, null));
+        }
+
+        [Fact]
+        public async Task GetReceiptGoodsXLS_Throws_InternalServerError()
+        {
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsReceiptFinishedGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .Throws(new Exception());
+
+            var result = await unitUnderTest.GetXlsReceiptFinishedGood(DateTime.Now, DateTime.Now, 1, 25, "{}");
+            Assert.Equal((int)HttpStatusCode.InternalServerError, GetStatusCode(result));
+        }
+
+
+        [Fact]
+        public async Task GetMutation_Return_Success()
+        {
+            // Arrange
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+            Guid ExpenditureGoodGuid = Guid.NewGuid();
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetMutationExpenditureGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GarmentMutationExpenditureGoodListViewModel());
+
+            // Act
+            var result = await unitUnderTest.GetMutation(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), 1, 25, "{}");
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        }
+
+        [Fact]
+        public async Task GetXLSMutationBehavior()
+        {
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsMutationExpenditureGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new MemoryStream());
+
+            var result = await unitUnderTest.GetXlsMutation(DateTime.Now, DateTime.Now, 1, 25, "{}");
+            Assert.Equal("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.GetType().GetProperty("ContentType").GetValue(result, null));
+        }
+
+        [Fact]
+        public async Task GetMutationXLS_Throws_InternalServerError()
+        {
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsMutationExpenditureGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .Throws(new Exception());
+
+            var result = await unitUnderTest.GetXlsMutation(DateTime.Now, DateTime.Now, 1, 25, "{}");
+            Assert.Equal((int)HttpStatusCode.InternalServerError, GetStatusCode(result));
+        }
+
+        [Fact]
+        public async Task GetReport_Return_Success()
+        {
+            // Arrange
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+            Guid ExpenditureGoodGuid = Guid.NewGuid();
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetReportExpenditureGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GarmentReportExpenditureGoodListViewModel());
+
+            // Act
+            var result = await unitUnderTest.GetReport(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), 1, 25, "{}");
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        }
+
+        [Fact]
+        public async Task GetXLSReportBehavior()
+        {
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsReportExpenditureGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new MemoryStream());
+
+            var result = await unitUnderTest.GetXlsReport(DateTime.Now, DateTime.Now, 1, 25, "{}");
+            Assert.Equal("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.GetType().GetProperty("ContentType").GetValue(result, null));
+        }
+
+        [Fact]
+        public async Task GetReportXLS_Throws_InternalServerError()
+        {
+            var unitUnderTest = CreateGarmentExpenditureGoodController();
+
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GetXlsReportExpenditureGoodsQuery>(), It.IsAny<CancellationToken>()))
+                .Throws(new Exception());
+
+            var result = await unitUnderTest.GetXlsReport(DateTime.Now, DateTime.Now, 1, 25, "{}");
             Assert.Equal((int)HttpStatusCode.InternalServerError, GetStatusCode(result));
         }
 

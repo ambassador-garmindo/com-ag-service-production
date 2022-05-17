@@ -16,7 +16,7 @@ namespace Manufactures.Tests.ViewModels.GarmentAvalProducts
             var date = DateTimeOffset.Now;
             var items = new List<GarmentAvalProductItemValueObject>()
                 {
-                    new GarmentAvalProductItemValueObject(id,id,new GarmentPreparingId("value"),new GarmentPreparingItemId("value"),new Product(),"designColor",1,new Uom())
+                    new GarmentAvalProductItemValueObject(id,id,new GarmentPreparingId("value"),new GarmentPreparingItemId("value"),"customs",new Product(),"designColor",1,new Uom())
                 };
             CreateViewModel viewModel = new CreateViewModel()
             {

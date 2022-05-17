@@ -22,7 +22,7 @@ namespace Manufactures.Dtos
             EPOId = garmentCuttingOut.EPOId;
             EPOItemId = garmentCuttingOut.EPOItemId;
             POSerialNumber = garmentCuttingOut.POSerialNumber;
-
+            IsUsed = garmentCuttingOut.IsUsed;
             Items = new List<GarmentSubconCuttingOutItemDto>();
         }
 
@@ -39,6 +39,7 @@ namespace Manufactures.Dtos
         public long EPOId { get; set; }
         public long EPOItemId { get; set; }
         public string POSerialNumber { get; set; }
+        public bool IsUsed { get; set; }
         public List<GarmentSubconCuttingOutItemDto> Items { get; set; }
     }
 }

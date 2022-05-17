@@ -17,7 +17,7 @@ namespace Manufactures.Tests.Helpers
             Guid id = Guid.NewGuid();
             var dto = new GarmentSewingOutDto(new GarmentSewingOut(id, "sewingOutNo", new BuyerId(1), "BuyerCode", "BuyerName", new UnitDepartmentId(1), "unitToCode", "unitToName", "SewingTo", DateTimeOffset.Now, "RoNo", "Article", new UnitDepartmentId(1), "unitCode", "unitName", new GarmentComodityId(1), "comodityCode", "ComodityName", false));
 
-            var garmentSewingOutItem = new GarmentSewingOutItem(id, id, id, id, new ProductId(1), "productCode", "productName", "designColor", new SizeId(1), "sizeName", 1, new UomId(1), "uomUnit", "Color", 1, 1, 1);
+            var garmentSewingOutItem = new GarmentSewingOutItem(id, id, id, id, new ProductId(1), "productCode", "productName","customsCategory", "designColor", new SizeId(1), "sizeName", 1, new UomId(1), "uomUnit", "Color", 1, 1, 1);
             var items = new List<GarmentSewingOutItemDto>()
             {
                 new GarmentSewingOutItemDto(garmentSewingOutItem)

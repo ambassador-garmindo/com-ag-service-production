@@ -70,7 +70,7 @@ namespace Manufactures.Tests.CommandHandlers.GarmentDeliveryReturns.CommandHandl
             .Returns(Task.FromResult(It.IsAny<GarmentDeliveryReturnItem>()));
 
 
-            GarmentPreparingItem garmentPreparingItem = new GarmentPreparingItem(id, 1, new Domain.GarmentPreparings.ValueObjects.ProductId(1), "productCode", "productName", "designColor", 1, new Domain.GarmentPreparings.ValueObjects.UomId(1), "uomUnit", "FABRIC", 1, 1, id,null);
+            GarmentPreparingItem garmentPreparingItem = new GarmentPreparingItem(id, 1, new Domain.GarmentPreparings.ValueObjects.ProductId(1), "productCode", "productName", "designColor", 1, new Domain.GarmentPreparings.ValueObjects.UomId(1), "uomUnit", "FABRIC", 1, 1, id,null,"");
 
             _mockGarmentPreparingItemRepository
             .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentPreparingItemReadModel, bool>>>()))

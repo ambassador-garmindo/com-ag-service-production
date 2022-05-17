@@ -20,6 +20,7 @@ namespace Manufactures.Domain.GarmentExpenditureGoods.Commands
         public Buyer Buyer { get;  set; }
         public DateTimeOffset ExpenditureDate { get;  set; }
         public string Invoice { get;  set; }
+        public int PackingListId { get; set; }
         public string ContractNo { get;  set; }
         public double Carton { get;  set; }
         public string Description { get;  set; }

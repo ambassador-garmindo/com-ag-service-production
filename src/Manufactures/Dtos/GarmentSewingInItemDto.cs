@@ -1,4 +1,5 @@
 ﻿using Manufactures.Domain.GarmentSewingIns;
+using Manufactures.Domain.GarmentSewingIns.ReadModels;
 using Manufactures.Domain.Shared.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Manufactures.Dtos
             SewingOutDetailId = garmentSewingInItem.SewingOutDetailId;
             LoadingItemId = garmentSewingInItem.LoadingItemId;
             Product = new Product(garmentSewingInItem.ProductId.Value, garmentSewingInItem.ProductCode, garmentSewingInItem.ProductName);
+            CustomsCategory = garmentSewingInItem.CustomsCategory;
             DesignColor = garmentSewingInItem.DesignColor;
             Size = new SizeValueObject(garmentSewingInItem.SizeId.Value, garmentSewingInItem.SizeName);
             Quantity = garmentSewingInItem.Quantity;
@@ -26,12 +28,33 @@ namespace Manufactures.Dtos
             Price = garmentSewingInItem.Price;
         }
 
+        public GarmentSewingInItemDto(GarmentSewingInItemReadModel garmentSewingInItemReadModel)
+        {
+            Id = garmentSewingInItemReadModel.Identity;
+            SewingInId = garmentSewingInItemReadModel.SewingInId;
+            SewingOutItemId = garmentSewingInItemReadModel.SewingOutItemId;
+            SewingOutDetailId = garmentSewingInItemReadModel.SewingOutDetailId;
+            LoadingItemId = garmentSewingInItemReadModel.LoadingItemId;
+            Product = new Product(garmentSewingInItemReadModel.ProductId, garmentSewingInItemReadModel.ProductCode, garmentSewingInItemReadModel.ProductName);
+            CustomsCategory = garmentSewingInItemReadModel.CustomsCategory;
+            DesignColor = garmentSewingInItemReadModel.DesignColor;
+            Size = new SizeValueObject(garmentSewingInItemReadModel.SizeId, garmentSewingInItemReadModel.SizeName);
+            Quantity = garmentSewingInItemReadModel.Quantity;
+            Uom = new Uom(garmentSewingInItemReadModel.UomId, garmentSewingInItemReadModel.UomUnit);
+            Color = garmentSewingInItemReadModel.Color;
+            RemainingQuantity = garmentSewingInItemReadModel.RemainingQuantity;
+            BasicPrice = garmentSewingInItemReadModel.BasicPrice;
+            Price = garmentSewingInItemReadModel.Price;
+        }
+
+
         public Guid Id { get; set; }
         public Guid SewingInId { get; set; }
         public Guid SewingOutItemId { get; set; }
         public Guid SewingOutDetailId { get; set; }
         public Guid LoadingItemId { get; set; }
         public Product Product { get; set; }
+        public string CustomsCategory { get; set; }
         public string DesignColor { get; set; }
         public SizeValueObject Size { get; set; }
         public double Quantity { get; set; }

@@ -30,7 +30,8 @@ namespace Manufactures.Controllers.Api
             {
                 page,
                 size,
-                viewModel.count
+                count = viewModel.data.Count,
+                viewModel.total
             });
         }
     }

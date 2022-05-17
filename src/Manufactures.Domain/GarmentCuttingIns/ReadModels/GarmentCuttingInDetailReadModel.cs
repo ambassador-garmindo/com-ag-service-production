@@ -24,6 +24,7 @@ namespace Manufactures.Domain.GarmentCuttingIns.ReadModels
 
         public string DesignColor { get; internal set; }
         public string FabricType { get; internal set; }
+        public string CustomsCategory { get; internal set; }
 
         public double PreparingQuantity { get; internal set; }
         public int PreparingUomId { get; internal set; }

@@ -292,5 +292,19 @@ namespace Manufactures.Controllers.Api
                 FileDownloadName = $"{garmentCuttingOutDto.CutOutNo}.pdf"
             };
         }
+
+        [HttpGet("by-roNo")]
+        public async Task<IActionResult> GetLoaderByRO(string keyword, string filter = "{}")
+        {
+            var query = _garmentCuttingOutRepository.Read(1, int.MaxValue, "{}", "", filter);
+            query = query.Where(o => o.RONo.Contains(keyword));
+
+            var rOs = _garmentCuttingOutRepository.Find(query)
+                .Select(o => new { o.RONo, o.Article,o.POSerialNumber }).Distinct().ToList();
+
+            await Task.Yield();
+
+            return Ok(rOs);
+        }
     }
 }
