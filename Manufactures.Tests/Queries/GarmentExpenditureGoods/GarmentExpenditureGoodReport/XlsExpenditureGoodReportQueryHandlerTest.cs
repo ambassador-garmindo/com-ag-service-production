@@ -60,46 +60,46 @@ namespace Manufactures.Tests.Queries.GarmentExpenditureGoods.GarmentMutationExpe
         }
 
 
-        [Fact]
-        public async Task Handle_StateUnderTest_ExpectedBehavior()
-        {
-            GetXlsReportExpenditureGoodsQueryHandler unitUnderTest = CreateGetXlsMutationQueryHandler();
-            CancellationToken cancellationToken = CancellationToken.None;
+        //[Fact]
+        //public async Task Handle_StateUnderTest_ExpectedBehavior()
+        //{
+        //    GetXlsReportExpenditureGoodsQueryHandler unitUnderTest = CreateGetXlsMutationQueryHandler();
+        //    CancellationToken cancellationToken = CancellationToken.None;
 
-            Guid guidExpenditureGood = Guid.NewGuid();
-            Guid guidExpenditureGoodItem = Guid.NewGuid();
-            Guid guidCuttingOut = Guid.NewGuid();
+        //    Guid guidExpenditureGood = Guid.NewGuid();
+        //    Guid guidExpenditureGoodItem = Guid.NewGuid();
+        //    Guid guidCuttingOut = Guid.NewGuid();
 
-            GetXlsReportExpenditureGoodsQuery getXlsMutation = new GetXlsReportExpenditureGoodsQuery(1, 25, "{}", DateTime.Now, DateTime.Now.AddDays(5), "token");
+        //    GetXlsReportExpenditureGoodsQuery getXlsMutation = new GetXlsReportExpenditureGoodsQuery(1, 25, "{}", DateTime.Now, DateTime.Now.AddDays(5), "token");
 
-            _mockgarmentExpenditureGoodItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentExpenditureGoodItemReadModel>
-                {
-                    new Domain.GarmentExpenditureGoods.GarmentExpenditureGoodItem(guidExpenditureGoodItem,guidExpenditureGood,Guid.NewGuid(),"customsCategory",new Domain.Shared.ValueObjects.SizeId(1),"",1,0,new Domain.Shared.ValueObjects.UomId(1),"","",0,0).GetReadModel()
-                }.AsQueryable());
+        //    _mockgarmentExpenditureGoodItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentExpenditureGoodItemReadModel>
+        //        {
+        //            new Domain.GarmentExpenditureGoods.GarmentExpenditureGoodItem(guidExpenditureGoodItem,guidExpenditureGood,Guid.NewGuid(),"customsCategory",new Domain.Shared.ValueObjects.SizeId(1),"",1,0,new Domain.Shared.ValueObjects.UomId(1),"","",0,0).GetReadModel()
+        //        }.AsQueryable());
 
-            _mockgarmentExpenditureGoodRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentExpenditureGoodReadModel>
-                {
-                    new Domain.GarmentExpenditureGoods.GarmentExpenditureGood(guidExpenditureGood, "","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","","213","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"BR","",new Domain.Shared.ValueObjects.BuyerId(1),"","",DateTimeOffset.Now,"","",0,"",false,0).GetReadModel()
-                }.AsQueryable());
+        //    _mockgarmentExpenditureGoodRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentExpenditureGoodReadModel>
+        //        {
+        //            new Domain.GarmentExpenditureGoods.GarmentExpenditureGood(guidExpenditureGood, "","",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","","213","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"BR","",new Domain.Shared.ValueObjects.BuyerId(1),"","",DateTimeOffset.Now,"","",0,"",false,0).GetReadModel()
+        //        }.AsQueryable());
 
-            _mockgarmentCuttingOutRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentCuttingOutReadModel>
-                {
-                     new GarmentCuttingOut(guidCuttingOut, "", "SEWING",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",DateTime.Now,"213","article",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"BR","cmo",false).GetReadModel()
-                }.AsQueryable());
+        //    _mockgarmentCuttingOutRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentCuttingOutReadModel>
+        //        {
+        //             new GarmentCuttingOut(guidCuttingOut, "", "SEWING",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",DateTime.Now,"213","article",new Domain.Shared.ValueObjects.UnitDepartmentId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"BR","cmo",false).GetReadModel()
+        //        }.AsQueryable());
 
 
 
-            var result = await unitUnderTest.Handle(getXlsMutation, cancellationToken);
+        //    var result = await unitUnderTest.Handle(getXlsMutation, cancellationToken);
 
-            // Assert
-            result.Should().NotBeNull();
+        //    // Assert
+        //    result.Should().NotBeNull();
 
-        }
+        //}
     }
 }
