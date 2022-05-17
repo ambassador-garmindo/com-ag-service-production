@@ -106,14 +106,14 @@ namespace Manufactures.Tests.Controllers.Api
         //        }.AsQueryable());
 
         //    // Act
-            
+
         //    var orderData = new
         //    {
         //        Article = "desc",
         //    };
 
         //    string order = JsonConvert.SerializeObject(orderData);
-        //    var result = await unitUnderTest.Get(1,25,order,new List<string>(), "productCode", "{}");
+        //    var result = await unitUnderTest.Get(1, 25, order, new List<string>(), "productCode", "{}");
 
         //    // Assert
         //    Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
