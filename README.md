@@ -1,5 +1,7 @@
 # id.co.danliris-garment-web
 
+[![codecov](https://codecov.io/gh/ambassador-garmindo/com-ag-service-production/branch/master/graph/badge.svg?token=KEZEA3RX86)](https://codecov.io/gh/ambassador-garmindo/com-ag-service-production)
+
 DanLiris Application is a enterprise project that aims to manage the business processes of a textile factory, PT. DanLiris.This application is a microservices application consisting of services based on .NET Core and Aurelia Js which part of javascript front-end Framework. This application show how to implement microservice architecture principles. id.co.danliris-garment-web repository is part of service that will serve  management garment business activity.
 
 ## Prerequisites
