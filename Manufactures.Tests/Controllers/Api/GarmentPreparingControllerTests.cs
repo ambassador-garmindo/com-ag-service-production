@@ -69,192 +69,192 @@ namespace Manufactures.Tests.Controllers.Api
             return controller;
         }
 
-        [Fact]
-        public async Task Get_with_Keyword_Return_Success()
-        {
-            // Arrange
-            var id = Guid.NewGuid();
-            var unitUnderTest = CreateGarmentPreparingController();
+        //[Fact]
+        //public async Task Get_with_Keyword_Return_Success()
+        //{
+        //    // Arrange
+        //    var id = Guid.NewGuid();
+        //    var unitUnderTest = CreateGarmentPreparingController();
 
-            _mockGarmentPreparingRepository
-                .Setup(s => s.Read(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<string>()))
-                .Returns(new List<GarmentPreparingReadModel>()
-                {
-                    new GarmentPreparingReadModel(id)
-                }
-                .AsQueryable());
+        //    _mockGarmentPreparingRepository
+        //        .Setup(s => s.Read(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<string>()))
+        //        .Returns(new List<GarmentPreparingReadModel>()
+        //        {
+        //            new GarmentPreparingReadModel(id)
+        //        }
+        //        .AsQueryable());
 
-            _mockGarmentPreparingRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingReadModel>>()))
-                .Returns(new List<GarmentPreparing>()
-                {
-                    new GarmentPreparing(id, 0,"uenNo", new UnitDepartmentId(1),"unitCode", "unitName", DateTimeOffset.Now,"roNo" ,"article", false, new Domain.Shared.ValueObjects.BuyerId(1), null, null)
-                });
+        //    _mockGarmentPreparingRepository
+        //        .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingReadModel>>()))
+        //        .Returns(new List<GarmentPreparing>()
+        //        {
+        //            new GarmentPreparing(id, 0,"uenNo", new UnitDepartmentId(1),"unitCode", "unitName", DateTimeOffset.Now,"roNo" ,"article", false, new Domain.Shared.ValueObjects.BuyerId(1), null, null)
+        //        });
 
-            _mockGarmentPreparingItemRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
-                .Returns(new List<GarmentPreparingItem>()
-                {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
-                });
+        //    _mockGarmentPreparingItemRepository
+        //        .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
+        //        .Returns(new List<GarmentPreparingItem>()
+        //        {
+        //            new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
+        //        });
 
-            _mockGarmentPreparingItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentPreparingItemReadModel>()
-                {
-                    new GarmentPreparingItemReadModel(id)
-                }.AsQueryable());
+        //    _mockGarmentPreparingItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentPreparingItemReadModel>()
+        //        {
+        //            new GarmentPreparingItemReadModel(id)
+        //        }.AsQueryable());
 
-            // Act
+        //    // Act
             
-            var orderData = new
-            {
-                Article = "desc",
-            };
+        //    var orderData = new
+        //    {
+        //        Article = "desc",
+        //    };
 
-            string order = JsonConvert.SerializeObject(orderData);
-            var result = await unitUnderTest.Get(1,25,order,new List<string>(), "productCode", "{}");
+        //    string order = JsonConvert.SerializeObject(orderData);
+        //    var result = await unitUnderTest.Get(1,25,order,new List<string>(), "productCode", "{}");
 
-            // Assert
-            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
-        }
+        //    // Assert
+        //    Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        //}
 
-        [Fact]
-        public async Task Get_with_Keyword_and_NoOrder_Return_Success()
-        {
-            // Arrange
-            var id = Guid.NewGuid();
-            var unitUnderTest = CreateGarmentPreparingController();
+        //[Fact]
+        //public async Task Get_with_Keyword_and_NoOrder_Return_Success()
+        //{
+        //    // Arrange
+        //    var id = Guid.NewGuid();
+        //    var unitUnderTest = CreateGarmentPreparingController();
 
-            _mockGarmentPreparingRepository
-                .Setup(s => s.Read(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<string>()))
-                .Returns(new List<GarmentPreparingReadModel>()
-                {
-                    new GarmentPreparingReadModel(id)
-                }
-                .AsQueryable());
+        //    _mockGarmentPreparingRepository
+        //        .Setup(s => s.Read(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<string>()))
+        //        .Returns(new List<GarmentPreparingReadModel>()
+        //        {
+        //            new GarmentPreparingReadModel(id)
+        //        }
+        //        .AsQueryable());
 
-            _mockGarmentPreparingRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingReadModel>>()))
-                .Returns(new List<GarmentPreparing>()
-                {
-                    new GarmentPreparing(id, 0,"uenNo", new UnitDepartmentId(1),"unitCode", "unitName", DateTimeOffset.Now,"roNo" ,"article", false, new Domain.Shared.ValueObjects.BuyerId(1), null, null)
-                });
+        //    _mockGarmentPreparingRepository
+        //        .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingReadModel>>()))
+        //        .Returns(new List<GarmentPreparing>()
+        //        {
+        //            new GarmentPreparing(id, 0,"uenNo", new UnitDepartmentId(1),"unitCode", "unitName", DateTimeOffset.Now,"roNo" ,"article", false, new Domain.Shared.ValueObjects.BuyerId(1), null, null)
+        //        });
 
-            _mockGarmentPreparingItemRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
-                .Returns(new List<GarmentPreparingItem>()
-                {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
-                });
+        //    _mockGarmentPreparingItemRepository
+        //        .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
+        //        .Returns(new List<GarmentPreparingItem>()
+        //        {
+        //            new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
+        //        });
 
-            _mockGarmentPreparingItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentPreparingItemReadModel>()
-                {
-                    new GarmentPreparingItemReadModel(id)
-                }.AsQueryable());
+        //    _mockGarmentPreparingItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentPreparingItemReadModel>()
+        //        {
+        //            new GarmentPreparingItemReadModel(id)
+        //        }.AsQueryable());
 
-            // Act
+        //    // Act
 
-            var result = await unitUnderTest.Get(1, 25, "{}", new List<string>(), "productCode", "{}");
+        //    var result = await unitUnderTest.Get(1, 25, "{}", new List<string>(), "productCode", "{}");
 
-            // Assert
-            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
-        }
+        //    // Assert
+        //    Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        //}
 
-        [Fact]
-        public async Task Get_with_Empty_Keyword_Return_Success()
-        {
-            // Arrange
-            var id = Guid.NewGuid();
-            var unitUnderTest = CreateGarmentPreparingController();
+        //[Fact]
+        //public async Task Get_with_Empty_Keyword_Return_Success()
+        //{
+        //    // Arrange
+        //    var id = Guid.NewGuid();
+        //    var unitUnderTest = CreateGarmentPreparingController();
 
-            _mockGarmentPreparingRepository
-                .Setup(s => s.Read(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<string>()))
-                .Returns(new List<GarmentPreparingReadModel>()
-                {
-                    new GarmentPreparingReadModel(id)
-                }
-                .AsQueryable());
+        //    _mockGarmentPreparingRepository
+        //        .Setup(s => s.Read(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<string>()))
+        //        .Returns(new List<GarmentPreparingReadModel>()
+        //        {
+        //            new GarmentPreparingReadModel(id)
+        //        }
+        //        .AsQueryable());
 
-            _mockGarmentPreparingRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingReadModel>>()))
-                .Returns(new List<GarmentPreparing>()
-                {
-                    new GarmentPreparing(id, 0,"uenNo", new UnitDepartmentId(1),"unitCode", "unitName", DateTimeOffset.Now,"roNo" ,"article", false, new Domain.Shared.ValueObjects.BuyerId(1), null, null)
-                });
+        //    _mockGarmentPreparingRepository
+        //        .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingReadModel>>()))
+        //        .Returns(new List<GarmentPreparing>()
+        //        {
+        //            new GarmentPreparing(id, 0,"uenNo", new UnitDepartmentId(1),"unitCode", "unitName", DateTimeOffset.Now,"roNo" ,"article", false, new Domain.Shared.ValueObjects.BuyerId(1), null, null)
+        //        });
 
-            _mockGarmentPreparingItemRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
-                .Returns(new List<GarmentPreparingItem>()
-                {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
-                });
+        //    _mockGarmentPreparingItemRepository
+        //        .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
+        //        .Returns(new List<GarmentPreparingItem>()
+        //        {
+        //            new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
+        //        });
 
-            _mockGarmentPreparingItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentPreparingItemReadModel>()
-                {
-                    new GarmentPreparingItemReadModel(id)
-                }.AsQueryable());
+        //    _mockGarmentPreparingItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentPreparingItemReadModel>()
+        //        {
+        //            new GarmentPreparingItemReadModel(id)
+        //        }.AsQueryable());
 
-            // Act
+        //    // Act
 
-            var orderData = new
-            {
-                Article = "desc",
-            };
+        //    var orderData = new
+        //    {
+        //        Article = "desc",
+        //    };
 
-            string order = JsonConvert.SerializeObject(orderData);
-            var result = await unitUnderTest.Get(1, 25, order, new List<string>(), "", "{}");
+        //    string order = JsonConvert.SerializeObject(orderData);
+        //    var result = await unitUnderTest.Get(1, 25, order, new List<string>(), "", "{}");
 
-            // Assert
-            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
-        }
+        //    // Assert
+        //    Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        //}
 
-        [Fact]
-        public async Task Get_with_Empty_Keyword_and_NotOrder_Return_Success()
-        {
-            // Arrange
-            var id = Guid.NewGuid();
-            var unitUnderTest = CreateGarmentPreparingController();
+        //[Fact]
+        //public async Task Get_with_Empty_Keyword_and_NotOrder_Return_Success()
+        //{
+        //    // Arrange
+        //    var id = Guid.NewGuid();
+        //    var unitUnderTest = CreateGarmentPreparingController();
 
-            _mockGarmentPreparingRepository
-                .Setup(s => s.Read(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<string>()))
-                .Returns(new List<GarmentPreparingReadModel>()
-                {
-                    new GarmentPreparingReadModel(id)
-                }
-                .AsQueryable());
+        //    _mockGarmentPreparingRepository
+        //        .Setup(s => s.Read(It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<string>()))
+        //        .Returns(new List<GarmentPreparingReadModel>()
+        //        {
+        //            new GarmentPreparingReadModel(id)
+        //        }
+        //        .AsQueryable());
 
-            _mockGarmentPreparingRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingReadModel>>()))
-                .Returns(new List<GarmentPreparing>()
-                {
-                    new GarmentPreparing(id, 0,"uenNo", new UnitDepartmentId(1),"unitCode", "unitName", DateTimeOffset.Now,"roNo" ,"article", false, new Domain.Shared.ValueObjects.BuyerId(1), null, null)
-                });
+        //    _mockGarmentPreparingRepository
+        //        .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingReadModel>>()))
+        //        .Returns(new List<GarmentPreparing>()
+        //        {
+        //            new GarmentPreparing(id, 0,"uenNo", new UnitDepartmentId(1),"unitCode", "unitName", DateTimeOffset.Now,"roNo" ,"article", false, new Domain.Shared.ValueObjects.BuyerId(1), null, null)
+        //        });
 
-            _mockGarmentPreparingItemRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
-                .Returns(new List<GarmentPreparingItem>()
-                {
-                    new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
-                });
+        //    _mockGarmentPreparingItemRepository
+        //        .Setup(s => s.Find(It.IsAny<IQueryable<GarmentPreparingItemReadModel>>()))
+        //        .Returns(new List<GarmentPreparingItem>()
+        //        {
+        //            new GarmentPreparingItem(id, 0, new ProductId(1),"productCode", "productName","designColor", 1, new UomId(1),"uomUnit", "FABRIC", 1, 1,id,null,"")
+        //        });
 
-            _mockGarmentPreparingItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentPreparingItemReadModel>()
-                {
-                    new GarmentPreparingItemReadModel(id)
-                }.AsQueryable());
+        //    _mockGarmentPreparingItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentPreparingItemReadModel>()
+        //        {
+        //            new GarmentPreparingItemReadModel(id)
+        //        }.AsQueryable());
 
-            // Act
-            var result = await unitUnderTest.Get(1, 25, "{}", new List<string>(), "", "{}");
+        //    // Act
+        //    var result = await unitUnderTest.Get(1, 25, "{}", new List<string>(), "", "{}");
 
-            // Assert
-            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
-        }
+        //    // Assert
+        //    Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        //}
 
         [Fact]
         public async Task GetSingle_StateUnderTest_ExpectedBehavior()

@@ -54,64 +54,65 @@ namespace Manufactures.Tests.CommandHandlers.GarmentSewingOuts
         {
             return new RemoveGarmentSewingOutCommandHandler(_MockStorage.Object);
         }
-        [Fact]
-        public async Task Handle_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            Guid sewingInItemGuid = Guid.NewGuid();
-            Guid sewingOutGuid = Guid.NewGuid();
-            RemoveGarmentSewingOutCommandHandler unitUnderTest = CreateRemoveGarmentSewingOutCommandHandler();
-            CancellationToken cancellationToken = CancellationToken.None;
-            RemoveGarmentSewingOutCommand RemoveGarmentSewingOutCommand = new RemoveGarmentSewingOutCommand(sewingOutGuid);
 
-            _mockSewingOutRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentSewingOutReadModel>()
-                {
-                    new GarmentSewingOutReadModel(sewingOutGuid)
-                }.AsQueryable());
-            _mockSewingOutItemRepository
-                .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingOutItemReadModel, bool>>>()))
-                .Returns(new List<GarmentSewingOutItem>()
-                {
-                    new GarmentSewingOutItem(Guid.Empty, sewingOutGuid, Guid.Empty,sewingInItemGuid,new ProductId(1),null,null,null,null,new SizeId(1), null, 1, new UomId(1), null,null, 1,1,1)
-                });
-            //_mockSewingOutDetailRepository
-            //    .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingOutDetailReadModel, bool>>>()))
-            //    .Returns(new List<GarmentSewingOutDetail>()
-            //    {
-            //        new GarmentSewingOutDetail(Guid.Empty, Guid.Empty,new SizeId(1), null, 1, new UomId(1),null )
-            //    });
+        //[Fact]
+        //public async Task Handle_StateUnderTest_ExpectedBehavior()
+        //{
+        //    // Arrange
+        //    Guid sewingInItemGuid = Guid.NewGuid();
+        //    Guid sewingOutGuid = Guid.NewGuid();
+        //    RemoveGarmentSewingOutCommandHandler unitUnderTest = CreateRemoveGarmentSewingOutCommandHandler();
+        //    CancellationToken cancellationToken = CancellationToken.None;
+        //    RemoveGarmentSewingOutCommand RemoveGarmentSewingOutCommand = new RemoveGarmentSewingOutCommand(sewingOutGuid);
 
-            _mockSewingInItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentSewingInItemReadModel>
-                {
-                    new GarmentSewingInItemReadModel(sewingInItemGuid)
-                }.AsQueryable());
+        //    _mockSewingOutRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentSewingOutReadModel>()
+        //        {
+        //            new GarmentSewingOutReadModel(sewingOutGuid)
+        //        }.AsQueryable());
+        //    _mockSewingOutItemRepository
+        //        .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingOutItemReadModel, bool>>>()))
+        //        .Returns(new List<GarmentSewingOutItem>()
+        //        {
+        //            new GarmentSewingOutItem(Guid.Empty, sewingOutGuid, Guid.Empty,sewingInItemGuid,new ProductId(1),null,null,null,null,new SizeId(1), null, 1, new UomId(1), null,null, 1,1,1)
+        //        });
+        //    //_mockSewingOutDetailRepository
+        //    //    .Setup(s => s.Find(It.IsAny<Expression<Func<GarmentSewingOutDetailReadModel, bool>>>()))
+        //    //    .Returns(new List<GarmentSewingOutDetail>()
+        //    //    {
+        //    //        new GarmentSewingOutDetail(Guid.Empty, Guid.Empty,new SizeId(1), null, 1, new UomId(1),null )
+        //    //    });
 
-            _mockSewingOutRepository
-                .Setup(s => s.Update(It.IsAny<GarmentSewingOut>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentSewingOut>()));
-            _mockSewingOutItemRepository
-                .Setup(s => s.Update(It.IsAny<GarmentSewingOutItem>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentSewingOutItem>()));
-            //_mockSewingOutDetailRepository
-            //    .Setup(s => s.Update(It.IsAny<GarmentSewingOutDetail>()))
-            //    .Returns(Task.FromResult(It.IsAny<GarmentSewingOutDetail>()));
-            _mockSewingInItemRepository
-                .Setup(s => s.Update(It.IsAny<GarmentSewingInItem>()))
-                .Returns(Task.FromResult(It.IsAny<GarmentSewingInItem>()));
+        //    _mockSewingInItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentSewingInItemReadModel>
+        //        {
+        //            new GarmentSewingInItemReadModel(sewingInItemGuid)
+        //        }.AsQueryable());
 
-            _MockStorage
-                .Setup(x => x.Save())
-                .Verifiable();
+        //    _mockSewingOutRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentSewingOut>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentSewingOut>()));
+        //    _mockSewingOutItemRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentSewingOutItem>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentSewingOutItem>()));
+        //    //_mockSewingOutDetailRepository
+        //    //    .Setup(s => s.Update(It.IsAny<GarmentSewingOutDetail>()))
+        //    //    .Returns(Task.FromResult(It.IsAny<GarmentSewingOutDetail>()));
+        //    _mockSewingInItemRepository
+        //        .Setup(s => s.Update(It.IsAny<GarmentSewingInItem>()))
+        //        .Returns(Task.FromResult(It.IsAny<GarmentSewingInItem>()));
 
-            // Act
-            var result = await unitUnderTest.Handle(RemoveGarmentSewingOutCommand, cancellationToken);
+        //    _MockStorage
+        //        .Setup(x => x.Save())
+        //        .Verifiable();
 
-            // Assert
-            result.Should().NotBeNull();
-        }
+        //    // Act
+        //    var result = await unitUnderTest.Handle(RemoveGarmentSewingOutCommand, cancellationToken);
+
+        //    // Assert
+        //    result.Should().NotBeNull();
+        //}
     }
 }

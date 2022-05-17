@@ -200,52 +200,52 @@ namespace Manufactures.Tests.Controllers.Api
            
         }
 
-        [Fact]
-        public async Task GetComplete_Success()
-        {
-            // Arrange
-            var unitUnderTest = CreateGarmentLoadingController();
-            var id = Guid.NewGuid();
-            _mockLoadingRepository
-               .Setup(s => s.Read(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-               .Returns(new List<GarmentLoadingReadModel>()
-               {
-                   new GarmentLoadingReadModel(id)
-               }
-               .AsQueryable());
+        //[Fact]
+        //public async Task GetComplete_Success()
+        //{
+        //    // Arrange
+        //    var unitUnderTest = CreateGarmentLoadingController();
+        //    var id = Guid.NewGuid();
+        //    _mockLoadingRepository
+        //       .Setup(s => s.Read(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+        //       .Returns(new List<GarmentLoadingReadModel>()
+        //       {
+        //           new GarmentLoadingReadModel(id)
+        //       }
+        //       .AsQueryable());
 
-            _mockLoadingRepository
-                .Setup(s => s.Find(It.IsAny<IQueryable<GarmentLoadingReadModel>>()))
-                .Returns(new List<GarmentLoading>()
-                {
-                    new GarmentLoading(id, null , id, null, new UnitDepartmentId(1), null, null, "RONo",null,new UnitDepartmentId(1), null, null, DateTimeOffset.Now, new GarmentComodityId(1),null, null)
-                });
+        //    _mockLoadingRepository
+        //        .Setup(s => s.Find(It.IsAny<IQueryable<GarmentLoadingReadModel>>()))
+        //        .Returns(new List<GarmentLoading>()
+        //        {
+        //            new GarmentLoading(id, null , id, null, new UnitDepartmentId(1), null, null, "RONo",null,new UnitDepartmentId(1), null, null, DateTimeOffset.Now, new GarmentComodityId(1),null, null)
+        //        });
 
-            _mockLoadingItemRepository
-                .Setup(s => s.Query)
-                .Returns(new List<GarmentLoadingItemReadModel>()
-                {
-                    new GarmentLoadingItemReadModel(id)
-                }.AsQueryable());
+        //    _mockLoadingItemRepository
+        //        .Setup(s => s.Query)
+        //        .Returns(new List<GarmentLoadingItemReadModel>()
+        //        {
+        //            new GarmentLoadingItemReadModel(id)
+        //        }.AsQueryable());
 
-            _mockLoadingItemRepository
-              .Setup(s => s.Find(It.IsAny<IQueryable<GarmentLoadingItemReadModel>>()))
-              .Returns(new List<GarmentLoadingItem>()
-              {
-                    new GarmentLoadingItem(id, id,id,new SizeId(1), "size", new ProductId(1), null, null,null, "design", 1,1,10,new UomId(1),null, "color",1)
-              });
+        //    _mockLoadingItemRepository
+        //      .Setup(s => s.Find(It.IsAny<IQueryable<GarmentLoadingItemReadModel>>()))
+        //      .Returns(new List<GarmentLoadingItem>()
+        //      {
+        //            new GarmentLoadingItem(id, id,id,new SizeId(1), "size", new ProductId(1), null, null,null, "design", 1,1,10,new UomId(1),null, "color",1)
+        //      });
 
-            var orderData = new
-            {
-                Article = "desc",
-            };
+        //    var orderData = new
+        //    {
+        //        Article = "desc",
+        //    };
 
-            string order = JsonConvert.SerializeObject(orderData);
-            var result = await unitUnderTest.GetComplete(1, 25, order, new List<string>(), "", "{}");
+        //    string order = JsonConvert.SerializeObject(orderData);
+        //    var result = await unitUnderTest.GetComplete(1, 25, order, new List<string>(), "", "{}");
 
-            // Assert
-            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
-        }
+        //    // Assert
+        //    Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        //}
 
 
         [Fact]
