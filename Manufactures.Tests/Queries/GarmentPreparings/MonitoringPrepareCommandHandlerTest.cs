@@ -107,7 +107,7 @@ namespace Manufactures.Tests.Queries.GarmentPreparings
             Guid guidDeliveryReturn = Guid.NewGuid();
             Guid guidDeliveryReturnItem = Guid.NewGuid();
             GetMonitoringPrepareQuery getXlsPrepareQuery = new GetMonitoringPrepareQuery(1, 25, "{}", 1, DateTime.Now, DateTime.Now.AddDays(2), "token");
-            var Date = new DateTimeOffset(DateTime.Now, new TimeSpan(7, 0, 0));
+            var Date = new DateTimeOffset(DateTime.Now.Ticks, new TimeSpan(7, 0, 0));
 
             _mockGarmentPreparingItemRepository
                 .Setup(s => s.Query)
