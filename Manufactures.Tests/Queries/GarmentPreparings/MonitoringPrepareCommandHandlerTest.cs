@@ -106,8 +106,7 @@ namespace Manufactures.Tests.Queries.GarmentPreparings
             Guid guidAvalProductItem = Guid.NewGuid();
             Guid guidDeliveryReturn = Guid.NewGuid();
             Guid guidDeliveryReturnItem = Guid.NewGuid();
-            GetMonitoringPrepareQuery getXlsPrepareQuery = new GetMonitoringPrepareQuery(1, 25, "{}", 1, DateTime.Now, DateTime.Now.AddDays(2), "token");
-            var Date = new DateTimeOffset(DateTime.Now, new TimeSpan(7, 0, 0));
+            GetMonitoringPrepareQuery getXlsPrepareQuery = new GetMonitoringPrepareQuery(1, 25, "{}", 1, DateTime.Now.Date, DateTime.Now.Date.AddDays(2), "token");
 
             _mockGarmentPreparingItemRepository
                 .Setup(s => s.Query)
@@ -120,7 +119,7 @@ namespace Manufactures.Tests.Queries.GarmentPreparings
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentPreparingReadModel>
                 {
-                    new Domain.GarmentPreparings.GarmentPreparing(guidPrepare,1,"",new Domain.GarmentPreparings.ValueObjects.UnitDepartmentId(1),"","",Date,"roNo","",true,new BuyerId(1), null,null).GetReadModel()
+                    new Domain.GarmentPreparings.GarmentPreparing(guidPrepare,1,"",new Domain.GarmentPreparings.ValueObjects.UnitDepartmentId(1),"","",DateTimeOffset.Now.Date,"roNo","",true,new BuyerId(1), null,null).GetReadModel()
                 }.AsQueryable());
 
             _mockGarmentCuttingInItemRepository
@@ -134,7 +133,7 @@ namespace Manufactures.Tests.Queries.GarmentPreparings
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentCuttingInReadModel>
                 {
-                    new GarmentCuttingIn(guidCuttingIn,"","Main Fabric","","","",new UnitDepartmentId(1),"","",Date,4.5).GetReadModel()
+                    new GarmentCuttingIn(guidCuttingIn,"","Main Fabric","","","",new UnitDepartmentId(1),"","",DateTimeOffset.Now.Date,4.5).GetReadModel()
                 }.AsQueryable());
 
             _mockGarmentCuttingInDetailRepository
@@ -154,7 +153,7 @@ namespace Manufactures.Tests.Queries.GarmentPreparings
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentAvalProductReadModel>
                 {
-                    new GarmentAvalProduct(guidAvalProduct,"","",Date,new UnitDepartmentId (1),"","").GetReadModel()
+                    new GarmentAvalProduct(guidAvalProduct,"","",DateTimeOffset.Now.Date,new UnitDepartmentId (1),"","").GetReadModel()
                 }.AsQueryable());
             _mockGarmentDeliveryReturnItemRepository
                 .Setup(s => s.Query)
@@ -166,7 +165,7 @@ namespace Manufactures.Tests.Queries.GarmentPreparings
                 .Setup(s => s.Query)
                 .Returns(new List<GarmentDeliveryReturnReadModel>
                 {
-                     new GarmentDeliveryReturn(guidDeliveryReturn, "", "", "", 1, "", 1, guidPrepare.ToString(), Date, "", new Domain.GarmentDeliveryReturns.ValueObjects.UnitDepartmentId(1), "", "", new Domain.GarmentDeliveryReturns.ValueObjects.StorageId(1), "", "", true).GetReadModel()
+                     new GarmentDeliveryReturn(guidDeliveryReturn, "", "", "", 1, "", 1, guidPrepare.ToString(), DateTimeOffset.Now, "", new Domain.GarmentDeliveryReturns.ValueObjects.UnitDepartmentId(1), "", "", new Domain.GarmentDeliveryReturns.ValueObjects.StorageId(1), "", "", true).GetReadModel()
                 }.AsQueryable());
 
             // Act
