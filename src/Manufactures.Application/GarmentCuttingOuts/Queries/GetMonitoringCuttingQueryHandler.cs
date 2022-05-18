@@ -50,8 +50,6 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries
 			garmentAvalComponentItemRepository = storage.GetRepository<IGarmentAvalComponentItemRepository>();
 			garmentBalanceCuttingRepository = storage.GetRepository<IGarmentBalanceCuttingRepository>();
 			_http = serviceProvider.GetService<IHttpClientService>();
-
-
 		}
 
 		async Task<HOrderDataProductionReport> GetDataHOrder(List<string> ro, string token)
@@ -91,12 +89,11 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries
 
 			var httpContent = new StringContent(JsonConvert.SerializeObject(listRO), Encoding.UTF8, "application/json");
 
-			var httpResponse = await _http.SendAsync(HttpMethod.Get,costCalculationUri, token,httpContent);
+			var httpResponse = await _http.SendAsync(HttpMethod.Get, costCalculationUri, token, httpContent);
 
 			var freeRO = new List<string>();
 
-		if (httpResponse.IsSuccessStatusCode)
-			{
+			if (httpResponse.IsSuccessStatusCode) {
 				var contentString = await httpResponse.Content.ReadAsStringAsync();
 				Dictionary<string, object> content = JsonConvert.DeserializeObject<Dictionary<string, object>>(contentString);
 				var dataString = content.GetValueOrDefault("data").ToString();
@@ -114,13 +111,11 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries
 						freeRO.Add(item);
 					}
 				}
-			}else
-			{
-				var err = await httpResponse.Content.ReadAsStringAsync();
+			} else {
 
+				var err = await httpResponse.Content.ReadAsStringAsync();
 			}
 
-			
 			return costCalculationGarmentDataProductionReport;
 		}
 		class ViewFC
@@ -137,8 +132,11 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries
 		}
 		public async Task<GarmentMonitoringCuttingListViewModel> Handle(GetMonitoringCuttingQuery request, CancellationToken cancellationToken)
 		{
-			DateTimeOffset dateFrom = new DateTimeOffset(request.dateFrom, new TimeSpan(7, 0, 0));
-			DateTimeOffset dateTo = new DateTimeOffset(request.dateTo, new TimeSpan(7, 0, 0));
+			//DateTimeOffset dateFrom = new DateTimeOffset(request.dateFrom, new TimeSpan(7, 0, 0));
+			//DateTimeOffset dateTo = new DateTimeOffset(request.dateTo, new TimeSpan(7, 0, 0));
+
+			DateTimeOffset dateFrom = request.dateFrom.AddHours(7);
+			DateTimeOffset dateTo = request.dateTo.AddHours(7);
 
 			DateTimeOffset dateBalance = (from a in garmentBalanceCuttingRepository.Query.OrderByDescending(s=>s.CreatedDate)
 										   
@@ -172,11 +170,12 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries
                              FC = group.Sum(s => s.FC),
                              Count = group.Count()
                          });
-            var queryBalanceCutting = from a in garmentBalanceCuttingRepository.Query
-									  where a.CreatedDate < dateFrom  && a.UnitId == request.unit  
-									  select new monitoringView { price = Convert.ToDecimal((from aa in sumbasicPrice where aa.RO == a.RoJob select aa.BasicPrice / aa.Count).FirstOrDefault()),buyerCode = a.BuyerCode,  fc = (from cost in sumFCs where cost.RO == a.RoJob select cost.FC / cost.Count).FirstOrDefault(), cuttingQtyMeter = 0, remainQty = 0, stock = a.Stock, cuttingQtyPcs = 0, roJob = a.RoJob, article = a.Article,   qtyOrder =a.QtyOrder, style =a.Style, hours = a.Hours, expenditure = a.Expenditure };
 
-			var QueryCuttingIn = from a in ( from aa in garmentCuttingInRepository.Query
+            var queryBalanceCutting = from a in garmentBalanceCuttingRepository.Query
+                                      where a.CreatedDate < dateFrom && a.UnitId == request.unit
+                                      select new monitoringView { price = Convert.ToDecimal((from aa in sumbasicPrice where aa.RO == a.RoJob select aa.BasicPrice / aa.Count).FirstOrDefault()), buyerCode = a.BuyerCode, fc = (from cost in sumFCs where cost.RO == a.RoJob select cost.FC / cost.Count).FirstOrDefault(), cuttingQtyMeter = 0, remainQty = 0, stock = a.Stock, cuttingQtyPcs = 0, roJob = a.RoJob, article = a.Article, qtyOrder = a.QtyOrder, style = a.Style, hours = a.Hours, expenditure = a.Expenditure };
+
+            var QueryCuttingIn = from a in ( from aa in garmentCuttingInRepository.Query
 											 where aa.UnitId == request.unit && aa.CuttingInDate <= dateTo && aa.CuttingType=="Main Fabric" && aa.CuttingInDate > dateBalance
 											 
 											 select new { aa.Identity,aa.RONo,aa.CuttingInDate,aa.Article})
@@ -201,7 +200,8 @@ namespace Manufactures.Application.GarmentCuttingOuts.Queries
 								select new monitoringView { buyerCode = (from buyer in garmentPreparingRepository.Query where buyer.RONo == a.RONo select buyer.BuyerCode).FirstOrDefault(), price = Convert.ToDecimal((from aa in sumbasicPrice where aa.RO == a.RONo select aa.BasicPrice / aa.Count).FirstOrDefault()), fc = (from cost in sumFCs where cost.RO == a.RONo select cost.FC / cost.Count).FirstOrDefault(), cuttingQtyMeter = 0, remainQty = 0, stock = a.Date < dateFrom  && a.Date > dateBalance  ? -b.Quantity : 0, cuttingQtyPcs = 0, roJob = a.RONo, article = a.Article,   style = a.ComodityName ,  expenditure = a.Date >= dateFrom ? b.Quantity : 0 };
 
 			var queryNow = queryBalanceCutting.Union( QueryCuttingIn).Union(QueryCuttingOut).Union(QueryAvalComp);
-			 
+			//var queryNow = QueryCuttingIn.Union(QueryCuttingOut).Union(QueryAvalComp);
+
 			var roList = (from a in queryNow
 						  select a.roJob).Distinct().ToList();
 			//var RO = (from a in roList
